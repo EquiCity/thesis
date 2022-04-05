@@ -1,6 +1,6 @@
 #!/bin/bash
 
-#SBATCH --partition=cpu
+#SBATCH --partition=normal
 #SBATCH --job-name=InstallEnvironment
 #SBATCH --ntasks=1
 #SBATCH --cpus-per-task=3
