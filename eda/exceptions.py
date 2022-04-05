@@ -1,0 +1,2 @@
+class GTFSDownloadException(Exception):
+    pass
