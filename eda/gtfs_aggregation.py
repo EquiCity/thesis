@@ -16,7 +16,7 @@ logger = logging.getLogger(__file__)
 logger.setLevel(logging.INFO)
 
 BBOX = get_bbox(city="Amsterdam")
-DATA_PATH = './data'
+DATA_PATH = os.environ.get("DATA_PATH", './data')
 AGENCIES = ['GVB', 'IFF:GVB', 'IFF:NS', 'IFF:NSI']
 
 ON_LISA = bool(os.environ.get("ON_LISA", False))
@@ -94,7 +94,7 @@ def download_and_store_gtfs(start_date: datetime.date, end_date: datetime.date, 
     total_space = 0
 
     results = ThreadPool(8).imap_unordered(_fetch_gtfs, urls)
-    filter_results = ThreadPool(2).imap_unordered(_filter_gtfs, results)
+    filter_results = ThreadPool(6).imap_unordered(_filter_gtfs, results)
     for path_or_exception in filter_results:
         if not isinstance(path_or_exception, GTFSDownloadException):
             path = path_or_exception

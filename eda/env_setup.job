@@ -1,6 +1,6 @@
 #!/bin/bash
 
-#SBATCH --partition=normal
+#SBATCH --partition=fat
 #SBATCH --job-name=InstallEnvironment
 #SBATCH --ntasks=1
 #SBATCH --cpus-per-task=3
@@ -13,4 +13,4 @@ module load 2021
 module load Anaconda3/2021.05
 
 cd $HOME/thesis/repo/eda/
-conda env create -f env.yml
+conda env create -f env.yaml
