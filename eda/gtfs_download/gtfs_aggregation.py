@@ -2,7 +2,6 @@ import os
 from pathlib import Path
 from typing import Optional, List, Tuple, Union
 
-import numpy as np
 import pandas as pd
 import requests
 from multiprocessing.pool import ThreadPool
@@ -64,12 +63,13 @@ def _fetch_gtfs(path_and_uri: Tuple[Path, str]) -> Union[Path, GTFSDownloadExcep
     if not os.path.exists(path):
         r = requests.get(uri, stream=True)
         if r.status_code == 200:
+            logger.info(f"downloading {uri}")
             with open(path, 'wb') as f:
                 for chunk in r:
                     f.write(chunk)
         else:
             return GTFSDownloadException(f"unable to download {uri}")
-
+    logger.info(f"stored {uri} in {path}")
     return path
 
 
@@ -126,7 +126,7 @@ def download_and_store_gtfs(start_date: datetime.date, end_date: datetime.date, 
 if __name__ == "__main__":
     # Set start and end date for feeds
     start_date = datetime.date(2019, 1, 1)
-    end_date = datetime.date(2019, 1, 20)  # datetime.date(2021, 12, 31)
+    end_date = datetime.date(2021, 12, 31)
 
     # Start job
     download_and_store_gtfs(start_date, end_date, provider=TransitFeedProviders.OV)
