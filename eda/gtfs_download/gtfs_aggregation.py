@@ -7,7 +7,7 @@ import datetime
 import logging
 import subprocess
 
-from osm_utils import get_bbox
+from utils.osm_utils import get_bbox
 from transit_feed_providers import TransitFeedProviders
 from exceptions import GTFSDownloadException
 
@@ -17,7 +17,7 @@ logger.setLevel(logging.INFO)
 
 BBOX = get_bbox(city="Amsterdam")
 DATA_PATH = os.environ.get("DATA_PATH", './data')
-AGENCIES = ['GVB', 'IFF:GVB', 'IFF:NS', 'IFF:NSI']
+AGENCIES = ['GVB', 'IFF:GVB', 'IFF:NS', 'IFF:NSI', 'IFF:RNET']
 
 ON_LISA = bool(os.environ.get("ON_LISA", False))
 
@@ -113,7 +113,7 @@ def download_and_store_gtfs(start_date: datetime.date, end_date: datetime.date, 
 if __name__ == "__main__":
     # Set start and end date for feeds
     start_date = datetime.date(2019, 1, 1)
-    end_date = datetime.date(2021, 12, 31)
+    end_date = datetime.date(2019, 1, 20) # datetime.date(2021, 12, 31)
 
     # Start job
-    download_and_store_gtfs(start_date, end_date, provider=TransitFeedProviders.GVB)
+    download_and_store_gtfs(start_date, end_date, provider=TransitFeedProviders.OV)
