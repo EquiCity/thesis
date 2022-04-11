@@ -1,11 +1,16 @@
 import os
 from pathlib import Path
 from typing import Optional, List, Tuple, Union
+
+import numpy as np
+import pandas as pd
 import requests
 from multiprocessing.pool import ThreadPool
 import datetime
 import logging
 import subprocess
+
+from zipfile import ZipFile
 
 from utils.osm_utils import get_bbox
 from transit_feed_providers import TransitFeedProviders
@@ -76,13 +81,21 @@ def _filter_gtfs(path: Union[Path, GTFSDownloadException]) -> Union[Path, GTFSDo
         in_path = path.with_suffix('')
         out_path = in_path.with_name(f"{in_path.name}-filtered-by-{'_'.join(AGENCIES)}").with_suffix(in_path_file_ext)
 
+        # Needed to make sure that the agencies that we want to filter for
+        # are actually available
+        with ZipFile(path, 'r') as gtfs:
+            with gtfs.open('agency.txt') as agencies:
+                df = pd.read_csv(agencies)
+                available_agencies = set(df.agency_id.to_list())
+
         if not os.path.exists(out_path):
-            args = [e for sublist in [["-extract-agency", agency] for agency in AGENCIES] for e in sublist]
+            available_agencies = available_agencies.intersection(set(AGENCIES))
+            args = [e for sublist in [["-extract-agency", agency] for agency in available_agencies] for e in sublist]
             tool = "transitland" if not ON_LISA else "/home/fiorista/thesis/bin/transitland"
             subprocess.run([tool, "extract", *args, path, out_path])
 
         # Remove big zip
-        os.remove(path)
+        # os.remove(path)
 
         return out_path
 
@@ -113,7 +126,7 @@ def download_and_store_gtfs(start_date: datetime.date, end_date: datetime.date, 
 if __name__ == "__main__":
     # Set start and end date for feeds
     start_date = datetime.date(2019, 1, 1)
-    end_date = datetime.date(2019, 1, 20) # datetime.date(2021, 12, 31)
+    end_date = datetime.date(2019, 1, 20)  # datetime.date(2021, 12, 31)
 
     # Start job
     download_and_store_gtfs(start_date, end_date, provider=TransitFeedProviders.OV)
