@@ -43,8 +43,8 @@ class TreeGTFSMerger:
             dates = [datetime.date.fromisoformat(date_converter(d)) for d in dates_str]
 
             # Generate out path
-            start_date = max(dates).isoformat().replace('-', '')
-            end_date = min(dates).isoformat().replace('-', '')
+            start_date = min(dates).isoformat().replace('-', '')
+            end_date = max(dates).isoformat().replace('-', '')
             base_path = os.path.dirname(DATA_PATH)
             out_path = os.path.join(base_path, f"merged-gtfs-{start_date}-{end_date}.zip")
 
@@ -64,6 +64,6 @@ class TreeGTFSMerger:
 
 if __name__ == "__main__":
     fpaths = [Path(DATA_PATH).absolute().joinpath(f) for f in os.listdir(DATA_PATH) if 'filtered' in f]
-    tm = TreeGTFSMerger(fpaths, max_size=20)
+    tm = TreeGTFSMerger(fpaths, max_size=5)
     resulting_path = tm.recursive_merge()
     logger.info(f"Successfully merged all filtered GTFS and stored in {resulting_path}")
