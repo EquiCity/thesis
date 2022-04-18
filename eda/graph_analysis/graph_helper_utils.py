@@ -2,8 +2,14 @@
 # https://github.com/dimichai
 
 import networkx as nx
-import haversine
+from haversine import haversine
 import time
+
+import numpy as np
+import pandas as pd
+import osmnx as ox
+
+from speeds import MetricTravelSpeeds
 
 
 def append_length_attribute(ua_network):
@@ -103,7 +109,7 @@ def add_transfer_edges(G, headways):
         if dist > 1:
             return None
 
-        travel_time = dist / 5 * 60
+        travel_time = dist / MetricTravelSpeeds.WALKING.value * 60
         # 0 means no connection, we prefer a very small number instead.
         # This is to avoid re-adding an edge after the previous add had weight=0 (check loop below)
         if travel_time == 0:
