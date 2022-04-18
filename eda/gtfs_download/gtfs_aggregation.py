@@ -20,7 +20,7 @@ logger = logging.getLogger(__file__)
 logger.setLevel(logging.INFO)
 
 BBOX = get_bbox(city="Amsterdam")
-DATA_PATH = os.environ.get("DATA_PATH", './data')
+DATA_PATH = os.environ.get("DATA_PATH", './data/full_gtfs_files')
 AGENCIES = ['GVB', 'IFF:GVB', 'IFF:NS', 'IFF:NSI', 'IFF:RNET']
 
 ON_LISA = bool(os.environ.get("ON_LISA", False))
