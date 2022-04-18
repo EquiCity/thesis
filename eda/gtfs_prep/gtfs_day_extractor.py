@@ -16,8 +16,9 @@ logging.basicConfig()
 logger = logging.getLogger(__file__)
 logger.setLevel(logging.INFO)
 
-ORIGIN_DATA_DIR = Path('./data/filtered_gtfs_files')
-TARGET_DATA_DIR = Path('./data/day_gtfs_files')
+ORIGIN_DATA_DIR = Path(os.getenv('ORIGIN_DATA_DIR', './data/filtered_gtfs_files'))
+TARGET_DATA_DIR = Path(os.getenv('TARGET_DATA_DIR', './data/day_gtfs_files'))
+NUM_WORKERS = os.getenv('NUM_WORKERS', 4)
 
 ON_LISA = bool(os.environ.get("ON_LISA", False))
 
@@ -47,10 +48,10 @@ def _extract_and_store_gtfs_for_dates(entry: Tuple) -> Union[Path, GTFSDateError
 
 
 def extract_and_store_gtfs_for_dates(dates: pd.DataFrame) -> None:
-    results = ThreadPool(4).imap_unordered(_extract_and_store_gtfs_for_dates, dates.iterrows())
     total_space = 0
     extracted_days_paths = []
 
+    results = ThreadPool(NUM_WORKERS).imap_unordered(_extract_and_store_gtfs_for_dates, dates.iterrows())
     for path in results:
         if isinstance(path, GTFSDateError):
             continue

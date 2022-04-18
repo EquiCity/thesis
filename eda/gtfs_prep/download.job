@@ -14,9 +14,13 @@ module load Anaconda3/2021.05
 
 # Your job starts in the directory where you call sbatch
 cd $HOME/...
+
 # Activate your environment
 source activate thesis
+
+# Define env variables
 export ON_LISA=1
 export DATA_PATH=/home/fiorista/thesis/repo/eda/data
+
 # Run your code
-srun python -u concatenate.py
+srun python -u gtfs_aggregation.py

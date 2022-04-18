@@ -14,9 +14,14 @@ module load Anaconda3/2021.05
 
 # Your job starts in the directory where you call sbatch
 cd $HOME/...
+
 # Activate your environment
 source activate thesis
-export ON_LISA=1
-export DATA_PATH=/home/fiorista/thesis/repo/eda/data
-# Run your code
-srun python -u gtfs_aggregation.py
+
+# Define env variables
+export NUM_WORKERS=8
+export ORIGIN_DATA_DIR=/home/fiorista/thesis/repo/eda/data/filtered_gtfs_files
+export TARGET_DATA_DIR=/home/fiorista/thesis/repo/eda/data/day_gtfs_files
+
+# Run code
+srun python -u gtfs_day_extractor.py
