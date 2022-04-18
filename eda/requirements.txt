@@ -1,9 +1,13 @@
-numpy
-pandas
+numpy~=1.22.3
+pandas~=1.4.2
 gdal
 fiona
 geopandas
-osmnx
+osmnx~=1.1.2
 igraph
 pandana
-urbanaccess
+urbanaccess~=0.2.2
+
+gtfsmerger~=0.1.6
+requests~=2.27.1
+networkx~=2.8
