@@ -35,7 +35,6 @@ NUM_WORKERS = os.getenv('NUM_WORKERS', 4)
 # Data paths
 GTFS_DATA_DIR = Path(os.getenv('GTFS_DATA_DIR', './data/day_gtfs_files'))
 TRANSIT_GRAPH_DATA_DIR = Path(os.getenv('TRANSIT_GRAPH_DATA_DIR', './data/transit_graphs'))
-TMP_DATA_PATH = Path(os.getenv('TMP_DATA_PATH', './tmp'))
 
 
 @cache
