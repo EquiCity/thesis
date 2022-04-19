@@ -149,6 +149,12 @@ dmypy.json
 data
 cache
 logs
+*.zip
 
 # Lisa
 *.out
+
+# Notebooks
+/notebooks/sample_data/
+/notebooks/geo_data/
+/notebooks/tmp/
