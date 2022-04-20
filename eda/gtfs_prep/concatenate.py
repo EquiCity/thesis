@@ -63,7 +63,9 @@ class TreeGTFSMerger:
 
 
 if __name__ == "__main__":
-    fpaths = [Path(DATA_PATH).absolute().joinpath(f) for f in os.listdir(DATA_PATH) if 'filtered' in f]
-    tm = TreeGTFSMerger(fpaths, max_size=5)
+    logger.info(f"currently in path {DATA_PATH}")
+    fpaths = [Path(DATA_PATH).absolute().joinpath(f) for f in os.listdir(DATA_PATH)] #if 'filtered' in f]
+    logger.info(f"considering files: {fpaths}")
+    tm = TreeGTFSMerger(fpaths, max_size=2)
     resulting_path = tm.recursive_merge()
     logger.info(f"Successfully merged all filtered GTFS and stored in {resulting_path}")
