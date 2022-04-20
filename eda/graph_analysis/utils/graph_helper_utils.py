@@ -9,10 +9,16 @@ import numpy as np
 import pandas as pd
 import osmnx as ox
 
-from speeds import MetricTravelSpeeds
+import networkx as nx
+
+from ..speeds import MetricTravelSpeeds
+import logging
 
 
-def append_length_attribute(ua_network):
+logger = logging.getLogger(__file__)
+
+
+def append_length_attribute(ua_network: nx.MultiDiGraph) -> nx.MultiDiGraph:
     """ UrbanAccess networks do not have a 'length' attribute (they have 'weight' instead.)
     We want to add the length attribute because it is needed for some osmnx methods.
     We will set it to the same value as the weight.
@@ -32,6 +38,49 @@ def append_length_attribute(ua_network):
     return ua_network
 
 
+def append_hourly_stop_frequency_attribute(ua_network: nx.MultiDiGraph, hourly_stop_frequency_df: pd.DataFrame):
+    """
+    This function adds the 'hourly_frequency' attribute from the hourly_stop_frequency_df
+    to a UrbanAccess network
+    :param ua_network:
+    :param hourly_stop_frequency_df:
+    :return:
+    """
+    ua_network_stop_frequencies = {}
+    for node, _ in ua_network.nodes(data=True):
+        try:
+            data = hourly_stop_frequency_df.loc[node, :]
+            data_dict = data.to_dict()
+            ua_network_stop_frequencies[node] = data_dict
+        except KeyError as e:
+            logger.warning(f"couldn't identify {node} in stop_ids")
+
+    nx.set_node_attributes(ua_network, ua_network_stop_frequencies, "stop_frequencies")
+
+    return ua_network
+
+
+def append_hourly_edge_frequency_attribute(ua_network: nx.MultiDiGraph, hourly_leg_frequency_df: pd.DataFrame):
+    """
+
+    :param ua_network:
+    :param hourly_leg_frequency_df:
+    :return:
+    """
+    ua_network_edge_frequencies = {}
+    for node1, node2, key, data in ua_network.edges(data=True, keys=True):
+        try:
+            data = hourly_leg_frequency_df.loc[(node2, node1), :]
+            data_dict = data.to_dict()
+            ua_network_edge_frequencies[(node1, node2, key)] = data_dict
+        except KeyError as e:
+            logger.warning(f"couldn't identify {(node2, node1)} in (stop_id, provenance_stop_id) index")
+
+    nx.set_edge_attributes(ua_network, ua_network_edge_frequencies, "segment_frequencies")
+
+    return ua_network
+
+
 def parse_nx_node(row, attr, idcol):
     """Parses nodes into nx-format"""
     attr = row[attr].copy()
@@ -45,7 +94,7 @@ def parse_nx_edge(row, attr_cols, fr, to):
     return (row[fr], row[to], idx, attr)
 
 
-def ua_transit_network_to_nx(transit_net):
+def ua_transit_network_to_nx(transit_net) -> nx.MultiDiGraph:
     """Convert an urbanaccess transit network to networkx.
     ua2nx needs a transit+walk network to work, thus here the function is adjusted for when
     only a tranist network is available.
