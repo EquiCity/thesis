@@ -9,17 +9,19 @@ from multiprocessing.pool import ThreadPool
 
 import networkx as nx
 import urbanaccess as ua
-from ua2nx import urbanaccess_to_nx as ua_to_nx
 from urbanaccess.config import settings
 
-from graph_helper_utils import (
+from graph_analysis.utils.graph_helper_utils import (
     ua_transit_network_to_nx,
-    add_transfer_edges,
     append_length_attribute,
+    append_hourly_edge_frequency_attribute,
+    append_hourly_stop_frequency_attribute,
 )
 from utils.osm_utils import get_bbox
-from osm_network_types import OSMNetworkTypes
-from speeds import ImperialTravelSpeeds
+from graph_analysis.utils.frequency_computation_utils import (
+    compute_stop_frequencies,
+    compute_segment_frequencies,
+)
 
 import logging
 
@@ -46,6 +48,7 @@ def _generate_and_store_graphs(args: Tuple[dict, Path]) -> Path:
     logger.debug(f"received: {args}")
     bbox, gtfs_file = args
 
+    # Load GTFS
     curr_run_dir = TRANSIT_GRAPH_DATA_DIR.joinpath(gtfs_file.with_suffix('').name)
     if os.path.exists(curr_run_dir):
         logger.warning(f"Directory {curr_run_dir} already exists -> removing.")
@@ -75,49 +78,21 @@ def _generate_and_store_graphs(args: Tuple[dict, Path]) -> Path:
         day='monday',
         timerange=['07:00:00', '09:00:00'],
     )
-    # Note - this needs to be done after create_transit_net because that's when
-    # stop_times_int is calculated. This means that G_transit does not currently
-    # contain headway information in its calculations.
-    loaded_feeds = ua.gtfs.headways.headways(loaded_feeds,
-                                             headway_timerange=['07:00:00', '09:00:00'])
 
-    # Calculate average headways by stop
-    hw = loaded_feeds.headways.drop_duplicates()
-    hw['mean_sum'] = hw['count'] * hw['mean']
-
-    hw = hw.groupby('unique_stop_id')[['mean_sum', 'count']].sum().reset_index()
-    # TODO: figure out - I am not sure why /2 but they also do it in urban access.
-    hw['mean_hw'] = hw['mean_sum'] / hw['count'] / 2.0
-    hw = hw[['unique_stop_id', 'mean_hw']]
-
-    # Generate transit graph
+    # Generate transit graph WITHOUT headways
     G_transit = ua_transit_network_to_nx(transit_net)
     G_transit = append_length_attribute(G_transit)
-    G_transit = add_transfer_edges(G_transit, hw)
 
-    osm_nodes, osm_edges = _get_osm_nodes_and_edges(bbox)
+    # Generate stop frequency dataframe
+    stop_freq_df = compute_stop_frequencies(loaded_feeds)
+    seg_freq_df = compute_segment_frequencies(loaded_feeds)
 
-    ua_network = ua.osm.network.create_osm_net(
-        osm_edges=osm_edges,
-        osm_nodes=osm_nodes,
-        travel_speed_mph=ImperialTravelSpeeds.WALKING.value,
-        network_type=OSMNetworkTypes.WALK.value)
-
-    urbanaccess_nw = ua.network.integrate_network(
-        urbanaccess_network=ua_network,
-        urbanaccess_gtfsfeeds_df=loaded_feeds,
-        headways=True,
-        headway_statistic='mean'
-    )
-
-    G_transit_walk = ua_to_nx(urbanaccess_nw, optimize='median')
-    G_transit_walk = append_length_attribute(G_transit_walk)
+    # Append frequencies as attributes to the graph
+    append_hourly_stop_frequency_attribute(G_transit, stop_freq_df)
+    append_hourly_edge_frequency_attribute(G_transit, seg_freq_df)
 
     # Extract the date from the current GTFS file
     date = re.findall(r'\d+', str(gtfs_file))[0]
-
-    nx.write_gpickle(G_transit_walk, curr_run_dir.joinpath(f'ams_transit_walk_network_{date}.gpickle'))
-    nx.write_gml(G_transit_walk, curr_run_dir.joinpath(f'ams_transit_walk_network_{date}.gml'))
 
     nx.write_gpickle(G_transit, curr_run_dir.joinpath(f'ams_transit_network_transfer_hw_correct_{date}.gpickle'))
     nx.write_gml(G_transit, curr_run_dir.joinpath(f'ams_transit_network_transfer_hw_correct_{date}.gml'))
