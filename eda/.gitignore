@@ -153,6 +153,7 @@ logs
 
 # Lisa
 *.out
+data*/
 
 # Notebooks
 /notebooks/sample_data/

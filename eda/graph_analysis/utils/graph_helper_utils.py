@@ -11,7 +11,7 @@ import osmnx as ox
 
 import networkx as nx
 
-from ..speeds import MetricTravelSpeeds
+from .speeds import MetricTravelSpeeds
 import logging
 
 

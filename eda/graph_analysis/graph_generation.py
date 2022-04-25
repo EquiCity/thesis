@@ -11,7 +11,7 @@ import networkx as nx
 import urbanaccess as ua
 from urbanaccess.config import settings
 
-from graph_analysis.utils.graph_helper_utils import (
+from .utils.graph_helper_utils import (
     ua_transit_network_to_nx,
     append_length_attribute,
     append_hourly_edge_frequency_attribute,
@@ -52,10 +52,10 @@ def _generate_and_store_graphs(args: Tuple[dict, Path]) -> Path:
     curr_run_dir = TRANSIT_GRAPH_DATA_DIR.joinpath(gtfs_file.with_suffix('').name)
     if os.path.exists(curr_run_dir):
         logger.warning(f"Directory {curr_run_dir} already exists -> removing.")
-        return curr_run_dir
-        # for file in os.listdir(curr_run_dir):
-        #     os.remove(curr_run_dir.joinpath(file))
-        # os.rmdir(curr_run_dir)
+        # return curr_run_dir
+        for file in os.listdir(curr_run_dir):
+            os.remove(curr_run_dir.joinpath(file))
+        os.rmdir(curr_run_dir)
     else:
         os.mkdir(curr_run_dir)
 
@@ -131,7 +131,7 @@ def generate_transit_graphs(bbox_dict: dict, gtfs_day_files: List[Path]):
 if __name__ == "__main__":
     # Aggregate needed data
     bbox_dict = get_bbox('Amsterdam')
-    all_gtfs_files = [GTFS_DATA_DIR.joinpath(e) for e in os.listdir(GTFS_DATA_DIR) if Path(e).suffix == '.zip']
+    all_gtfs_files = [GTFS_DATA_DIR.joinpath(e) for e in os.listdir(GTFS_DATA_DIR) if Path(e).suffix == '.zip'][0:1]
 
     # Run the core part
     generate_transit_graphs(bbox_dict, all_gtfs_files)

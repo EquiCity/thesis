@@ -1,0 +1,21 @@
+#!/bin/bash
+
+#SBATCH --partition=short
+#SBATCH --job-name=InstallEnvironment
+#SBATCH --ntasks=1
+#SBATCH --cpus-per-task=2
+#SBATCH --time=00:05:00
+#SBATCH --mem=4000M
+#SBATCH --output=slurm_output_%A.out
+
+module purge
+module load 2021
+module load Anaconda3/2021.05
+
+cd $HOME/thesis/repo/eda/
+cd $HOME/...
+source activate thesis
+
+# What to install
+# conda install -c conda-forge tqdm -y
+pip install gtfsmerger
