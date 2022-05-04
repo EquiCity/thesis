@@ -21,6 +21,7 @@ OPPORTUNITIES_GEO_JSON = Path(os.getenv("OPPORTUNITIES_GEO_JSON",
 NEIGHBOURHOODS_GEO_JSON = Path(os.getenv("NEIGHBOURHOODS_GEO_JSON",
                                          "/home/rico/Documents/thesis/eda/notebooks/sample_data/amsterdam/"
                                          "ams-neighbourhoods.geojson"))
+RESULTS_PATH = Path(os.getenv("RESULTS_PATH"), "/home/rico/Documents/thesis/eda/notebooks/tmp/")
 NUM_WORKERS = int(os.getenv("NUM_WORKERS", 2))
 
 # Global DataFrames
@@ -135,8 +136,7 @@ def run_analysis(graph_path: Path):
                 # Add walking if there is some
                 hops_mx[i, j] = len(edges) + int(poi_dist[j] > 0) + int(nb_dist[i] > 0)
 
-    od_mat_path = f"/home/rico/Documents/thesis/eda/notebooks/tmp/" \
-                  f"{Path(graph_path).with_suffix('').name}_computation.pkl"
+    od_mat_path = RESULTS_PATH.joinpath(f"{Path(graph_path).with_suffix('').name}_computation.pkl")
     with open(od_mat_path, "wb") as fp:
         pickle.dump([tt_mx, td_mx, modes_mx, lines_mx, hops_mx, failed], fp)
 

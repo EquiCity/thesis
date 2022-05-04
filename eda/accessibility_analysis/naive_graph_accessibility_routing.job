@@ -23,6 +23,7 @@ export NUM_WORKERS=10
 export GRAPH_DATA_DIR=/home/fiorista/thesis/repo/eda/data/transit_graphs
 export OPPORTUNITIES_GEO_JSON=/home/fiorista/thesis/repo/eda/data/Amsterdam/non_residential_functions_geojson_latlng.json
 export NEIGHBOURHOODS_GEO_JSON=/home/fiorista/thesis/repo/eda/data/Amsterdam/ams-neighbourhoods.geojson
+export RESULTS_PATH=/home/fiorista/thesis/repo/eda/accessibility_analysis/od_mat_results
 
 # Run code
 srun python -u all_graph_accessibility_analysis_schools.py
