@@ -1,4 +1,3 @@
-from typing import Tuple
 import osmnx as ox
 
 
