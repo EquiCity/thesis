@@ -3,7 +3,7 @@
 #SBATCH --partition=fat
 #SBATCH --job-name=GraphAccessibilityRouting
 #SBATCH --ntasks=1
-#SBATCH --cpus-per-task=10
+#SBATCH --cpus-per-task=4
 #SBATCH --time=05:30:00
 #SBATCH --mem=64000M
 #SBATCH --output=slurm_output_%A.out
@@ -19,7 +19,7 @@ cd $HOME/...
 source activate thesis
 
 # Define env variables
-export NUM_WORKERS=10
+export NUM_WORKERS=4
 export GRAPH_DATA_DIR=/home/fiorista/thesis/repo/eda/data/transit_graphs
 export OPPORTUNITIES_GEO_JSON=/home/fiorista/thesis/repo/eda/data/Amsterdam/non_residential_functions_geojson_latlng.json
 export NEIGHBOURHOODS_GEO_JSON=/home/fiorista/thesis/repo/eda/data/Amsterdam/ams-neighbourhoods.geojson

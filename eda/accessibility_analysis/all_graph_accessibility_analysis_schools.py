@@ -103,6 +103,8 @@ def run_analysis(graph_path: Path):
     failed = {}
 
     for i, o in enumerate(nb_nodes):
+        if i % 100 == 0:
+            logger.info(f"Processing graph {graph_path} origin node {i}")
         for j, d in enumerate(poi_nodes):
             # Travel Time
             tt = G_transit.shortest_paths(o, d, weights='travel_time')[0][0]
@@ -138,8 +140,9 @@ def run_analysis(graph_path: Path):
                 # Add walking if there is some
                 hops_mx[i, j] = len(edges) + int(poi_dist[j] > 0) + int(nb_dist[i] > 0)
 
-    logger.info(f"Finished processing graph {graph_path.with_suffix('').name}")
     od_mat_path = RESULTS_PATH.joinpath(f"{Path(graph_path).with_suffix('').name}_computation.pkl")
+    logger.info(f"Finished processing graph {graph_path.with_suffix('').name} storing it in path: {od_mat_path}")
+
     with open(od_mat_path, "wb") as fp:
         pickle.dump([tt_mx, td_mx, modes_mx, lines_mx, hops_mx, failed], fp)
 
