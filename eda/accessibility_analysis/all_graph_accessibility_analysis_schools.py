@@ -23,7 +23,7 @@ OPPORTUNITIES_GEO_JSON = Path(os.getenv("OPPORTUNITIES_GEO_JSON",
 NEIGHBOURHOODS_GEO_JSON = Path(os.getenv("NEIGHBOURHOODS_GEO_JSON",
                                          "/home/rico/Documents/thesis/eda/notebooks/sample_data/amsterdam/"
                                          "ams-neighbourhoods.geojson"))
-RESULTS_PATH = Path(os.getenv("RESULTS_PATH"), "/home/rico/Documents/thesis/eda/notebooks/tmp/")
+RESULTS_PATH = Path(os.getenv("RESULTS_PATH", "/home/rico/Documents/thesis/eda/notebooks/tmp/"))
 NUM_WORKERS = int(os.getenv("NUM_WORKERS", 2))
 
 # Global DataFrames
