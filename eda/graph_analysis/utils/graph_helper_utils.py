@@ -1,7 +1,6 @@
 # From Dimitris Michealidis' Peoject-A
 # https://github.com/dimichai
 
-import networkx as nx
 from haversine import haversine
 import time
 

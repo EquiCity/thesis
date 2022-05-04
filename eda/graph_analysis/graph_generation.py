@@ -1,7 +1,7 @@
 import os
 import re
 import time
-from typing import Tuple, List
+from typing import Tuple, List, Union
 from pathlib import Path
 from zipfile import ZipFile
 from functools import cache
@@ -11,7 +11,7 @@ import networkx as nx
 import urbanaccess as ua
 from urbanaccess.config import settings
 
-from .utils.graph_helper_utils import (
+from graph_analysis.utils.graph_helper_utils import (
     ua_transit_network_to_nx,
     append_length_attribute,
     append_hourly_edge_frequency_attribute,
@@ -23,16 +23,20 @@ from graph_analysis.utils.frequency_computation_utils import (
     compute_segment_frequencies,
 )
 
+from graph_analysis.exceptions import GraphGenerationError
+
 import logging
 
 # Logger and output config
 settings.log_consolse = False
 logging.basicConfig()
 logger = logging.getLogger('graph_extraction')
-logger.setLevel(logging.DEBUG)
+logger.setLevel(logging.INFO)
 
 # Settings
-NUM_WORKERS = os.getenv('NUM_WORKERS', 4)
+DELETE_EXISTING = False
+# TODO Figure out why a mutli-worker setup doesn't work here
+NUM_WORKERS = int(os.getenv('NUM_WORKERS', 1))
 
 # Data paths
 GTFS_DATA_DIR = Path(os.getenv('GTFS_DATA_DIR', './data/day_gtfs_files'))
@@ -44,18 +48,25 @@ def _get_osm_nodes_and_edges(bbox: Tuple):
     return ua.osm.load.ua_network_from_bbox(bbox=bbox)
 
 
-def _generate_and_store_graphs(args: Tuple[dict, Path]) -> Path:
+def _remove_files_in_dir(curr_run_dir: Union[Path, str]):
+    for f in os.listdir(curr_run_dir):
+        os.remove(curr_run_dir.joinpath(f))
+
+
+def _generate_and_store_graphs(args: Tuple[Tuple[float, float, float, float], Path]) -> Union[Path, GraphGenerationError]:
     logger.debug(f"received: {args}")
     bbox, gtfs_file = args
 
     # Load GTFS
     curr_run_dir = TRANSIT_GRAPH_DATA_DIR.joinpath(gtfs_file.with_suffix('').name)
     if os.path.exists(curr_run_dir):
-        logger.warning(f"Directory {curr_run_dir} already exists -> removing.")
-        # return curr_run_dir
-        for file in os.listdir(curr_run_dir):
-            os.remove(curr_run_dir.joinpath(file))
-        os.rmdir(curr_run_dir)
+        logger.warning(f"Directory {curr_run_dir} already exists{' -> removing.' if DELETE_EXISTING else ''}")
+        if DELETE_EXISTING:
+            for file in os.listdir(curr_run_dir):
+                os.remove(curr_run_dir.joinpath(file))
+            os.rmdir(curr_run_dir)
+        else:
+            return curr_run_dir
     else:
         os.mkdir(curr_run_dir)
 
@@ -67,35 +78,42 @@ def _generate_and_store_graphs(args: Tuple[dict, Path]) -> Path:
                                                    bbox=bbox,
                                                    remove_stops_outsidebbox=True,
                                                    append_definitions=True)
-        for f in os.listdir(curr_run_dir):
-            os.remove(curr_run_dir.joinpath(f))
+        _remove_files_in_dir(curr_run_dir)
 
     # Create the transit network graph from GTFS feeds using the urbanaccess library
     logger.debug(loaded_feeds.calendar_dates.columns)
-    transit_net = ua.gtfs.network.create_transit_net(
-        gtfsfeeds_dfs=loaded_feeds,
-        calendar_dates_lookup={'unique_feed_id': f"{gtfs_file.with_suffix('').name}_1"},
-        day='monday',
-        timerange=['07:00:00', '09:00:00'],
-    )
+    try:
+        transit_net = ua.gtfs.network.create_transit_net(
+            gtfsfeeds_dfs=loaded_feeds,
+            calendar_dates_lookup={'unique_feed_id': f"{gtfs_file.with_suffix('').name}_1"},
+            day='monday',
+            timerange=['07:00:00', '09:00:00'],
+        )
 
-    # Generate transit graph WITHOUT headways
-    G_transit = ua_transit_network_to_nx(transit_net)
-    G_transit = append_length_attribute(G_transit)
+        # Generate transit graph WITHOUT headways
+        G_transit = ua_transit_network_to_nx(transit_net)
+        G_transit = append_length_attribute(G_transit)
 
-    # Generate stop frequency dataframe
-    stop_freq_df = compute_stop_frequencies(loaded_feeds)
-    seg_freq_df = compute_segment_frequencies(loaded_feeds)
+        # Generate stop frequency dataframe
+        stop_freq_df = compute_stop_frequencies(loaded_feeds)
+        seg_freq_df = compute_segment_frequencies(loaded_feeds)
 
-    # Append frequencies as attributes to the graph
-    append_hourly_stop_frequency_attribute(G_transit, stop_freq_df)
-    append_hourly_edge_frequency_attribute(G_transit, seg_freq_df)
+        # Append frequencies as attributes to the graph
+        append_hourly_stop_frequency_attribute(G_transit, stop_freq_df)
+        append_hourly_edge_frequency_attribute(G_transit, seg_freq_df)
 
-    # Extract the date from the current GTFS file
-    date = re.findall(r'\d+', str(gtfs_file))[0]
+        # Extract the date from the current GTFS file
+        date = re.findall(r'\d+', str(gtfs_file))[0]
 
-    nx.write_gpickle(G_transit, curr_run_dir.joinpath(f'ams_transit_network_transfer_hw_correct_{date}.gpickle'))
-    nx.write_gml(G_transit, curr_run_dir.joinpath(f'ams_transit_network_transfer_hw_correct_{date}.gml'))
+        nx.write_gpickle(G_transit, curr_run_dir.joinpath(f'ams_pt_network_monday_{date}.gpickle'))
+        nx.write_gml(G_transit, curr_run_dir.joinpath(f'ams_pt_network_monday_{date}.gml'))
+    except Exception as e:
+        logger.error(str(e))
+        logger.error(f"With columns {loaded_feeds.calendar_dates.columns}\n"
+                     f"And values {loaded_feeds.calendar_dates.head(10)}")
+        _remove_files_in_dir(curr_run_dir)
+        os.rmdir(curr_run_dir)
+        return GraphGenerationError(curr_run_dir)
 
     return curr_run_dir
 
@@ -110,6 +128,7 @@ def generate_transit_graphs(bbox_dict: dict, gtfs_day_files: List[Path]):
     )
 
     stored_graphs = []
+    not_processed = []
     total_space = 0
     start = time.time()
 
@@ -118,20 +137,24 @@ def generate_transit_graphs(bbox_dict: dict, gtfs_day_files: List[Path]):
     results = ThreadPool(NUM_WORKERS).imap_unordered(_generate_and_store_graphs, inputs)
 
     for r in results:
+        if isinstance(r, GraphGenerationError):
+            not_processed.append(str(r))
         stored_graphs.append(r)
         total_space += r.stat().st_size
 
     logger.info(f"###\n"
                 f"Processed {len(stored_graphs)} graphs\n"
                 f"Amounting to {total_space / (1024.0 * 1024.0)} MB\n"
-                f"Took {time.time()-start} seconds\n"
+                f"Took {time.time() - start} seconds\n"
+                f"###\n"
+                f"Could not process: {not_processed}\n"
                 f"###")
 
 
 if __name__ == "__main__":
     # Aggregate needed data
     bbox_dict = get_bbox('Amsterdam')
-    all_gtfs_files = [GTFS_DATA_DIR.joinpath(e) for e in os.listdir(GTFS_DATA_DIR) if Path(e).suffix == '.zip'][0:1]
+    all_gtfs_files = [GTFS_DATA_DIR.joinpath(e) for e in os.listdir(GTFS_DATA_DIR) if Path(e).suffix == '.zip']
 
     # Run the core part
     generate_transit_graphs(bbox_dict, all_gtfs_files)
