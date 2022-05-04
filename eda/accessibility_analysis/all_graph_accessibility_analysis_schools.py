@@ -3,14 +3,16 @@ import os
 from pathlib import Path
 import igraph as ig
 import geopandas as gpd
-from tqdm import tqdm
 from multiprocessing.pool import ThreadPool
 from sklearn.neighbors import BallTree
 import math
 import logging
 import pickle
 
-logger = logging.getLogger("graph_analysis")
+logging.basicConfig()
+logger = logging.getLogger("graph_accessibility_analysis")
+logger.setLevel(logging.INFO)
+
 EARTH_RADIUS_M = 6_371_009
 
 GRAPH_DATA_DIR = Path(os.getenv("GRAPH_DATA_DIR",
@@ -136,6 +138,7 @@ def run_analysis(graph_path: Path):
                 # Add walking if there is some
                 hops_mx[i, j] = len(edges) + int(poi_dist[j] > 0) + int(nb_dist[i] > 0)
 
+    logger.info(f"Finished processing graph {graph_path.with_suffix('').name}")
     od_mat_path = RESULTS_PATH.joinpath(f"{Path(graph_path).with_suffix('').name}_computation.pkl")
     with open(od_mat_path, "wb") as fp:
         pickle.dump([tt_mx, td_mx, modes_mx, lines_mx, hops_mx, failed], fp)
