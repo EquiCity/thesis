@@ -19,6 +19,7 @@ cd $HOME/...
 source activate thesis
 
 # Define env variables
+export PYTHONPATH=/home/fiorista/thesis/repo/eda
 export NUM_WORKERS=8
 export GTFS_DATA_DIR=/home/fiorista/thesis/repo/eda/data/day_gtfs_files
 export TRANSIT_GRAPH_DATA_DIR=/home/fiorista/thesis/repo/eda/data/transit_graph_data
