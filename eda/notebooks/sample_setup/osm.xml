@@ -1,0 +1,1348 @@
+<?xml version="1.0" encoding="UTF-8"?><osm version="0.6" generator="JOSM">
+  <bounds minlat="-1" minlon="-1" maxlat="1" maxlon="1" origin="test"/>
+  <node id="000" uid="000" lat="0.0010221375372824323" lon="0.0034366413581127034" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045"/>
+  <node id="110" uid="110" lat="0.008783619617476777" lon="0.0034366413581127034" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045"/>
+  <node id="220" uid="220" lat="-0.006739344542911912" lon="0.0034366413581127034" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045"/>
+  <node id="330" uid="330" lat="0.0010221375372824323" lon="0.010396311839360706" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045"/>
+  <node id="440" uid="440" lat="0.0010221375372824323" lon="-0.0035230291231352993" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045"/>
+  <node id="001" uid="001" lat="-0.006739344542911913" lon="-0.0035230291231352993" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045"/>
+  <node id="111" uid="111" lat="-0.0028586035028147403" lon="-0.0035230291231352993" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045"/>
+  <node id="221" uid="221" lat="-0.010620085583009085" lon="-0.0035230291231352993" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045"/>
+  <node id="331" uid="331" lat="-0.006739344542911913" lon="-4.3193882511297944e-05" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045"/>
+  <node id="441" uid="441" lat="-0.006739344542911913" lon="-0.007002864363759301" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045"/>
+  <node id="002" uid="002" lat="-0.010620085583009085" lon="-0.007002864363759301" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045"/>
+  <node id="112" uid="112" lat="-0.008679715062960499" lon="-0.007002864363759301" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045"/>
+  <node id="222" uid="222" lat="-0.012560456103057671" lon="-0.007002864363759301" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045"/>
+  <node id="332" uid="332" lat="-0.010620085583009085" lon="-0.0052629467434472995" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045"/>
+  <node id="442" uid="442" lat="-0.010620085583009085" lon="-0.008742781984071302" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045"/>
+  <node id="003" uid="003" lat="-0.0028586035028147403" lon="-0.007002864363759301" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045"/>
+  <node id="113" uid="113" lat="-0.000918232982766154" lon="-0.007002864363759301" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045"/>
+  <node id="223" uid="223" lat="-0.004798974022863327" lon="-0.007002864363759301" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045"/>
+  <node id="333" uid="333" lat="-0.0028586035028147403" lon="-0.0052629467434472995" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045"/>
+  <node id="443" uid="443" lat="-0.0028586035028147403" lon="-0.008742781984071302" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045"/>
+  <node id="004" uid="004" lat="-0.0028586035028147403" lon="-4.3193882511297944e-05" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045"/>
+  <node id="114" uid="114" lat="-0.000918232982766154" lon="-4.3193882511297944e-05" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045"/>
+  <node id="224" uid="224" lat="-0.004798974022863327" lon="-4.3193882511297944e-05" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045"/>
+  <node id="334" uid="334" lat="-0.0028586035028147403" lon="0.0016967237378007027" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045"/>
+  <node id="444" uid="444" lat="-0.0028586035028147403" lon="-0.0017831115028232986" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045"/>
+  <node id="005" uid="005" lat="-0.010620085583009085" lon="-4.3193882511297944e-05" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045"/>
+  <node id="115" uid="115" lat="-0.008679715062960499" lon="-4.3193882511297944e-05" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045"/>
+  <node id="225" uid="225" lat="-0.012560456103057671" lon="-4.3193882511297944e-05" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045"/>
+  <node id="335" uid="335" lat="-0.010620085583009085" lon="0.0016967237378007027" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045"/>
+  <node id="445" uid="445" lat="-0.010620085583009085" lon="-0.0017831115028232986" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045"/>
+  <node id="006" uid="006" lat="0.008783619617476777" lon="-0.0035230291231352993" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045"/>
+  <node id="116" uid="116" lat="0.01266436065757395" lon="-0.0035230291231352993" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045"/>
+  <node id="226" uid="226" lat="0.004902878577379605" lon="-0.0035230291231352993" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045"/>
+  <node id="336" uid="336" lat="0.008783619617476777" lon="-4.3193882511297944e-05" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045"/>
+  <node id="446" uid="446" lat="0.008783619617476777" lon="-0.007002864363759301" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045"/>
+  <node id="007" uid="007" lat="0.004902878577379605" lon="-0.007002864363759301" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045"/>
+  <node id="117" uid="117" lat="0.006843249097428191" lon="-0.007002864363759301" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045"/>
+  <node id="227" uid="227" lat="0.002962508057331019" lon="-0.007002864363759301" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045"/>
+  <node id="337" uid="337" lat="0.004902878577379605" lon="-0.0052629467434472995" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045"/>
+  <node id="447" uid="447" lat="0.004902878577379605" lon="-0.008742781984071302" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045"/>
+  <node id="008" uid="008" lat="0.01266436065757395" lon="-0.007002864363759301" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045"/>
+  <node id="118" uid="118" lat="0.014604731177622536" lon="-0.007002864363759301" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045"/>
+  <node id="228" uid="228" lat="0.010723990137525364" lon="-0.007002864363759301" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045"/>
+  <node id="338" uid="338" lat="0.01266436065757395" lon="-0.0052629467434472995" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045"/>
+  <node id="448" uid="448" lat="0.01266436065757395" lon="-0.008742781984071302" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045"/>
+  <node id="009" uid="009" lat="0.01266436065757395" lon="-4.3193882511297944e-05" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045"/>
+  <node id="119" uid="119" lat="0.014604731177622536" lon="-4.3193882511297944e-05" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045"/>
+  <node id="229" uid="229" lat="0.010723990137525364" lon="-4.3193882511297944e-05" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045"/>
+  <node id="339" uid="339" lat="0.01266436065757395" lon="0.0016967237378007027" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045"/>
+  <node id="449" uid="449" lat="0.01266436065757395" lon="-0.0017831115028232986" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045"/>
+  <node id="0010" uid="0010" lat="0.004902878577379605" lon="-4.3193882511297944e-05" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045"/>
+  <node id="1110" uid="1110" lat="0.006843249097428191" lon="-4.3193882511297944e-05" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045"/>
+  <node id="2210" uid="2210" lat="0.002962508057331019" lon="-4.3193882511297944e-05" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045"/>
+  <node id="3310" uid="3310" lat="0.004902878577379605" lon="0.0016967237378007027" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045"/>
+  <node id="4410" uid="4410" lat="0.004902878577379605" lon="-0.0017831115028232986" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045"/>
+  <node id="0011" uid="0011" lat="0.008783619617476777" lon="0.010396311839360706" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045"/>
+  <node id="1111" uid="1111" lat="0.01266436065757395" lon="0.010396311839360706" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045"/>
+  <node id="2211" uid="2211" lat="0.004902878577379605" lon="0.010396311839360706" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045"/>
+  <node id="3311" uid="3311" lat="0.008783619617476777" lon="0.013876147079984708" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045"/>
+  <node id="4411" uid="4411" lat="0.008783619617476777" lon="0.006916476598736705" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045"/>
+  <node id="0012" uid="0012" lat="0.004902878577379605" lon="0.006916476598736705" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045"/>
+  <node id="1112" uid="1112" lat="0.006843249097428191" lon="0.006916476598736705" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045"/>
+  <node id="2212" uid="2212" lat="0.002962508057331019" lon="0.006916476598736705" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045"/>
+  <node id="3312" uid="3312" lat="0.004902878577379605" lon="0.008656394219048706" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045"/>
+  <node id="4412" uid="4412" lat="0.004902878577379605" lon="0.005176558978424704" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045"/>
+  <node id="0013" uid="0013" lat="0.01266436065757395" lon="0.006916476598736705" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045"/>
+  <node id="1113" uid="1113" lat="0.014604731177622536" lon="0.006916476598736705" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045"/>
+  <node id="2213" uid="2213" lat="0.010723990137525364" lon="0.006916476598736705" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045"/>
+  <node id="3313" uid="3313" lat="0.01266436065757395" lon="0.008656394219048706" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045"/>
+  <node id="4413" uid="4413" lat="0.01266436065757395" lon="0.005176558978424704" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045"/>
+  <node id="0014" uid="0014" lat="0.01266436065757395" lon="0.013876147079984708" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045"/>
+  <node id="1114" uid="1114" lat="0.014604731177622536" lon="0.013876147079984708" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045"/>
+  <node id="2214" uid="2214" lat="0.010723990137525364" lon="0.013876147079984708" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045"/>
+  <node id="3314" uid="3314" lat="0.01266436065757395" lon="0.015616064700296708" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045"/>
+  <node id="4414" uid="4414" lat="0.01266436065757395" lon="0.012136229459672708" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045"/>
+  <node id="0015" uid="0015" lat="0.004902878577379605" lon="0.013876147079984708" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045"/>
+  <node id="1115" uid="1115" lat="0.006843249097428191" lon="0.013876147079984708" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045"/>
+  <node id="2215" uid="2215" lat="0.002962508057331019" lon="0.013876147079984708" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045"/>
+  <node id="3315" uid="3315" lat="0.004902878577379605" lon="0.015616064700296708" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045"/>
+  <node id="4415" uid="4415" lat="0.004902878577379605" lon="0.012136229459672708" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045"/>
+  <node id="0016" uid="0016" lat="-0.006739344542911913" lon="0.010396311839360706" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045"/>
+  <node id="1116" uid="1116" lat="-0.0028586035028147403" lon="0.010396311839360706" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045"/>
+  <node id="2216" uid="2216" lat="-0.010620085583009085" lon="0.010396311839360706" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045"/>
+  <node id="3316" uid="3316" lat="-0.006739344542911913" lon="0.013876147079984708" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045"/>
+  <node id="4416" uid="4416" lat="-0.006739344542911913" lon="0.006916476598736705" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045"/>
+  <node id="0017" uid="0017" lat="-0.010620085583009085" lon="0.006916476598736705" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045"/>
+  <node id="1117" uid="1117" lat="-0.008679715062960499" lon="0.006916476598736705" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045"/>
+  <node id="2217" uid="2217" lat="-0.012560456103057671" lon="0.006916476598736705" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045"/>
+  <node id="3317" uid="3317" lat="-0.010620085583009085" lon="0.008656394219048706" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045"/>
+  <node id="4417" uid="4417" lat="-0.010620085583009085" lon="0.005176558978424704" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045"/>
+  <node id="0018" uid="0018" lat="-0.0028586035028147403" lon="0.006916476598736705" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045"/>
+  <node id="1118" uid="1118" lat="-0.000918232982766154" lon="0.006916476598736705" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045"/>
+  <node id="2218" uid="2218" lat="-0.004798974022863327" lon="0.006916476598736705" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045"/>
+  <node id="3318" uid="3318" lat="-0.0028586035028147403" lon="0.008656394219048706" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045"/>
+  <node id="4418" uid="4418" lat="-0.0028586035028147403" lon="0.005176558978424704" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045"/>
+  <node id="0019" uid="0019" lat="-0.0028586035028147403" lon="0.013876147079984708" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045"/>
+  <node id="1119" uid="1119" lat="-0.000918232982766154" lon="0.013876147079984708" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045"/>
+  <node id="2219" uid="2219" lat="-0.004798974022863327" lon="0.013876147079984708" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045"/>
+  <node id="3319" uid="3319" lat="-0.0028586035028147403" lon="0.015616064700296708" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045"/>
+  <node id="4419" uid="4419" lat="-0.0028586035028147403" lon="0.012136229459672708" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045"/>
+  <node id="0020" uid="0020" lat="-0.010620085583009085" lon="0.013876147079984708" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045"/>
+  <node id="1120" uid="1120" lat="-0.008679715062960499" lon="0.013876147079984708" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045"/>
+  <node id="2220" uid="2220" lat="-0.012560456103057671" lon="0.013876147079984708" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045"/>
+  <node id="3320" uid="3320" lat="-0.010620085583009085" lon="0.015616064700296708" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045"/>
+  <node id="4420" uid="4420" lat="-0.010620085583009085" lon="0.012136229459672708" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045"/>
+  <way id="000" uid="000" lat="-0.010620085583009085" lon="0.012136229459672708" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045">
+    <nd ref="000"/>
+    <nd ref="110"/>
+    <tag k="highway" v="residential"/>
+  </way>
+  <way id="001" uid="001" lat="-0.010620085583009085" lon="0.012136229459672708" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045">
+    <nd ref="000"/>
+    <nd ref="220"/>
+    <tag k="highway" v="residential"/>
+  </way>
+  <way id="002" uid="002" lat="-0.010620085583009085" lon="0.012136229459672708" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045">
+    <nd ref="000"/>
+    <nd ref="330"/>
+    <tag k="highway" v="residential"/>
+  </way>
+  <way id="003" uid="003" lat="-0.010620085583009085" lon="0.012136229459672708" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045">
+    <nd ref="000"/>
+    <nd ref="440"/>
+    <tag k="highway" v="residential"/>
+  </way>
+  <way id="004" uid="004" lat="-0.010620085583009085" lon="0.012136229459672708" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045">
+    <nd ref="110"/>
+    <nd ref="000"/>
+    <tag k="highway" v="residential"/>
+  </way>
+  <way id="005" uid="005" lat="-0.010620085583009085" lon="0.012136229459672708" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045">
+    <nd ref="110"/>
+    <nd ref="336"/>
+    <tag k="highway" v="residential"/>
+  </way>
+  <way id="006" uid="006" lat="-0.010620085583009085" lon="0.012136229459672708" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045">
+    <nd ref="110"/>
+    <nd ref="4411"/>
+    <tag k="highway" v="residential"/>
+  </way>
+  <way id="007" uid="007" lat="-0.010620085583009085" lon="0.012136229459672708" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045">
+    <nd ref="220"/>
+    <nd ref="000"/>
+    <tag k="highway" v="residential"/>
+  </way>
+  <way id="008" uid="008" lat="-0.010620085583009085" lon="0.012136229459672708" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045">
+    <nd ref="220"/>
+    <nd ref="331"/>
+    <tag k="highway" v="residential"/>
+  </way>
+  <way id="009" uid="009" lat="-0.010620085583009085" lon="0.012136229459672708" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045">
+    <nd ref="220"/>
+    <nd ref="4416"/>
+    <tag k="highway" v="residential"/>
+  </way>
+  <way id="0010" uid="0010" lat="-0.010620085583009085" lon="0.012136229459672708" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045">
+    <nd ref="330"/>
+    <nd ref="000"/>
+    <tag k="highway" v="residential"/>
+  </way>
+  <way id="0011" uid="0011" lat="-0.010620085583009085" lon="0.012136229459672708" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045">
+    <nd ref="330"/>
+    <nd ref="2211"/>
+    <tag k="highway" v="residential"/>
+  </way>
+  <way id="0012" uid="0012" lat="-0.010620085583009085" lon="0.012136229459672708" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045">
+    <nd ref="330"/>
+    <nd ref="1116"/>
+    <tag k="highway" v="residential"/>
+  </way>
+  <way id="0013" uid="0013" lat="-0.010620085583009085" lon="0.012136229459672708" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045">
+    <nd ref="440"/>
+    <nd ref="000"/>
+    <tag k="highway" v="residential"/>
+  </way>
+  <way id="0014" uid="0014" lat="-0.010620085583009085" lon="0.012136229459672708" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045">
+    <nd ref="440"/>
+    <nd ref="111"/>
+    <tag k="highway" v="residential"/>
+  </way>
+  <way id="0015" uid="0015" lat="-0.010620085583009085" lon="0.012136229459672708" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045">
+    <nd ref="440"/>
+    <nd ref="226"/>
+    <tag k="highway" v="residential"/>
+  </way>
+  <way id="0016" uid="0016" lat="-0.010620085583009085" lon="0.012136229459672708" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045">
+    <nd ref="001"/>
+    <nd ref="111"/>
+    <tag k="highway" v="residential"/>
+  </way>
+  <way id="0017" uid="0017" lat="-0.010620085583009085" lon="0.012136229459672708" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045">
+    <nd ref="001"/>
+    <nd ref="221"/>
+    <tag k="highway" v="residential"/>
+  </way>
+  <way id="0018" uid="0018" lat="-0.010620085583009085" lon="0.012136229459672708" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045">
+    <nd ref="001"/>
+    <nd ref="331"/>
+    <tag k="highway" v="residential"/>
+  </way>
+  <way id="0019" uid="0019" lat="-0.010620085583009085" lon="0.012136229459672708" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045">
+    <nd ref="001"/>
+    <nd ref="441"/>
+    <tag k="highway" v="residential"/>
+  </way>
+  <way id="0020" uid="0020" lat="-0.010620085583009085" lon="0.012136229459672708" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045">
+    <nd ref="111"/>
+    <nd ref="001"/>
+    <tag k="highway" v="residential"/>
+  </way>
+  <way id="0021" uid="0021" lat="-0.010620085583009085" lon="0.012136229459672708" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045">
+    <nd ref="111"/>
+    <nd ref="440"/>
+    <tag k="highway" v="residential"/>
+  </way>
+  <way id="0022" uid="0022" lat="-0.010620085583009085" lon="0.012136229459672708" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045">
+    <nd ref="111"/>
+    <nd ref="333"/>
+    <tag k="highway" v="residential"/>
+  </way>
+  <way id="0023" uid="0023" lat="-0.010620085583009085" lon="0.012136229459672708" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045">
+    <nd ref="111"/>
+    <nd ref="444"/>
+    <tag k="highway" v="residential"/>
+  </way>
+  <way id="0024" uid="0024" lat="-0.010620085583009085" lon="0.012136229459672708" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045">
+    <nd ref="221"/>
+    <nd ref="001"/>
+    <tag k="highway" v="residential"/>
+  </way>
+  <way id="0025" uid="0025" lat="-0.010620085583009085" lon="0.012136229459672708" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045">
+    <nd ref="221"/>
+    <nd ref="332"/>
+    <tag k="highway" v="residential"/>
+  </way>
+  <way id="0026" uid="0026" lat="-0.010620085583009085" lon="0.012136229459672708" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045">
+    <nd ref="221"/>
+    <nd ref="445"/>
+    <tag k="highway" v="residential"/>
+  </way>
+  <way id="0027" uid="0027" lat="-0.010620085583009085" lon="0.012136229459672708" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045">
+    <nd ref="331"/>
+    <nd ref="001"/>
+    <tag k="highway" v="residential"/>
+  </way>
+  <way id="0028" uid="0028" lat="-0.010620085583009085" lon="0.012136229459672708" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045">
+    <nd ref="331"/>
+    <nd ref="220"/>
+    <tag k="highway" v="residential"/>
+  </way>
+  <way id="0029" uid="0029" lat="-0.010620085583009085" lon="0.012136229459672708" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045">
+    <nd ref="331"/>
+    <nd ref="224"/>
+    <tag k="highway" v="residential"/>
+  </way>
+  <way id="0030" uid="0030" lat="-0.010620085583009085" lon="0.012136229459672708" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045">
+    <nd ref="331"/>
+    <nd ref="115"/>
+    <tag k="highway" v="residential"/>
+  </way>
+  <way id="0031" uid="0031" lat="-0.010620085583009085" lon="0.012136229459672708" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045">
+    <nd ref="441"/>
+    <nd ref="001"/>
+    <tag k="highway" v="residential"/>
+  </way>
+  <way id="0032" uid="0032" lat="-0.010620085583009085" lon="0.012136229459672708" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045">
+    <nd ref="441"/>
+    <nd ref="112"/>
+    <tag k="highway" v="residential"/>
+  </way>
+  <way id="0033" uid="0033" lat="-0.010620085583009085" lon="0.012136229459672708" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045">
+    <nd ref="441"/>
+    <nd ref="223"/>
+    <tag k="highway" v="residential"/>
+  </way>
+  <way id="0034" uid="0034" lat="-0.010620085583009085" lon="0.012136229459672708" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045">
+    <nd ref="002"/>
+    <nd ref="112"/>
+    <tag k="highway" v="residential"/>
+  </way>
+  <way id="0035" uid="0035" lat="-0.010620085583009085" lon="0.012136229459672708" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045">
+    <nd ref="002"/>
+    <nd ref="222"/>
+    <tag k="highway" v="residential"/>
+  </way>
+  <way id="0036" uid="0036" lat="-0.010620085583009085" lon="0.012136229459672708" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045">
+    <nd ref="002"/>
+    <nd ref="332"/>
+    <tag k="highway" v="residential"/>
+  </way>
+  <way id="0037" uid="0037" lat="-0.010620085583009085" lon="0.012136229459672708" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045">
+    <nd ref="002"/>
+    <nd ref="442"/>
+    <tag k="highway" v="residential"/>
+  </way>
+  <way id="0038" uid="0038" lat="-0.010620085583009085" lon="0.012136229459672708" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045">
+    <nd ref="112"/>
+    <nd ref="002"/>
+    <tag k="highway" v="residential"/>
+  </way>
+  <way id="0039" uid="0039" lat="-0.010620085583009085" lon="0.012136229459672708" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045">
+    <nd ref="112"/>
+    <nd ref="441"/>
+    <tag k="highway" v="residential"/>
+  </way>
+  <way id="0040" uid="0040" lat="-0.010620085583009085" lon="0.012136229459672708" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045">
+    <nd ref="222"/>
+    <nd ref="002"/>
+    <tag k="highway" v="residential"/>
+  </way>
+  <way id="0041" uid="0041" lat="-0.010620085583009085" lon="0.012136229459672708" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045">
+    <nd ref="332"/>
+    <nd ref="002"/>
+    <tag k="highway" v="residential"/>
+  </way>
+  <way id="0042" uid="0042" lat="-0.010620085583009085" lon="0.012136229459672708" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045">
+    <nd ref="332"/>
+    <nd ref="221"/>
+    <tag k="highway" v="residential"/>
+  </way>
+  <way id="0043" uid="0043" lat="-0.010620085583009085" lon="0.012136229459672708" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045">
+    <nd ref="442"/>
+    <nd ref="002"/>
+    <tag k="highway" v="residential"/>
+  </way>
+  <way id="0044" uid="0044" lat="-0.010620085583009085" lon="0.012136229459672708" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045">
+    <nd ref="003"/>
+    <nd ref="113"/>
+    <tag k="highway" v="residential"/>
+  </way>
+  <way id="0045" uid="0045" lat="-0.010620085583009085" lon="0.012136229459672708" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045">
+    <nd ref="003"/>
+    <nd ref="223"/>
+    <tag k="highway" v="residential"/>
+  </way>
+  <way id="0046" uid="0046" lat="-0.010620085583009085" lon="0.012136229459672708" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045">
+    <nd ref="003"/>
+    <nd ref="333"/>
+    <tag k="highway" v="residential"/>
+  </way>
+  <way id="0047" uid="0047" lat="-0.010620085583009085" lon="0.012136229459672708" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045">
+    <nd ref="003"/>
+    <nd ref="443"/>
+    <tag k="highway" v="residential"/>
+  </way>
+  <way id="0048" uid="0048" lat="-0.010620085583009085" lon="0.012136229459672708" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045">
+    <nd ref="113"/>
+    <nd ref="003"/>
+    <tag k="highway" v="residential"/>
+  </way>
+  <way id="0049" uid="0049" lat="-0.010620085583009085" lon="0.012136229459672708" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045">
+    <nd ref="223"/>
+    <nd ref="003"/>
+    <tag k="highway" v="residential"/>
+  </way>
+  <way id="0050" uid="0050" lat="-0.010620085583009085" lon="0.012136229459672708" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045">
+    <nd ref="223"/>
+    <nd ref="441"/>
+    <tag k="highway" v="residential"/>
+  </way>
+  <way id="0051" uid="0051" lat="-0.010620085583009085" lon="0.012136229459672708" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045">
+    <nd ref="333"/>
+    <nd ref="003"/>
+    <tag k="highway" v="residential"/>
+  </way>
+  <way id="0052" uid="0052" lat="-0.010620085583009085" lon="0.012136229459672708" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045">
+    <nd ref="333"/>
+    <nd ref="111"/>
+    <tag k="highway" v="residential"/>
+  </way>
+  <way id="0053" uid="0053" lat="-0.010620085583009085" lon="0.012136229459672708" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045">
+    <nd ref="443"/>
+    <nd ref="003"/>
+    <tag k="highway" v="residential"/>
+  </way>
+  <way id="0054" uid="0054" lat="-0.010620085583009085" lon="0.012136229459672708" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045">
+    <nd ref="004"/>
+    <nd ref="114"/>
+    <tag k="highway" v="residential"/>
+  </way>
+  <way id="0055" uid="0055" lat="-0.010620085583009085" lon="0.012136229459672708" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045">
+    <nd ref="004"/>
+    <nd ref="224"/>
+    <tag k="highway" v="residential"/>
+  </way>
+  <way id="0056" uid="0056" lat="-0.010620085583009085" lon="0.012136229459672708" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045">
+    <nd ref="004"/>
+    <nd ref="334"/>
+    <tag k="highway" v="residential"/>
+  </way>
+  <way id="0057" uid="0057" lat="-0.010620085583009085" lon="0.012136229459672708" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045">
+    <nd ref="004"/>
+    <nd ref="444"/>
+    <tag k="highway" v="residential"/>
+  </way>
+  <way id="0058" uid="0058" lat="-0.010620085583009085" lon="0.012136229459672708" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045">
+    <nd ref="114"/>
+    <nd ref="004"/>
+    <tag k="highway" v="residential"/>
+  </way>
+  <way id="0059" uid="0059" lat="-0.010620085583009085" lon="0.012136229459672708" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045">
+    <nd ref="224"/>
+    <nd ref="004"/>
+    <tag k="highway" v="residential"/>
+  </way>
+  <way id="0060" uid="0060" lat="-0.010620085583009085" lon="0.012136229459672708" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045">
+    <nd ref="224"/>
+    <nd ref="331"/>
+    <tag k="highway" v="residential"/>
+  </way>
+  <way id="0061" uid="0061" lat="-0.010620085583009085" lon="0.012136229459672708" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045">
+    <nd ref="334"/>
+    <nd ref="004"/>
+    <tag k="highway" v="residential"/>
+  </way>
+  <way id="0062" uid="0062" lat="-0.010620085583009085" lon="0.012136229459672708" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045">
+    <nd ref="444"/>
+    <nd ref="004"/>
+    <tag k="highway" v="residential"/>
+  </way>
+  <way id="0063" uid="0063" lat="-0.010620085583009085" lon="0.012136229459672708" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045">
+    <nd ref="444"/>
+    <nd ref="111"/>
+    <tag k="highway" v="residential"/>
+  </way>
+  <way id="0064" uid="0064" lat="-0.010620085583009085" lon="0.012136229459672708" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045">
+    <nd ref="005"/>
+    <nd ref="115"/>
+    <tag k="highway" v="residential"/>
+  </way>
+  <way id="0065" uid="0065" lat="-0.010620085583009085" lon="0.012136229459672708" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045">
+    <nd ref="005"/>
+    <nd ref="225"/>
+    <tag k="highway" v="residential"/>
+  </way>
+  <way id="0066" uid="0066" lat="-0.010620085583009085" lon="0.012136229459672708" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045">
+    <nd ref="005"/>
+    <nd ref="335"/>
+    <tag k="highway" v="residential"/>
+  </way>
+  <way id="0067" uid="0067" lat="-0.010620085583009085" lon="0.012136229459672708" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045">
+    <nd ref="005"/>
+    <nd ref="445"/>
+    <tag k="highway" v="residential"/>
+  </way>
+  <way id="0068" uid="0068" lat="-0.010620085583009085" lon="0.012136229459672708" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045">
+    <nd ref="115"/>
+    <nd ref="005"/>
+    <tag k="highway" v="residential"/>
+  </way>
+  <way id="0069" uid="0069" lat="-0.010620085583009085" lon="0.012136229459672708" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045">
+    <nd ref="115"/>
+    <nd ref="331"/>
+    <tag k="highway" v="residential"/>
+  </way>
+  <way id="0070" uid="0070" lat="-0.010620085583009085" lon="0.012136229459672708" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045">
+    <nd ref="225"/>
+    <nd ref="005"/>
+    <tag k="highway" v="residential"/>
+  </way>
+  <way id="0071" uid="0071" lat="-0.010620085583009085" lon="0.012136229459672708" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045">
+    <nd ref="335"/>
+    <nd ref="005"/>
+    <tag k="highway" v="residential"/>
+  </way>
+  <way id="0072" uid="0072" lat="-0.010620085583009085" lon="0.012136229459672708" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045">
+    <nd ref="445"/>
+    <nd ref="005"/>
+    <tag k="highway" v="residential"/>
+  </way>
+  <way id="0073" uid="0073" lat="-0.010620085583009085" lon="0.012136229459672708" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045">
+    <nd ref="445"/>
+    <nd ref="221"/>
+    <tag k="highway" v="residential"/>
+  </way>
+  <way id="0074" uid="0074" lat="-0.010620085583009085" lon="0.012136229459672708" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045">
+    <nd ref="006"/>
+    <nd ref="116"/>
+    <tag k="highway" v="residential"/>
+  </way>
+  <way id="0075" uid="0075" lat="-0.010620085583009085" lon="0.012136229459672708" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045">
+    <nd ref="006"/>
+    <nd ref="226"/>
+    <tag k="highway" v="residential"/>
+  </way>
+  <way id="0076" uid="0076" lat="-0.010620085583009085" lon="0.012136229459672708" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045">
+    <nd ref="006"/>
+    <nd ref="336"/>
+    <tag k="highway" v="residential"/>
+  </way>
+  <way id="0077" uid="0077" lat="-0.010620085583009085" lon="0.012136229459672708" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045">
+    <nd ref="006"/>
+    <nd ref="446"/>
+    <tag k="highway" v="residential"/>
+  </way>
+  <way id="0078" uid="0078" lat="-0.010620085583009085" lon="0.012136229459672708" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045">
+    <nd ref="116"/>
+    <nd ref="006"/>
+    <tag k="highway" v="residential"/>
+  </way>
+  <way id="0079" uid="0079" lat="-0.010620085583009085" lon="0.012136229459672708" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045">
+    <nd ref="116"/>
+    <nd ref="338"/>
+    <tag k="highway" v="residential"/>
+  </way>
+  <way id="0080" uid="0080" lat="-0.010620085583009085" lon="0.012136229459672708" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045">
+    <nd ref="116"/>
+    <nd ref="449"/>
+    <tag k="highway" v="residential"/>
+  </way>
+  <way id="0081" uid="0081" lat="-0.010620085583009085" lon="0.012136229459672708" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045">
+    <nd ref="226"/>
+    <nd ref="006"/>
+    <tag k="highway" v="residential"/>
+  </way>
+  <way id="0082" uid="0082" lat="-0.010620085583009085" lon="0.012136229459672708" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045">
+    <nd ref="226"/>
+    <nd ref="440"/>
+    <tag k="highway" v="residential"/>
+  </way>
+  <way id="0083" uid="0083" lat="-0.010620085583009085" lon="0.012136229459672708" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045">
+    <nd ref="226"/>
+    <nd ref="337"/>
+    <tag k="highway" v="residential"/>
+  </way>
+  <way id="0084" uid="0084" lat="-0.010620085583009085" lon="0.012136229459672708" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045">
+    <nd ref="226"/>
+    <nd ref="4410"/>
+    <tag k="highway" v="residential"/>
+  </way>
+  <way id="0085" uid="0085" lat="-0.010620085583009085" lon="0.012136229459672708" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045">
+    <nd ref="336"/>
+    <nd ref="006"/>
+    <tag k="highway" v="residential"/>
+  </way>
+  <way id="0086" uid="0086" lat="-0.010620085583009085" lon="0.012136229459672708" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045">
+    <nd ref="336"/>
+    <nd ref="110"/>
+    <tag k="highway" v="residential"/>
+  </way>
+  <way id="0087" uid="0087" lat="-0.010620085583009085" lon="0.012136229459672708" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045">
+    <nd ref="336"/>
+    <nd ref="229"/>
+    <tag k="highway" v="residential"/>
+  </way>
+  <way id="0088" uid="0088" lat="-0.010620085583009085" lon="0.012136229459672708" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045">
+    <nd ref="336"/>
+    <nd ref="1110"/>
+    <tag k="highway" v="residential"/>
+  </way>
+  <way id="0089" uid="0089" lat="-0.010620085583009085" lon="0.012136229459672708" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045">
+    <nd ref="446"/>
+    <nd ref="006"/>
+    <tag k="highway" v="residential"/>
+  </way>
+  <way id="0090" uid="0090" lat="-0.010620085583009085" lon="0.012136229459672708" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045">
+    <nd ref="446"/>
+    <nd ref="117"/>
+    <tag k="highway" v="residential"/>
+  </way>
+  <way id="0091" uid="0091" lat="-0.010620085583009085" lon="0.012136229459672708" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045">
+    <nd ref="446"/>
+    <nd ref="228"/>
+    <tag k="highway" v="residential"/>
+  </way>
+  <way id="0092" uid="0092" lat="-0.010620085583009085" lon="0.012136229459672708" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045">
+    <nd ref="007"/>
+    <nd ref="117"/>
+    <tag k="highway" v="residential"/>
+  </way>
+  <way id="0093" uid="0093" lat="-0.010620085583009085" lon="0.012136229459672708" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045">
+    <nd ref="007"/>
+    <nd ref="227"/>
+    <tag k="highway" v="residential"/>
+  </way>
+  <way id="0094" uid="0094" lat="-0.010620085583009085" lon="0.012136229459672708" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045">
+    <nd ref="007"/>
+    <nd ref="337"/>
+    <tag k="highway" v="residential"/>
+  </way>
+  <way id="0095" uid="0095" lat="-0.010620085583009085" lon="0.012136229459672708" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045">
+    <nd ref="007"/>
+    <nd ref="447"/>
+    <tag k="highway" v="residential"/>
+  </way>
+  <way id="0096" uid="0096" lat="-0.010620085583009085" lon="0.012136229459672708" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045">
+    <nd ref="117"/>
+    <nd ref="007"/>
+    <tag k="highway" v="residential"/>
+  </way>
+  <way id="0097" uid="0097" lat="-0.010620085583009085" lon="0.012136229459672708" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045">
+    <nd ref="117"/>
+    <nd ref="446"/>
+    <tag k="highway" v="residential"/>
+  </way>
+  <way id="0098" uid="0098" lat="-0.010620085583009085" lon="0.012136229459672708" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045">
+    <nd ref="227"/>
+    <nd ref="007"/>
+    <tag k="highway" v="residential"/>
+  </way>
+  <way id="0099" uid="0099" lat="-0.010620085583009085" lon="0.012136229459672708" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045">
+    <nd ref="337"/>
+    <nd ref="007"/>
+    <tag k="highway" v="residential"/>
+  </way>
+  <way id="00100" uid="00100" lat="-0.010620085583009085" lon="0.012136229459672708" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045">
+    <nd ref="337"/>
+    <nd ref="226"/>
+    <tag k="highway" v="residential"/>
+  </way>
+  <way id="00101" uid="00101" lat="-0.010620085583009085" lon="0.012136229459672708" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045">
+    <nd ref="447"/>
+    <nd ref="007"/>
+    <tag k="highway" v="residential"/>
+  </way>
+  <way id="00102" uid="00102" lat="-0.010620085583009085" lon="0.012136229459672708" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045">
+    <nd ref="008"/>
+    <nd ref="118"/>
+    <tag k="highway" v="residential"/>
+  </way>
+  <way id="00103" uid="00103" lat="-0.010620085583009085" lon="0.012136229459672708" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045">
+    <nd ref="008"/>
+    <nd ref="228"/>
+    <tag k="highway" v="residential"/>
+  </way>
+  <way id="00104" uid="00104" lat="-0.010620085583009085" lon="0.012136229459672708" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045">
+    <nd ref="008"/>
+    <nd ref="338"/>
+    <tag k="highway" v="residential"/>
+  </way>
+  <way id="00105" uid="00105" lat="-0.010620085583009085" lon="0.012136229459672708" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045">
+    <nd ref="008"/>
+    <nd ref="448"/>
+    <tag k="highway" v="residential"/>
+  </way>
+  <way id="00106" uid="00106" lat="-0.010620085583009085" lon="0.012136229459672708" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045">
+    <nd ref="118"/>
+    <nd ref="008"/>
+    <tag k="highway" v="residential"/>
+  </way>
+  <way id="00107" uid="00107" lat="-0.010620085583009085" lon="0.012136229459672708" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045">
+    <nd ref="228"/>
+    <nd ref="008"/>
+    <tag k="highway" v="residential"/>
+  </way>
+  <way id="00108" uid="00108" lat="-0.010620085583009085" lon="0.012136229459672708" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045">
+    <nd ref="228"/>
+    <nd ref="446"/>
+    <tag k="highway" v="residential"/>
+  </way>
+  <way id="00109" uid="00109" lat="-0.010620085583009085" lon="0.012136229459672708" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045">
+    <nd ref="338"/>
+    <nd ref="008"/>
+    <tag k="highway" v="residential"/>
+  </way>
+  <way id="00110" uid="00110" lat="-0.010620085583009085" lon="0.012136229459672708" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045">
+    <nd ref="338"/>
+    <nd ref="116"/>
+    <tag k="highway" v="residential"/>
+  </way>
+  <way id="00111" uid="00111" lat="-0.010620085583009085" lon="0.012136229459672708" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045">
+    <nd ref="448"/>
+    <nd ref="008"/>
+    <tag k="highway" v="residential"/>
+  </way>
+  <way id="00112" uid="00112" lat="-0.010620085583009085" lon="0.012136229459672708" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045">
+    <nd ref="009"/>
+    <nd ref="119"/>
+    <tag k="highway" v="residential"/>
+  </way>
+  <way id="00113" uid="00113" lat="-0.010620085583009085" lon="0.012136229459672708" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045">
+    <nd ref="009"/>
+    <nd ref="229"/>
+    <tag k="highway" v="residential"/>
+  </way>
+  <way id="00114" uid="00114" lat="-0.010620085583009085" lon="0.012136229459672708" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045">
+    <nd ref="009"/>
+    <nd ref="339"/>
+    <tag k="highway" v="residential"/>
+  </way>
+  <way id="00115" uid="00115" lat="-0.010620085583009085" lon="0.012136229459672708" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045">
+    <nd ref="009"/>
+    <nd ref="449"/>
+    <tag k="highway" v="residential"/>
+  </way>
+  <way id="00116" uid="00116" lat="-0.010620085583009085" lon="0.012136229459672708" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045">
+    <nd ref="119"/>
+    <nd ref="009"/>
+    <tag k="highway" v="residential"/>
+  </way>
+  <way id="00117" uid="00117" lat="-0.010620085583009085" lon="0.012136229459672708" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045">
+    <nd ref="229"/>
+    <nd ref="009"/>
+    <tag k="highway" v="residential"/>
+  </way>
+  <way id="00118" uid="00118" lat="-0.010620085583009085" lon="0.012136229459672708" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045">
+    <nd ref="229"/>
+    <nd ref="336"/>
+    <tag k="highway" v="residential"/>
+  </way>
+  <way id="00119" uid="00119" lat="-0.010620085583009085" lon="0.012136229459672708" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045">
+    <nd ref="339"/>
+    <nd ref="009"/>
+    <tag k="highway" v="residential"/>
+  </way>
+  <way id="00120" uid="00120" lat="-0.010620085583009085" lon="0.012136229459672708" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045">
+    <nd ref="449"/>
+    <nd ref="009"/>
+    <tag k="highway" v="residential"/>
+  </way>
+  <way id="00121" uid="00121" lat="-0.010620085583009085" lon="0.012136229459672708" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045">
+    <nd ref="449"/>
+    <nd ref="116"/>
+    <tag k="highway" v="residential"/>
+  </way>
+  <way id="00122" uid="00122" lat="-0.010620085583009085" lon="0.012136229459672708" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045">
+    <nd ref="0010"/>
+    <nd ref="1110"/>
+    <tag k="highway" v="residential"/>
+  </way>
+  <way id="00123" uid="00123" lat="-0.010620085583009085" lon="0.012136229459672708" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045">
+    <nd ref="0010"/>
+    <nd ref="2210"/>
+    <tag k="highway" v="residential"/>
+  </way>
+  <way id="00124" uid="00124" lat="-0.010620085583009085" lon="0.012136229459672708" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045">
+    <nd ref="0010"/>
+    <nd ref="3310"/>
+    <tag k="highway" v="residential"/>
+  </way>
+  <way id="00125" uid="00125" lat="-0.010620085583009085" lon="0.012136229459672708" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045">
+    <nd ref="0010"/>
+    <nd ref="4410"/>
+    <tag k="highway" v="residential"/>
+  </way>
+  <way id="00126" uid="00126" lat="-0.010620085583009085" lon="0.012136229459672708" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045">
+    <nd ref="1110"/>
+    <nd ref="0010"/>
+    <tag k="highway" v="residential"/>
+  </way>
+  <way id="00127" uid="00127" lat="-0.010620085583009085" lon="0.012136229459672708" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045">
+    <nd ref="1110"/>
+    <nd ref="336"/>
+    <tag k="highway" v="residential"/>
+  </way>
+  <way id="00128" uid="00128" lat="-0.010620085583009085" lon="0.012136229459672708" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045">
+    <nd ref="2210"/>
+    <nd ref="0010"/>
+    <tag k="highway" v="residential"/>
+  </way>
+  <way id="00129" uid="00129" lat="-0.010620085583009085" lon="0.012136229459672708" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045">
+    <nd ref="3310"/>
+    <nd ref="0010"/>
+    <tag k="highway" v="residential"/>
+  </way>
+  <way id="00130" uid="00130" lat="-0.010620085583009085" lon="0.012136229459672708" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045">
+    <nd ref="4410"/>
+    <nd ref="0010"/>
+    <tag k="highway" v="residential"/>
+  </way>
+  <way id="00131" uid="00131" lat="-0.010620085583009085" lon="0.012136229459672708" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045">
+    <nd ref="4410"/>
+    <nd ref="226"/>
+    <tag k="highway" v="residential"/>
+  </way>
+  <way id="00132" uid="00132" lat="-0.010620085583009085" lon="0.012136229459672708" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045">
+    <nd ref="0011"/>
+    <nd ref="1111"/>
+    <tag k="highway" v="residential"/>
+  </way>
+  <way id="00133" uid="00133" lat="-0.010620085583009085" lon="0.012136229459672708" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045">
+    <nd ref="0011"/>
+    <nd ref="2211"/>
+    <tag k="highway" v="residential"/>
+  </way>
+  <way id="00134" uid="00134" lat="-0.010620085583009085" lon="0.012136229459672708" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045">
+    <nd ref="0011"/>
+    <nd ref="3311"/>
+    <tag k="highway" v="residential"/>
+  </way>
+  <way id="00135" uid="00135" lat="-0.010620085583009085" lon="0.012136229459672708" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045">
+    <nd ref="0011"/>
+    <nd ref="4411"/>
+    <tag k="highway" v="residential"/>
+  </way>
+  <way id="00136" uid="00136" lat="-0.010620085583009085" lon="0.012136229459672708" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045">
+    <nd ref="1111"/>
+    <nd ref="0011"/>
+    <tag k="highway" v="residential"/>
+  </way>
+  <way id="00137" uid="00137" lat="-0.010620085583009085" lon="0.012136229459672708" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045">
+    <nd ref="1111"/>
+    <nd ref="3313"/>
+    <tag k="highway" v="residential"/>
+  </way>
+  <way id="00138" uid="00138" lat="-0.010620085583009085" lon="0.012136229459672708" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045">
+    <nd ref="1111"/>
+    <nd ref="4414"/>
+    <tag k="highway" v="residential"/>
+  </way>
+  <way id="00139" uid="00139" lat="-0.010620085583009085" lon="0.012136229459672708" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045">
+    <nd ref="2211"/>
+    <nd ref="0011"/>
+    <tag k="highway" v="residential"/>
+  </way>
+  <way id="00140" uid="00140" lat="-0.010620085583009085" lon="0.012136229459672708" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045">
+    <nd ref="2211"/>
+    <nd ref="330"/>
+    <tag k="highway" v="residential"/>
+  </way>
+  <way id="00141" uid="00141" lat="-0.010620085583009085" lon="0.012136229459672708" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045">
+    <nd ref="2211"/>
+    <nd ref="3312"/>
+    <tag k="highway" v="residential"/>
+  </way>
+  <way id="00142" uid="00142" lat="-0.010620085583009085" lon="0.012136229459672708" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045">
+    <nd ref="2211"/>
+    <nd ref="4415"/>
+    <tag k="highway" v="residential"/>
+  </way>
+  <way id="00143" uid="00143" lat="-0.010620085583009085" lon="0.012136229459672708" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045">
+    <nd ref="3311"/>
+    <nd ref="0011"/>
+    <tag k="highway" v="residential"/>
+  </way>
+  <way id="00144" uid="00144" lat="-0.010620085583009085" lon="0.012136229459672708" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045">
+    <nd ref="3311"/>
+    <nd ref="2214"/>
+    <tag k="highway" v="residential"/>
+  </way>
+  <way id="00145" uid="00145" lat="-0.010620085583009085" lon="0.012136229459672708" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045">
+    <nd ref="3311"/>
+    <nd ref="1115"/>
+    <tag k="highway" v="residential"/>
+  </way>
+  <way id="00146" uid="00146" lat="-0.010620085583009085" lon="0.012136229459672708" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045">
+    <nd ref="4411"/>
+    <nd ref="0011"/>
+    <tag k="highway" v="residential"/>
+  </way>
+  <way id="00147" uid="00147" lat="-0.010620085583009085" lon="0.012136229459672708" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045">
+    <nd ref="4411"/>
+    <nd ref="110"/>
+    <tag k="highway" v="residential"/>
+  </way>
+  <way id="00148" uid="00148" lat="-0.010620085583009085" lon="0.012136229459672708" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045">
+    <nd ref="4411"/>
+    <nd ref="1112"/>
+    <tag k="highway" v="residential"/>
+  </way>
+  <way id="00149" uid="00149" lat="-0.010620085583009085" lon="0.012136229459672708" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045">
+    <nd ref="4411"/>
+    <nd ref="2213"/>
+    <tag k="highway" v="residential"/>
+  </way>
+  <way id="00150" uid="00150" lat="-0.010620085583009085" lon="0.012136229459672708" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045">
+    <nd ref="0012"/>
+    <nd ref="1112"/>
+    <tag k="highway" v="residential"/>
+  </way>
+  <way id="00151" uid="00151" lat="-0.010620085583009085" lon="0.012136229459672708" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045">
+    <nd ref="0012"/>
+    <nd ref="2212"/>
+    <tag k="highway" v="residential"/>
+  </way>
+  <way id="00152" uid="00152" lat="-0.010620085583009085" lon="0.012136229459672708" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045">
+    <nd ref="0012"/>
+    <nd ref="3312"/>
+    <tag k="highway" v="residential"/>
+  </way>
+  <way id="00153" uid="00153" lat="-0.010620085583009085" lon="0.012136229459672708" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045">
+    <nd ref="0012"/>
+    <nd ref="4412"/>
+    <tag k="highway" v="residential"/>
+  </way>
+  <way id="00154" uid="00154" lat="-0.010620085583009085" lon="0.012136229459672708" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045">
+    <nd ref="1112"/>
+    <nd ref="0012"/>
+    <tag k="highway" v="residential"/>
+  </way>
+  <way id="00155" uid="00155" lat="-0.010620085583009085" lon="0.012136229459672708" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045">
+    <nd ref="1112"/>
+    <nd ref="4411"/>
+    <tag k="highway" v="residential"/>
+  </way>
+  <way id="00156" uid="00156" lat="-0.010620085583009085" lon="0.012136229459672708" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045">
+    <nd ref="2212"/>
+    <nd ref="0012"/>
+    <tag k="highway" v="residential"/>
+  </way>
+  <way id="00157" uid="00157" lat="-0.010620085583009085" lon="0.012136229459672708" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045">
+    <nd ref="3312"/>
+    <nd ref="0012"/>
+    <tag k="highway" v="residential"/>
+  </way>
+  <way id="00158" uid="00158" lat="-0.010620085583009085" lon="0.012136229459672708" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045">
+    <nd ref="3312"/>
+    <nd ref="2211"/>
+    <tag k="highway" v="residential"/>
+  </way>
+  <way id="00159" uid="00159" lat="-0.010620085583009085" lon="0.012136229459672708" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045">
+    <nd ref="4412"/>
+    <nd ref="0012"/>
+    <tag k="highway" v="residential"/>
+  </way>
+  <way id="00160" uid="00160" lat="-0.010620085583009085" lon="0.012136229459672708" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045">
+    <nd ref="0013"/>
+    <nd ref="1113"/>
+    <tag k="highway" v="residential"/>
+  </way>
+  <way id="00161" uid="00161" lat="-0.010620085583009085" lon="0.012136229459672708" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045">
+    <nd ref="0013"/>
+    <nd ref="2213"/>
+    <tag k="highway" v="residential"/>
+  </way>
+  <way id="00162" uid="00162" lat="-0.010620085583009085" lon="0.012136229459672708" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045">
+    <nd ref="0013"/>
+    <nd ref="3313"/>
+    <tag k="highway" v="residential"/>
+  </way>
+  <way id="00163" uid="00163" lat="-0.010620085583009085" lon="0.012136229459672708" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045">
+    <nd ref="0013"/>
+    <nd ref="4413"/>
+    <tag k="highway" v="residential"/>
+  </way>
+  <way id="00164" uid="00164" lat="-0.010620085583009085" lon="0.012136229459672708" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045">
+    <nd ref="1113"/>
+    <nd ref="0013"/>
+    <tag k="highway" v="residential"/>
+  </way>
+  <way id="00165" uid="00165" lat="-0.010620085583009085" lon="0.012136229459672708" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045">
+    <nd ref="2213"/>
+    <nd ref="0013"/>
+    <tag k="highway" v="residential"/>
+  </way>
+  <way id="00166" uid="00166" lat="-0.010620085583009085" lon="0.012136229459672708" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045">
+    <nd ref="2213"/>
+    <nd ref="4411"/>
+    <tag k="highway" v="residential"/>
+  </way>
+  <way id="00167" uid="00167" lat="-0.010620085583009085" lon="0.012136229459672708" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045">
+    <nd ref="3313"/>
+    <nd ref="0013"/>
+    <tag k="highway" v="residential"/>
+  </way>
+  <way id="00168" uid="00168" lat="-0.010620085583009085" lon="0.012136229459672708" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045">
+    <nd ref="3313"/>
+    <nd ref="1111"/>
+    <tag k="highway" v="residential"/>
+  </way>
+  <way id="00169" uid="00169" lat="-0.010620085583009085" lon="0.012136229459672708" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045">
+    <nd ref="4413"/>
+    <nd ref="0013"/>
+    <tag k="highway" v="residential"/>
+  </way>
+  <way id="00170" uid="00170" lat="-0.010620085583009085" lon="0.012136229459672708" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045">
+    <nd ref="0014"/>
+    <nd ref="1114"/>
+    <tag k="highway" v="residential"/>
+  </way>
+  <way id="00171" uid="00171" lat="-0.010620085583009085" lon="0.012136229459672708" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045">
+    <nd ref="0014"/>
+    <nd ref="2214"/>
+    <tag k="highway" v="residential"/>
+  </way>
+  <way id="00172" uid="00172" lat="-0.010620085583009085" lon="0.012136229459672708" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045">
+    <nd ref="0014"/>
+    <nd ref="3314"/>
+    <tag k="highway" v="residential"/>
+  </way>
+  <way id="00173" uid="00173" lat="-0.010620085583009085" lon="0.012136229459672708" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045">
+    <nd ref="0014"/>
+    <nd ref="4414"/>
+    <tag k="highway" v="residential"/>
+  </way>
+  <way id="00174" uid="00174" lat="-0.010620085583009085" lon="0.012136229459672708" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045">
+    <nd ref="1114"/>
+    <nd ref="0014"/>
+    <tag k="highway" v="residential"/>
+  </way>
+  <way id="00175" uid="00175" lat="-0.010620085583009085" lon="0.012136229459672708" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045">
+    <nd ref="2214"/>
+    <nd ref="0014"/>
+    <tag k="highway" v="residential"/>
+  </way>
+  <way id="00176" uid="00176" lat="-0.010620085583009085" lon="0.012136229459672708" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045">
+    <nd ref="2214"/>
+    <nd ref="3311"/>
+    <tag k="highway" v="residential"/>
+  </way>
+  <way id="00177" uid="00177" lat="-0.010620085583009085" lon="0.012136229459672708" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045">
+    <nd ref="3314"/>
+    <nd ref="0014"/>
+    <tag k="highway" v="residential"/>
+  </way>
+  <way id="00178" uid="00178" lat="-0.010620085583009085" lon="0.012136229459672708" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045">
+    <nd ref="4414"/>
+    <nd ref="0014"/>
+    <tag k="highway" v="residential"/>
+  </way>
+  <way id="00179" uid="00179" lat="-0.010620085583009085" lon="0.012136229459672708" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045">
+    <nd ref="4414"/>
+    <nd ref="1111"/>
+    <tag k="highway" v="residential"/>
+  </way>
+  <way id="00180" uid="00180" lat="-0.010620085583009085" lon="0.012136229459672708" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045">
+    <nd ref="0015"/>
+    <nd ref="1115"/>
+    <tag k="highway" v="residential"/>
+  </way>
+  <way id="00181" uid="00181" lat="-0.010620085583009085" lon="0.012136229459672708" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045">
+    <nd ref="0015"/>
+    <nd ref="2215"/>
+    <tag k="highway" v="residential"/>
+  </way>
+  <way id="00182" uid="00182" lat="-0.010620085583009085" lon="0.012136229459672708" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045">
+    <nd ref="0015"/>
+    <nd ref="3315"/>
+    <tag k="highway" v="residential"/>
+  </way>
+  <way id="00183" uid="00183" lat="-0.010620085583009085" lon="0.012136229459672708" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045">
+    <nd ref="0015"/>
+    <nd ref="4415"/>
+    <tag k="highway" v="residential"/>
+  </way>
+  <way id="00184" uid="00184" lat="-0.010620085583009085" lon="0.012136229459672708" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045">
+    <nd ref="1115"/>
+    <nd ref="0015"/>
+    <tag k="highway" v="residential"/>
+  </way>
+  <way id="00185" uid="00185" lat="-0.010620085583009085" lon="0.012136229459672708" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045">
+    <nd ref="1115"/>
+    <nd ref="3311"/>
+    <tag k="highway" v="residential"/>
+  </way>
+  <way id="00186" uid="00186" lat="-0.010620085583009085" lon="0.012136229459672708" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045">
+    <nd ref="2215"/>
+    <nd ref="0015"/>
+    <tag k="highway" v="residential"/>
+  </way>
+  <way id="00187" uid="00187" lat="-0.010620085583009085" lon="0.012136229459672708" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045">
+    <nd ref="3315"/>
+    <nd ref="0015"/>
+    <tag k="highway" v="residential"/>
+  </way>
+  <way id="00188" uid="00188" lat="-0.010620085583009085" lon="0.012136229459672708" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045">
+    <nd ref="4415"/>
+    <nd ref="0015"/>
+    <tag k="highway" v="residential"/>
+  </way>
+  <way id="00189" uid="00189" lat="-0.010620085583009085" lon="0.012136229459672708" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045">
+    <nd ref="4415"/>
+    <nd ref="2211"/>
+    <tag k="highway" v="residential"/>
+  </way>
+  <way id="00190" uid="00190" lat="-0.010620085583009085" lon="0.012136229459672708" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045">
+    <nd ref="0016"/>
+    <nd ref="1116"/>
+    <tag k="highway" v="residential"/>
+  </way>
+  <way id="00191" uid="00191" lat="-0.010620085583009085" lon="0.012136229459672708" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045">
+    <nd ref="0016"/>
+    <nd ref="2216"/>
+    <tag k="highway" v="residential"/>
+  </way>
+  <way id="00192" uid="00192" lat="-0.010620085583009085" lon="0.012136229459672708" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045">
+    <nd ref="0016"/>
+    <nd ref="3316"/>
+    <tag k="highway" v="residential"/>
+  </way>
+  <way id="00193" uid="00193" lat="-0.010620085583009085" lon="0.012136229459672708" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045">
+    <nd ref="0016"/>
+    <nd ref="4416"/>
+    <tag k="highway" v="residential"/>
+  </way>
+  <way id="00194" uid="00194" lat="-0.010620085583009085" lon="0.012136229459672708" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045">
+    <nd ref="1116"/>
+    <nd ref="0016"/>
+    <tag k="highway" v="residential"/>
+  </way>
+  <way id="00195" uid="00195" lat="-0.010620085583009085" lon="0.012136229459672708" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045">
+    <nd ref="1116"/>
+    <nd ref="330"/>
+    <tag k="highway" v="residential"/>
+  </way>
+  <way id="00196" uid="00196" lat="-0.010620085583009085" lon="0.012136229459672708" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045">
+    <nd ref="1116"/>
+    <nd ref="3318"/>
+    <tag k="highway" v="residential"/>
+  </way>
+  <way id="00197" uid="00197" lat="-0.010620085583009085" lon="0.012136229459672708" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045">
+    <nd ref="1116"/>
+    <nd ref="4419"/>
+    <tag k="highway" v="residential"/>
+  </way>
+  <way id="00198" uid="00198" lat="-0.010620085583009085" lon="0.012136229459672708" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045">
+    <nd ref="2216"/>
+    <nd ref="0016"/>
+    <tag k="highway" v="residential"/>
+  </way>
+  <way id="00199" uid="00199" lat="-0.010620085583009085" lon="0.012136229459672708" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045">
+    <nd ref="2216"/>
+    <nd ref="3317"/>
+    <tag k="highway" v="residential"/>
+  </way>
+  <way id="00200" uid="00200" lat="-0.010620085583009085" lon="0.012136229459672708" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045">
+    <nd ref="2216"/>
+    <nd ref="4420"/>
+    <tag k="highway" v="residential"/>
+  </way>
+  <way id="00201" uid="00201" lat="-0.010620085583009085" lon="0.012136229459672708" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045">
+    <nd ref="3316"/>
+    <nd ref="0016"/>
+    <tag k="highway" v="residential"/>
+  </way>
+  <way id="00202" uid="00202" lat="-0.010620085583009085" lon="0.012136229459672708" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045">
+    <nd ref="3316"/>
+    <nd ref="2219"/>
+    <tag k="highway" v="residential"/>
+  </way>
+  <way id="00203" uid="00203" lat="-0.010620085583009085" lon="0.012136229459672708" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045">
+    <nd ref="3316"/>
+    <nd ref="1120"/>
+    <tag k="highway" v="residential"/>
+  </way>
+  <way id="00204" uid="00204" lat="-0.010620085583009085" lon="0.012136229459672708" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045">
+    <nd ref="4416"/>
+    <nd ref="0016"/>
+    <tag k="highway" v="residential"/>
+  </way>
+  <way id="00205" uid="00205" lat="-0.010620085583009085" lon="0.012136229459672708" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045">
+    <nd ref="4416"/>
+    <nd ref="220"/>
+    <tag k="highway" v="residential"/>
+  </way>
+  <way id="00206" uid="00206" lat="-0.010620085583009085" lon="0.012136229459672708" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045">
+    <nd ref="4416"/>
+    <nd ref="1117"/>
+    <tag k="highway" v="residential"/>
+  </way>
+  <way id="00207" uid="00207" lat="-0.010620085583009085" lon="0.012136229459672708" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045">
+    <nd ref="4416"/>
+    <nd ref="2218"/>
+    <tag k="highway" v="residential"/>
+  </way>
+  <way id="00208" uid="00208" lat="-0.010620085583009085" lon="0.012136229459672708" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045">
+    <nd ref="0017"/>
+    <nd ref="1117"/>
+    <tag k="highway" v="residential"/>
+  </way>
+  <way id="00209" uid="00209" lat="-0.010620085583009085" lon="0.012136229459672708" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045">
+    <nd ref="0017"/>
+    <nd ref="2217"/>
+    <tag k="highway" v="residential"/>
+  </way>
+  <way id="00210" uid="00210" lat="-0.010620085583009085" lon="0.012136229459672708" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045">
+    <nd ref="0017"/>
+    <nd ref="3317"/>
+    <tag k="highway" v="residential"/>
+  </way>
+  <way id="00211" uid="00211" lat="-0.010620085583009085" lon="0.012136229459672708" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045">
+    <nd ref="0017"/>
+    <nd ref="4417"/>
+    <tag k="highway" v="residential"/>
+  </way>
+  <way id="00212" uid="00212" lat="-0.010620085583009085" lon="0.012136229459672708" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045">
+    <nd ref="1117"/>
+    <nd ref="0017"/>
+    <tag k="highway" v="residential"/>
+  </way>
+  <way id="00213" uid="00213" lat="-0.010620085583009085" lon="0.012136229459672708" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045">
+    <nd ref="1117"/>
+    <nd ref="4416"/>
+    <tag k="highway" v="residential"/>
+  </way>
+  <way id="00214" uid="00214" lat="-0.010620085583009085" lon="0.012136229459672708" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045">
+    <nd ref="2217"/>
+    <nd ref="0017"/>
+    <tag k="highway" v="residential"/>
+  </way>
+  <way id="00215" uid="00215" lat="-0.010620085583009085" lon="0.012136229459672708" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045">
+    <nd ref="3317"/>
+    <nd ref="0017"/>
+    <tag k="highway" v="residential"/>
+  </way>
+  <way id="00216" uid="00216" lat="-0.010620085583009085" lon="0.012136229459672708" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045">
+    <nd ref="3317"/>
+    <nd ref="2216"/>
+    <tag k="highway" v="residential"/>
+  </way>
+  <way id="00217" uid="00217" lat="-0.010620085583009085" lon="0.012136229459672708" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045">
+    <nd ref="4417"/>
+    <nd ref="0017"/>
+    <tag k="highway" v="residential"/>
+  </way>
+  <way id="00218" uid="00218" lat="-0.010620085583009085" lon="0.012136229459672708" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045">
+    <nd ref="0018"/>
+    <nd ref="1118"/>
+    <tag k="highway" v="residential"/>
+  </way>
+  <way id="00219" uid="00219" lat="-0.010620085583009085" lon="0.012136229459672708" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045">
+    <nd ref="0018"/>
+    <nd ref="2218"/>
+    <tag k="highway" v="residential"/>
+  </way>
+  <way id="00220" uid="00220" lat="-0.010620085583009085" lon="0.012136229459672708" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045">
+    <nd ref="0018"/>
+    <nd ref="3318"/>
+    <tag k="highway" v="residential"/>
+  </way>
+  <way id="00221" uid="00221" lat="-0.010620085583009085" lon="0.012136229459672708" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045">
+    <nd ref="0018"/>
+    <nd ref="4418"/>
+    <tag k="highway" v="residential"/>
+  </way>
+  <way id="00222" uid="00222" lat="-0.010620085583009085" lon="0.012136229459672708" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045">
+    <nd ref="1118"/>
+    <nd ref="0018"/>
+    <tag k="highway" v="residential"/>
+  </way>
+  <way id="00223" uid="00223" lat="-0.010620085583009085" lon="0.012136229459672708" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045">
+    <nd ref="2218"/>
+    <nd ref="0018"/>
+    <tag k="highway" v="residential"/>
+  </way>
+  <way id="00224" uid="00224" lat="-0.010620085583009085" lon="0.012136229459672708" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045">
+    <nd ref="2218"/>
+    <nd ref="4416"/>
+    <tag k="highway" v="residential"/>
+  </way>
+  <way id="00225" uid="00225" lat="-0.010620085583009085" lon="0.012136229459672708" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045">
+    <nd ref="3318"/>
+    <nd ref="0018"/>
+    <tag k="highway" v="residential"/>
+  </way>
+  <way id="00226" uid="00226" lat="-0.010620085583009085" lon="0.012136229459672708" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045">
+    <nd ref="3318"/>
+    <nd ref="1116"/>
+    <tag k="highway" v="residential"/>
+  </way>
+  <way id="00227" uid="00227" lat="-0.010620085583009085" lon="0.012136229459672708" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045">
+    <nd ref="4418"/>
+    <nd ref="0018"/>
+    <tag k="highway" v="residential"/>
+  </way>
+  <way id="00228" uid="00228" lat="-0.010620085583009085" lon="0.012136229459672708" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045">
+    <nd ref="0019"/>
+    <nd ref="1119"/>
+    <tag k="highway" v="residential"/>
+  </way>
+  <way id="00229" uid="00229" lat="-0.010620085583009085" lon="0.012136229459672708" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045">
+    <nd ref="0019"/>
+    <nd ref="2219"/>
+    <tag k="highway" v="residential"/>
+  </way>
+  <way id="00230" uid="00230" lat="-0.010620085583009085" lon="0.012136229459672708" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045">
+    <nd ref="0019"/>
+    <nd ref="3319"/>
+    <tag k="highway" v="residential"/>
+  </way>
+  <way id="00231" uid="00231" lat="-0.010620085583009085" lon="0.012136229459672708" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045">
+    <nd ref="0019"/>
+    <nd ref="4419"/>
+    <tag k="highway" v="residential"/>
+  </way>
+  <way id="00232" uid="00232" lat="-0.010620085583009085" lon="0.012136229459672708" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045">
+    <nd ref="1119"/>
+    <nd ref="0019"/>
+    <tag k="highway" v="residential"/>
+  </way>
+  <way id="00233" uid="00233" lat="-0.010620085583009085" lon="0.012136229459672708" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045">
+    <nd ref="2219"/>
+    <nd ref="0019"/>
+    <tag k="highway" v="residential"/>
+  </way>
+  <way id="00234" uid="00234" lat="-0.010620085583009085" lon="0.012136229459672708" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045">
+    <nd ref="2219"/>
+    <nd ref="3316"/>
+    <tag k="highway" v="residential"/>
+  </way>
+  <way id="00235" uid="00235" lat="-0.010620085583009085" lon="0.012136229459672708" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045">
+    <nd ref="3319"/>
+    <nd ref="0019"/>
+    <tag k="highway" v="residential"/>
+  </way>
+  <way id="00236" uid="00236" lat="-0.010620085583009085" lon="0.012136229459672708" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045">
+    <nd ref="4419"/>
+    <nd ref="0019"/>
+    <tag k="highway" v="residential"/>
+  </way>
+  <way id="00237" uid="00237" lat="-0.010620085583009085" lon="0.012136229459672708" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045">
+    <nd ref="4419"/>
+    <nd ref="1116"/>
+    <tag k="highway" v="residential"/>
+  </way>
+  <way id="00238" uid="00238" lat="-0.010620085583009085" lon="0.012136229459672708" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045">
+    <nd ref="0020"/>
+    <nd ref="1120"/>
+    <tag k="highway" v="residential"/>
+  </way>
+  <way id="00239" uid="00239" lat="-0.010620085583009085" lon="0.012136229459672708" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045">
+    <nd ref="0020"/>
+    <nd ref="2220"/>
+    <tag k="highway" v="residential"/>
+  </way>
+  <way id="00240" uid="00240" lat="-0.010620085583009085" lon="0.012136229459672708" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045">
+    <nd ref="0020"/>
+    <nd ref="3320"/>
+    <tag k="highway" v="residential"/>
+  </way>
+  <way id="00241" uid="00241" lat="-0.010620085583009085" lon="0.012136229459672708" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045">
+    <nd ref="0020"/>
+    <nd ref="4420"/>
+    <tag k="highway" v="residential"/>
+  </way>
+  <way id="00242" uid="00242" lat="-0.010620085583009085" lon="0.012136229459672708" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045">
+    <nd ref="1120"/>
+    <nd ref="0020"/>
+    <tag k="highway" v="residential"/>
+  </way>
+  <way id="00243" uid="00243" lat="-0.010620085583009085" lon="0.012136229459672708" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045">
+    <nd ref="1120"/>
+    <nd ref="3316"/>
+    <tag k="highway" v="residential"/>
+  </way>
+  <way id="00244" uid="00244" lat="-0.010620085583009085" lon="0.012136229459672708" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045">
+    <nd ref="2220"/>
+    <nd ref="0020"/>
+    <tag k="highway" v="residential"/>
+  </way>
+  <way id="00245" uid="00245" lat="-0.010620085583009085" lon="0.012136229459672708" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045">
+    <nd ref="3320"/>
+    <nd ref="0020"/>
+    <tag k="highway" v="residential"/>
+  </way>
+  <way id="00246" uid="00246" lat="-0.010620085583009085" lon="0.012136229459672708" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045">
+    <nd ref="4420"/>
+    <nd ref="0020"/>
+    <tag k="highway" v="residential"/>
+  </way>
+  <way id="00247" uid="00247" lat="-0.010620085583009085" lon="0.012136229459672708" version="6" timestamp="2016-07-31T12:34:30Z" user="test" changeset="41144045">
+    <nd ref="4420"/>
+    <nd ref="2216"/>
+    <tag k="highway" v="residential"/>
+  </way>
+</osm>
