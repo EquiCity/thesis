@@ -17,9 +17,9 @@ class ExpectedQLearner(AbstractQLearner):
                 next_ord_state = self.get_state_key(next_state)
                 rewards += reward
                 # Q-Learning update
-                self.q_values[ord_state][action] += self.alpha * (
-                        reward + self.gamma * np.max(self.q_values[next_ord_state]) -
-                        self.q_values[ord_state][action])
+                self.q_values[ord_state][action] += (1 - self.alpha) * self.q_values[next_ord_state] + \
+                                                    self.alpha * (reward + self.gamma *
+                                                                  np.max(self.q_values[next_ord_state]))
                 ord_state = next_ord_state
 
         self.trained = True

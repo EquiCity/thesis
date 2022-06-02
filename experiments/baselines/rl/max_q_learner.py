@@ -18,9 +18,9 @@ class MaxQLearner(AbstractQLearner):
                 # TODO: check if this is correct
                 max_reward = np.max([max_reward, reward])
                 # Q-Learning update
-                self.q_values[ord_state][action] += (1 - self.alpha) * self.q_values[next_ord_state] + \
-                                                    self.alpha * (reward + self.gamma *
-                                                                  np.max(self.q_values[next_ord_state]))
+                self.q_values[ord_state][action] += self.alpha * (
+                                                    reward + self.gamma * np.max(self.q_values[next_ord_state]) -
+                                                    self.q_values[next_ord_state])
                 ord_state = next_ord_state
 
         self.trained = True

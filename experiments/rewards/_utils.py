@@ -28,6 +28,9 @@ def evaluate_graph(g: ig.Graph) -> pd.DataFrame:
                 if not failed.get(f"{o['node_id']}_edges", None) == d["node_id"]:
                     failed[f"{o['node_id']}_edges"] = d["node_id"]
             else:
+                # TODO: consider whether this is correct. Consider that we cannot make any assumption over the
+                # TODO: fitness of the number of edges here as we don't take into consideration whether it's a
+                # TODO: really long one or not.
                 hops_mx[i, j] = len(edges)
 
     df_tt = pd.DataFrame(tt_mx, columns=poi_nodes['name'])
@@ -57,7 +60,8 @@ def generate_samples(metric_df: pd.DataFrame, inh_per_group: pd.DataFrame) -> pd
     return city
 
 
-def get_tt_dfs(g: ig.Graph, census_data: pd.DataFrame) -> Tuple[pd.DataFrame, pd.DataFrame, pd.DataFrame]:
+def get_tt_hops_com_dfs(g: ig.Graph, census_data: pd.DataFrame,
+                        com_threshold: float) -> Tuple[pd.DataFrame, pd.DataFrame, pd.DataFrame]:
     metric_df = evaluate_graph(g)
     groups_census = census_data.drop(columns=['n_inh', 'geometry'])
 
@@ -66,7 +70,7 @@ def get_tt_dfs(g: ig.Graph, census_data: pd.DataFrame) -> Tuple[pd.DataFrame, pd
     hops_samples = generate_samples(metric_df[metric_df['metric'] == 'hops'], groups_census)
 
     value_cols = metric_df.loc[:, metric_df.columns.str.contains('POI')]
-    metric_df['average'] = (value_cols < 12).sum(axis=1)
+    metric_df['average'] = (value_cols < com_threshold).sum(axis=1)
     com_samples = generate_samples(metric_df[metric_df['metric'] == 'travel_time'], groups_census)
 
     return tt_samples, hops_samples, com_samples
