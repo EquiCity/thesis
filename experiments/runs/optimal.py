@@ -23,7 +23,7 @@ if __name__ == "__main__":
     edge_types = list(np.unique(g.es['type']))
     edge_types.remove('walk')
 
-    budget = 1
+    budget = 9
     reward_func = utilitarian
 
     optimal_solutions = optimal_baseline(g=g, census_data=census_data, edge_types=edge_types, budget=budget,

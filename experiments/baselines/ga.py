@@ -34,25 +34,29 @@ def ga_baseline(g: ig.Graph, census_data: pd.DataFrame, edge_types: List[str],
     removable_edges = g.es.select(type_in=edge_types).indices
 
     def individual_fitness(solution: List[int], solution_idx: int):
-        edges_to_delete = [(e.source_vertex.index, e.target_vertex.index) for e in g.es[solution]]
+        edges_to_delete = [(e.source_vertex.index, e.target_vertex.index) for e in g.es[list(solution)]]
         g_prime = g.copy()
         g_prime.delete_edges(edges_to_delete)
         r = reward_func(g_prime, census_data)
         return r
 
+    def callback_gen(ga_instance: pygad.GA):
+        print("Generation : ", ga_instance.generations_completed)
+        print("Fitness of the best solution :", ga_instance.best_solution()[1])
+
     ga_instance = pygad.GA(
-        num_generations=num_generations,
-        num_parents_mating=num_parents_mating,
+        num_generations=50,
+        num_parents_mating=10,
         fitness_func=individual_fitness,
         initial_population=None,
-        sol_per_pop=sol_per_pop,
+        sol_per_pop=30,
         num_genes=budget,
         gene_type=int,
         parent_selection_type="sss",
         crossover_type="single_point",
-        crossover_probability=crossover_probability,
+        crossover_probability=0.4,
         mutation_type="random",
-        mutation_probability=mutation_probability,
+        mutation_probability=0.4,
         mutation_by_replacement=False,
         mutation_percent_genes="default",
         mutation_num_genes=None,
@@ -62,14 +66,13 @@ def ga_baseline(g: ig.Graph, census_data: pd.DataFrame, edge_types: List[str],
         # on_parents=None,
         # on_crossover=None,
         # on_mutation=None,
-        # callback_generation=None,
-        # on_generation=None,
+        on_generation=callback_gen,
         # on_stop=None,
         delay_after_gen=0.0,
         save_best_solutions=True,
-        save_solutions=False,
+        save_solutions=True,
         suppress_warnings=False,
-        stop_criteria=f'saturate_{saturation}',
+        stop_criteria='saturate_20',
     )
 
     logger.info("Starting GA run")

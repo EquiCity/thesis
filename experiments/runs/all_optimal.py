@@ -27,8 +27,8 @@ if __name__ == "__main__":
 
     budget = 9
 
-    reward_func = egalitarian_jsd
-    considered_metrics = [TravelMetric.TT]#, TravelMetric.HOPS, TravelMetric.COM]
+    reward_func = egalitarian_theil
+    considered_metrics = [TravelMetric.TT, TravelMetric.HOPS, TravelMetric.COM]
 
     optimal_solutions = optimal_baseline(g=g, census_data=census_data, edge_types=edge_types, budget=budget,
                                       reward_func=reward_func, metrics=considered_metrics,

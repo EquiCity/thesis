@@ -70,6 +70,18 @@ def egalitarian_jsd(g: ig.Graph, census_data: pd.DataFrame, groups: List[str] = 
 
 def egalitarian_theil(g: ig.Graph, census_data: pd.DataFrame, groups: List[str] = None,
                       metrics: List[TravelMetric] = None, com_threshold: float = 12) -> float:
+    """
+
+    Args:
+        g:
+        census_data:
+        groups:
+        metrics:
+        com_threshold:
+
+    Returns:
+
+    """
     tt_samples, hops_samples, com_samples = get_tt_hops_com_dfs(g, census_data, com_threshold)
     metrics_values = {
         TravelMetric.TT.value: tt_samples,
@@ -93,6 +105,6 @@ def egalitarian_theil(g: ig.Graph, census_data: pd.DataFrame, groups: List[str] 
         metric_df = metrics_values[metrics_values_key]
         X = metric_df.drop(columns='group').astype(float).to_numpy()
         Y = metric_df.group
-        theil_inequality[metric] = TheilD(X, Y).T
+        theil_inequality[metric] = TheilD(X, Y).T[0]
 
     return -sum([theil_inequality[k] for k in theil_inequality])
