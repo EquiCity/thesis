@@ -5,13 +5,15 @@ import abc
 import numpy as np
 import pandas as pd
 
-import itertools as it
+import torch
 
 
-class AbstractQLearner(abc.ABC):
+class AbstractDeepQLearner(abc.ABC):
     def __init__(self, base_graph: ig.Graph, reward_function: callable, census_data: pd.DataFrame,
                  edge_types: List[str], budget: int, epochs: int, step_size: float = 0.1,
-                 discount_factor: float = 1.0) -> None:
+                 discount_factor: float = 1.0, learning_rate: float = 0.03,
+                 loss_fn = torch.nn.MSELoss, optimizer = torch.optim.Adam) -> None:
+
         self.base_graph = base_graph
         self.reward_function = reward_function
         self.census_data = census_data
@@ -20,21 +22,22 @@ class AbstractQLearner(abc.ABC):
         self.gamma = discount_factor
 
         self.goal = budget
-        self.starting_state: Tuple[int] = ()
+
+        self.actions = np.array([e.index for e in self.base_graph.es.select(type_in=edge_types)])
+        self.starting_state: np.array = np.zeros(self.actions.size)
+
         self.wrong_action_reward: int = -100
 
-        self.actions = [e.index for e in self.base_graph.es.select(type_in=edge_types)]
-
-        self.q_values = {
-            self.get_state_key(tuple(e)): np.array([0 if i not in e else -100 for i in range(len(self.actions))])
-            for k in range(self.goal+1) for e in it.combinations(self.actions, k)
-        }
+        self.model = self.setup_model()
+        self.loss_fn = loss_fn()
+        self.learning_rate = learning_rate
+        self.optimizer = optimizer(self.model.parameters(), lr=self.learning_rate)
 
         self.trained = False
 
-    @staticmethod
-    def get_state_key(removed_edges: Tuple) -> Tuple:
-        return tuple(np.sort(list(removed_edges)))
+    @abc.abstractmethod
+    def setup_model(self) -> torch.nn.Sequential:
+        raise NotImplementedError()
 
     def step(self, state: Tuple[int], action_idx: int) -> Tuple[Tuple[int], float]:
         # TODO: Consider scaling the probabilities of not-allowed actions
@@ -55,12 +58,11 @@ class AbstractQLearner(abc.ABC):
         return next_state, reward
 
     # choose an action based on epsilon greedy algorithm
-    def choose_action(self, state: tuple, epsilon: float) -> int:
+    def choose_action(self, q_values, epsilon) -> int:
         if np.random.binomial(1, epsilon) == 1:
             return np.random.choice(range(len(self.actions)))
         else:
-            values_ = self.q_values[state]
-            return np.random.choice([action_ for action_, value_ in enumerate(values_) if value_ == np.max(values_)])
+            return np.random.choice([action_ for action_, value_ in enumerate(q_values) if value_ == np.max(q_values)])
 
     @abc.abstractmethod
     def train(self, return_rewards_over_epochs: bool = False) -> Optional[List[float]]:

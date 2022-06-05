@@ -27,14 +27,14 @@ if __name__ == "__main__":
     reward_func = utilitarian
 
     optimal_solutions = optimal_baseline(g=g, census_data=census_data, edge_types=edge_types, budget=budget,
-                                      reward_func=reward_func, #metrics=[TravelMetric.TT],
+                                      reward_func=reward_func, metrics=[TravelMetric.TT],
                                       com_threshold=15)
     rewards, edges = optimal_solutions[0]
 
     edges_idxs = [e.index for e in edges]
     fig, ax = plt.subplots(1, 2)
 
-    ax[0].plot(np.arange(len(rewards)), rewards)
+    ax[0].plot(np.arange(len(rewards)), rewards, '--bo')
     g_prime = g.copy()
     g_prime.es['color'] = 'red'
     ig.plot(g_prime, target=ax[1])

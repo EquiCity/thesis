@@ -3,14 +3,14 @@ import igraph as ig
 import pandas as pd
 import pygad
 import logging
-from ..rewards.egalitarian import egalitarian
+from ..rewards.egalitarian import egalitarian_theil
 
 
 logger = logging.getLogger(__name__)
 
 
 def ga_baseline(g: ig.Graph, census_data: pd.DataFrame, edge_types: List[str],
-                budget: int = 5, reward_func: callable = egalitarian, num_generations: int = 200,
+                budget: int = 5, reward_func: callable = egalitarian_theil, num_generations: int = 200,
                 num_parents_mating: int = 5, sol_per_pop: int = 5, crossover_probability: float = 0.4,
                 mutation_probability: float = 0.4, saturation: int = 20) -> Tuple[List[float], List[ig.Edge]]:
     """

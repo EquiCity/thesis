@@ -31,31 +31,29 @@ def egalitarian_jsd(g: ig.Graph, census_data: pd.DataFrame, groups: List[str] = 
     kdes = {group: {metric: None for metric in ['tt', 'hops', 'com']} for group in groups}
     kde_mixtures = {metric: None for metric in ['tt', 'hops', 'com']}
 
-    fig, ax = plt.subplots()
-
-    for group in groups:
-        for metric, metric_df in zip(['tt', 'hops', 'com'], [tt_samples, hops_samples, com_samples]):
+    for metric, metric_df in zip(['tt', 'hops', 'com'], [tt_samples, hops_samples, com_samples]):
+        fig, ax = plt.subplots()
+        fig.suptitle(f"Plot for {metric=}")
+        for group in groups:
             X = metric_df[metric_df.group == group].drop(columns='group').astype(float).to_numpy()
             kde = sm.nonparametric.KDEUnivariate(X)
             kde.fit(bw=0.2)
             kdes[group][metric] = kde
             # score_samples returns the log of the probability density
-            ax.plot(kde.support, kde.density, lw=3, label="KDE from samples", zorder=10, color=group)
+            ax.plot(kde.support, kde.density, lw=3, label=f"KDE from samples {group=}", zorder=10, color=group)
             ax.scatter(
                 X,
                 np.abs(np.random.randn(X.size)) / 40,
                 marker="x",
                 color=group,
                 zorder=20,
-                label="Samples",
+                label=f"Samples {group=}",
                 alpha=0.5,
             )
             ax.legend(loc="best")
             ax.grid(True, zorder=-5)
+        plt.show()
 
-            break
-
-    plt.show()
     for metric, metric_df in zip(['tt', 'hops', 'com'], [tt_samples, hops_samples, com_samples]):
         X = metric_df.drop(columns='group').astype(float).to_numpy()
         kde = sm.nonparametric.KDEUnivariate(X)

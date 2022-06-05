@@ -8,14 +8,13 @@ from _utils import get_tt_hops_com_dfs
 
 class AbstractReward(abc.ABC):
 
-    def __init__(self, g: ig.Graph, census_data: pd.GeoDataFrame, metrics: List[TravelMetric] = None,
+    def __init__(self, census_data: pd.GeoDataFrame, metrics: List[TravelMetric] = None,
                  groups: List[str] = None, com_threshold: float = 12) -> None:
 
-        self.g = g
         self.census_data = census_data
         self.com_threshold = com_threshold
 
-        self.tt_samples, self.hops_samples, self.com_samples = get_tt_hops_com_dfs(g, census_data, com_threshold)
+        # self.tt_samples, self.hops_samples, self.com_samples = get_tt_hops_com_dfs(g, census_data, com_threshold)
 
         self.metrics_values = {
             TravelMetric.TT.value: self.tt_samples,
@@ -31,5 +30,5 @@ class AbstractReward(abc.ABC):
         self.groups = list(self.tt_samples.group.unique()) if not groups else groups
 
     @abc.abstractmethod
-    def compute(self) -> float:
+    def evaluate(self, g: ig.Graph) -> float:
         raise NotImplementedError()
