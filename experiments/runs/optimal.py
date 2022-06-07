@@ -1,4 +1,5 @@
 import matplotlib.patches
+import matplotlib.pyplot as plt
 
 from experiments.baselines.optimal import optimal_baseline
 import igraph as ig
@@ -10,7 +11,7 @@ from experiments.rewards import (
     elitarian,
 )
 import logging
-from matplotlib import pyplot as plt
+from experiments.plotting.solution_plotting import plot_rewards_and_graphs
 from experiments.constants.travel_metric import TravelMetric
 
 logging.basicConfig()
@@ -27,30 +28,10 @@ if __name__ == "__main__":
     reward_func = utilitarian
 
     optimal_solutions = optimal_baseline(g=g, census_data=census_data, edge_types=edge_types, budget=budget,
-                                      reward_func=reward_func, metrics=[TravelMetric.TT],
-                                      com_threshold=15)
+                                         reward_func=reward_func, metrics=[TravelMetric.TT],
+                                         com_threshold=15)
     rewards, edges = optimal_solutions[0]
 
-    edges_idxs = [e.index for e in edges]
-    fig, ax = plt.subplots(1, 2)
-
-    ax[0].plot(np.arange(len(rewards)), rewards, '--bo')
-    g_prime = g.copy()
-    g_prime.es['color'] = 'red'
-    ig.plot(g_prime, target=ax[1])
-    arrows = [e for e in ax[1].get_children() if
-              isinstance(e, matplotlib.patches.FancyArrowPatch)]  # This is a PathCollection
-
-    for arrow, edge in zip(arrows, g.es):
-        if edge['type'] == 'walk':
-            arrow.set_color('gray')
-            arrow.set_alpha(0.2)
-        elif edge.index in edges_idxs:
-            arrow.set_color('tomato')
-            arrow.set_linewidth(3)
-            arrow.set_label('removed')
-
-    # ig.plot(g.subgraph_edges(edges), palette='viridis', target=ax[1])
-    ax[1].legend()
+    plot_title = f'SARSA solution with {reward_func.__name__} and budget size {budget}'
+    fig, ax = plot_rewards_and_graphs(g, [(rewards, edges)], plot_title)
     plt.show()
-    logger.info(f"Removed edges: {[e.index for e in edges]}")
