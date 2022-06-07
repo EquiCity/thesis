@@ -25,7 +25,8 @@ def utilitarian(g: ig.Graph, census_data: pd.DataFrame, groups: List[str] = None
 
     """
     # TODO: Look into multi-obj. learning but for now just consider one at a time or with weights
-    tt_samples, hops_samples, com_samples = get_tt_hops_com_dfs(g, census_data, com_threshold)
+    g_prime = g.subgraph_edges(g.es.select(active_eq=1), delete_vertices=False)
+    tt_samples, hops_samples, com_samples = get_tt_hops_com_dfs(g_prime, census_data, com_threshold)
     metrics_values = {
         TravelMetric.TT.value: tt_samples,
         TravelMetric.HOPS.value: hops_samples,
