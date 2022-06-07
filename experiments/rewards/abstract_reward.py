@@ -1,7 +1,7 @@
 import abc
 import igraph as ig
 import pandas as pd
-from typing import List
+from typing import List, Dict
 from experiments.constants.travel_metric import TravelMetric
 from _utils import get_tt_hops_com_dfs
 
@@ -14,20 +14,26 @@ class AbstractReward(abc.ABC):
         self.census_data = census_data
         self.com_threshold = com_threshold
 
-        # self.tt_samples, self.hops_samples, self.com_samples = get_tt_hops_com_dfs(g, census_data, com_threshold)
-
-        self.metrics_values = {
-            TravelMetric.TT.value: self.tt_samples,
-            TravelMetric.HOPS.value: self.hops_samples,
-            TravelMetric.COM.value: self.com_samples
-        }
-
         self.metrics = metrics if metrics is not None else [TravelMetric.TT, TravelMetric.HOPS, TravelMetric.COM]
 
         self.metrics_names = [t.value for t in metrics]
-        self.metrics_dfs = {metrics_name: self.metrics_values[metrics_name] for metrics_name in self.metrics_names}
 
-        self.groups = list(self.tt_samples.group.unique()) if not groups else groups
+        self.groups = groups if groups else None
+
+    def retrieve_dfs(self, g: ig.Graph) -> Dict[pd.DataFrame]:
+        g_prime = g.subgraph_edges(g.es.select(active_eq=1), delete_vertices=False)
+        tt_samples, hops_samples, com_samples = get_tt_hops_com_dfs(g_prime, self.census_data, self.com_threshold)
+
+        metrics_values = {
+            TravelMetric.TT.value: tt_samples,
+            TravelMetric.HOPS.value: hops_samples,
+            TravelMetric.COM.value: com_samples
+        }
+
+        self.groups = list(tt_samples.group.unique()) if not self.groups else self.groups
+        metrics_dfs = {metrics_name: metrics_values[metrics_name] for metrics_name in self.metrics_names}
+
+        return metrics_dfs
 
     @abc.abstractmethod
     def evaluate(self, g: ig.Graph) -> float:
