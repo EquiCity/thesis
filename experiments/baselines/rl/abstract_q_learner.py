@@ -1,5 +1,8 @@
+import os
+import pickle
+
 import igraph as ig
-from typing import Tuple, List, Optional
+from typing import Tuple, List, Optional, Union
 import abc
 
 import numpy as np
@@ -23,11 +26,11 @@ class AbstractQLearner(abc.ABC):
         self.starting_state: Tuple[int] = ()
         self.wrong_action_reward: int = -100
 
-        self.actions = [e.index for e in self.base_graph.es.select(type_in=edge_types)]
+        self.actions = [e.index for e in self.base_graph.es.select(type_in=edge_types, active_eq=1)]
 
         self.q_values = {
-            self.get_state_key(tuple(e)): np.array([0 if i not in e else -100 for i in range(len(self.actions))])
-            for k in range(self.goal+1) for e in it.combinations(self.actions, k)
+            self.get_state_key(tuple(e)): -np.ones(len(self.actions), dtype=np.float)
+            for k in range(self.goal + 1) for e in it.combinations(self.actions, k)
         }
 
         self.trained = False
@@ -45,8 +48,7 @@ class AbstractQLearner(abc.ABC):
             if edge_idx in state:
                 raise ValueError("Cannot choose same action twice")
             next_state = state + (edge_idx,)
-            g_prime.delete_edges(
-                [(e.source_vertex.index, e.target_vertex.index) for e in self.base_graph.es[list(next_state)]])
+            g_prime.es[list(next_state)]['active'] = 0
             reward = self.reward_function(g_prime, self.census_data)
         except ValueError:
             reward = self.wrong_action_reward
@@ -56,27 +58,41 @@ class AbstractQLearner(abc.ABC):
 
     # choose an action based on epsilon greedy algorithm
     def choose_action(self, state: tuple, epsilon: float) -> int:
+        available_actions = [action_idx for action_idx, action in enumerate(self.actions)
+                             if action not in list(state)]
+
         if np.random.binomial(1, epsilon) == 1:
-            return np.random.choice(range(len(self.actions)))
+            return np.random.choice(available_actions)
         else:
             values_ = self.q_values[state]
-            return np.random.choice([action_ for action_, value_ in enumerate(values_) if value_ == np.max(values_)])
+            choosable_actions = [action_ for action_, value_ in enumerate(values_)
+                                 if value_ == np.max(values_[available_actions]) and action_ in available_actions]
+            return np.random.choice(choosable_actions)
 
     @abc.abstractmethod
-    def train(self, return_rewards_over_epochs: bool = False) -> Optional[List[float]]:
+    def train(self, return_rewards_over_epochs: bool = True, verbose: bool = True) -> Optional[List[float]]:
         raise NotImplementedError()
 
-    def inference(self) -> Tuple[float, List[ig.Edge]]:
+    def save_model(self, fpath: Union[str, os.PathLike]):
+        with open(fpath, 'wb') as f:
+            pickle.dump(self, f)
+
+    def load_model(self, fpath: Union[str, os.PathLike]):
+        with open(fpath, 'wb') as f:
+            pickle.dump(self, f)
+
+    def inference(self) -> Tuple[List[float], List[int]]:
         if not self.trained:
             raise RuntimeError("Please run the training before inference")
 
         ord_state = self.get_state_key(self.starting_state)
-        final_reward = -np.inf
+        rewards_per_removal = []
 
         for i in range(self.goal):
-            action_idx = self.choose_action(ord_state, 1/(i+1))
+            action_idx = self.choose_action(ord_state, 0)
             next_state, reward = self.step(ord_state, action_idx)
             ord_state = self.get_state_key(next_state)
-            final_reward = reward
+            rewards_per_removal.append(reward)
 
-        return final_reward, self.base_graph.es[ord_state]
+        final_state = list(ord_state)
+        return rewards_per_removal, final_state
