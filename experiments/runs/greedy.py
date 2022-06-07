@@ -18,9 +18,7 @@ if __name__=="__main__":
     budget = 9
     reward_func = egalitarian_theil
 
-    # Optimal: [72, 73, 74, 75, 76, 77, 78, 81, 82]
-    # Greedy: [82, 81, 78, 76, 75, 74, 73, 72, 72]
     rewards, edges = greedy_baseline(g, census_data, edge_types, budget, reward_func)
     plt.plot(np.arange(len(rewards)), rewards)
     plt.show()
-    logger.info(f"Removed edges: {[e.index for e in edges]}")
+    logger.info(f"Removed edges: {edges}")

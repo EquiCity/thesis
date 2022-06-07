@@ -1,4 +1,6 @@
-from experiments.baselines.rl.max_q_learner import MaxQLearner
+import datetime
+
+from experiments.deep_q_learning_approach.dense_d_max_ql import DeepMaxQLearner
 import igraph as ig
 import numpy as np
 import geopandas as gpd
@@ -6,7 +8,6 @@ from experiments.rewards.egalitarian import egalitarian_theil
 import logging
 from experiments.plotting.solution_plotting import plot_rewards_and_graphs
 from matplotlib import pyplot as plt
-from datetime import datetime
 
 logging.basicConfig()
 logger = logging.getLogger(__file__)
@@ -21,13 +22,13 @@ if __name__ == "__main__":
     reward_func = egalitarian_theil
     epochs = 1000
 
-    max_q_learner = MaxQLearner(g, reward_func, census_data, edge_types, budget, epochs)
-    rewards_over_epochs = max_q_learner.train()
-    rewards, edges = max_q_learner.inference()
+    q_learner = DeepMaxQLearner(g, reward_func, census_data, edge_types, budget, epochs)
+    rewards_over_epochs = q_learner.train()
+    rewards, edges = q_learner.inference()
 
-    plot_title = f'Max Q Learning solution with {reward_func.__name__} and budget size {budget}'
+    plot_title = f'Q Learning solution with {reward_func.__name__} and budget size {budget}'
     fig, ax = plot_rewards_and_graphs(g, [(rewards, edges)], plot_title)
     plt.show()
 
     logger.info(f"Removed edges: {edges}")
-    max_q_learner.save_model(f"models/mql_{epochs}_{reward_func.__name__}_{budget}_{datetime.now()}_.pkl")
+    q_learner.save_model(f"models/ql_{epochs}_{reward_func.__name__}_{budget}_{datetime.datetime.now()}_.pkl")
