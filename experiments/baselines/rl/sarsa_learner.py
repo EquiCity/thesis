@@ -1,22 +1,30 @@
+from typing import Optional, List
+
 from .abstract_q_learner import AbstractQLearner
 import numpy as np
+from tqdm import tqdm
 
 
 class SARSALearner(AbstractQLearner):
 
-    def train(self, expected: bool = False) -> None:
+    def train(self, return_rewards_over_epochs: bool = True, verbose: bool = True, expected: bool = False) -> Optional[List[float]]:
         if self.trained:
             raise RuntimeError("Cannot run training pipeline twice. Please create a new learner object")
 
-        for i in range(self.epochs):
+        rewards_over_epochs = []
+
+        epsilon = 1.0
+
+        iterator = tqdm(range(self.epochs)) if verbose else range(self.epochs)
+        for i in iterator:
             ord_state = self.get_state_key(self.starting_state)
-            action = self.choose_action(ord_state, self.q_values)
+            action = self.choose_action(ord_state, epsilon)
             rewards = 0.0
             epsilon = 1/(i+1)
             while len(ord_state) != self.goal:
                 next_state, reward = self.step(ord_state, action)
                 next_ord_state = self.get_state_key(next_state)
-                next_action = self.choose_action(next_ord_state, self.q_values)
+                next_action = self.choose_action(next_ord_state, epsilon)
                 rewards += reward
                 if not expected:
                     target = self.q_values[next_ord_state][next_action]
@@ -32,10 +40,14 @@ class SARSALearner(AbstractQLearner):
                         else:
                             target += epsilon / len(self.actions) * self.q_values[next_ord_state][action_]
                 target *= self.gamma
-                self.q_values[ord_state][action] += self.alpha * (
-                        reward + target - self.q_values[ord_state][action])
+                self.q_values[ord_state][action] += self.alpha * (reward + target - self.q_values[ord_state][action])
                 # Updating
                 ord_state = next_ord_state
                 action = next_action
 
+            rewards_over_epochs.append(rewards)
+
         self.trained = True
+
+        if return_rewards_over_epochs:
+            return rewards_over_epochs
