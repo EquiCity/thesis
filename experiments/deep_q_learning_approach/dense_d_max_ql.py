@@ -32,7 +32,7 @@ class DeepMaxQLearner(AbstractDeepQLearner):
             torch.nn.Linear(l3, l4)
         )
 
-    def train(self, return_rewards_over_epochs: bool = False) -> Optional[List[float]]:
+    def train(self, return_rewards_over_epochs: bool = True, verbose: bool = True) -> Optional[List[float]]:
         rewards_over_epochs = []
 
         for i in range(self.epochs):
@@ -43,11 +43,10 @@ class DeepMaxQLearner(AbstractDeepQLearner):
             max_reward = -np.inf
 
             while state[state == 1].size != self.goal:
-                qval = self.model(state)
+                self.q_values = self.model(state)
                 action_ = self.choose_action(state, epsilon)
+                next_state_, reward = self.step(state, action_)
 
-                action = self.actions[action_]
-                next_state_, reward = self.step(state, action)
                 next_state = torch.from_numpy(next_state_).float()
                 reward = self.reward_function(next_state)
 
@@ -62,9 +61,8 @@ class DeepMaxQLearner(AbstractDeepQLearner):
                     Y = reward
 
                 Y = torch.Tensor([Y]).detach()
-                X = qval.squeeze()[action_]
+                X = self.q_values.squeeze()[action_]
                 loss = self.loss_fn(X, Y)
-                logger.info(i, loss.item())
 
                 self.optimizer.zero_grad()
                 loss.backward()
@@ -74,11 +72,6 @@ class DeepMaxQLearner(AbstractDeepQLearner):
 
             if epsilon > 0.01:
                 epsilon -= (1 / self.epochs)
-
-        plt.figure(figsize=(10, 7))
-        plt.plot(rewards_over_epochs)
-        plt.xlabel("Epochs", fontsize=22)
-        plt.ylabel("Loss", fontsize=22)
 
         if return_rewards_over_epochs:
             return rewards_over_epochs
