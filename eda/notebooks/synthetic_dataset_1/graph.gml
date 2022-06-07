@@ -1,4 +1,4 @@
-Creator "igraph version 0.9.8 Sun Jun  5 18:56:43 2022"
+Creator "igraph version 0.9.8 Sun Jun  5 19:38:15 2022"
 Version 1
 graph
 [
@@ -148,7 +148,7 @@ graph
     color "gray"
     type "walk"
     name "None"
-    isactive 1
+    active 1
   ]
   edge
   [
@@ -160,7 +160,7 @@ graph
     color "gray"
     type "walk"
     name "None"
-    isactive 1
+    active 1
   ]
   edge
   [
@@ -172,7 +172,7 @@ graph
     color "gray"
     type "walk"
     name "None"
-    isactive 1
+    active 1
   ]
   edge
   [
@@ -184,7 +184,7 @@ graph
     color "gray"
     type "walk"
     name "None"
-    isactive 1
+    active 1
   ]
   edge
   [
@@ -196,7 +196,7 @@ graph
     color "gray"
     type "walk"
     name "None"
-    isactive 1
+    active 1
   ]
   edge
   [
@@ -208,7 +208,7 @@ graph
     color "gray"
     type "walk"
     name "None"
-    isactive 1
+    active 1
   ]
   edge
   [
@@ -220,7 +220,7 @@ graph
     color "gray"
     type "walk"
     name "None"
-    isactive 1
+    active 1
   ]
   edge
   [
@@ -232,7 +232,7 @@ graph
     color "gray"
     type "walk"
     name "None"
-    isactive 1
+    active 1
   ]
   edge
   [
@@ -244,7 +244,7 @@ graph
     color "gray"
     type "walk"
     name "None"
-    isactive 1
+    active 1
   ]
   edge
   [
@@ -256,7 +256,7 @@ graph
     color "gray"
     type "walk"
     name "None"
-    isactive 1
+    active 1
   ]
   edge
   [
@@ -268,7 +268,7 @@ graph
     color "gray"
     type "walk"
     name "None"
-    isactive 1
+    active 1
   ]
   edge
   [
@@ -280,7 +280,7 @@ graph
     color "gray"
     type "walk"
     name "None"
-    isactive 1
+    active 1
   ]
   edge
   [
@@ -292,7 +292,7 @@ graph
     color "gray"
     type "walk"
     name "None"
-    isactive 1
+    active 1
   ]
   edge
   [
@@ -304,7 +304,7 @@ graph
     color "gray"
     type "walk"
     name "None"
-    isactive 1
+    active 1
   ]
   edge
   [
@@ -316,7 +316,7 @@ graph
     color "gray"
     type "walk"
     name "None"
-    isactive 1
+    active 1
   ]
   edge
   [
@@ -328,7 +328,7 @@ graph
     color "gray"
     type "walk"
     name "None"
-    isactive 1
+    active 1
   ]
   edge
   [
@@ -340,7 +340,7 @@ graph
     color "gray"
     type "walk"
     name "None"
-    isactive 1
+    active 1
   ]
   edge
   [
@@ -352,7 +352,7 @@ graph
     color "gray"
     type "walk"
     name "None"
-    isactive 1
+    active 1
   ]
   edge
   [
@@ -364,7 +364,7 @@ graph
     color "gray"
     type "walk"
     name "None"
-    isactive 1
+    active 1
   ]
   edge
   [
@@ -376,7 +376,7 @@ graph
     color "gray"
     type "walk"
     name "None"
-    isactive 1
+    active 1
   ]
   edge
   [
@@ -388,7 +388,7 @@ graph
     color "gray"
     type "walk"
     name "None"
-    isactive 1
+    active 1
   ]
   edge
   [
@@ -400,7 +400,7 @@ graph
     color "gray"
     type "walk"
     name "None"
-    isactive 1
+    active 1
   ]
   edge
   [
@@ -412,7 +412,7 @@ graph
     color "gray"
     type "walk"
     name "None"
-    isactive 1
+    active 1
   ]
   edge
   [
@@ -424,7 +424,7 @@ graph
     color "gray"
     type "walk"
     name "None"
-    isactive 1
+    active 1
   ]
   edge
   [
@@ -436,7 +436,7 @@ graph
     color "gray"
     type "walk"
     name "None"
-    isactive 1
+    active 1
   ]
   edge
   [
@@ -448,7 +448,7 @@ graph
     color "gray"
     type "walk"
     name "None"
-    isactive 1
+    active 1
   ]
   edge
   [
@@ -460,7 +460,7 @@ graph
     color "gray"
     type "walk"
     name "None"
-    isactive 1
+    active 1
   ]
   edge
   [
@@ -472,7 +472,7 @@ graph
     color "gray"
     type "walk"
     name "None"
-    isactive 1
+    active 1
   ]
   edge
   [
@@ -484,7 +484,7 @@ graph
     color "gray"
     type "walk"
     name "None"
-    isactive 1
+    active 1
   ]
   edge
   [
@@ -496,7 +496,7 @@ graph
     color "gray"
     type "walk"
     name "None"
-    isactive 1
+    active 1
   ]
   edge
   [
@@ -508,7 +508,7 @@ graph
     color "gray"
     type "walk"
     name "None"
-    isactive 1
+    active 1
   ]
   edge
   [
@@ -520,7 +520,7 @@ graph
     color "gray"
     type "walk"
     name "None"
-    isactive 1
+    active 1
   ]
   edge
   [
@@ -532,7 +532,7 @@ graph
     color "gray"
     type "walk"
     name "None"
-    isactive 1
+    active 1
   ]
   edge
   [
@@ -544,7 +544,7 @@ graph
     color "gray"
     type "walk"
     name "None"
-    isactive 1
+    active 1
   ]
   edge
   [
@@ -556,7 +556,7 @@ graph
     color "gray"
     type "walk"
     name "None"
-    isactive 1
+    active 1
   ]
   edge
   [
@@ -568,7 +568,7 @@ graph
     color "gray"
     type "walk"
     name "None"
-    isactive 1
+    active 1
   ]
   edge
   [
@@ -580,7 +580,7 @@ graph
     color "gray"
     type "walk"
     name "None"
-    isactive 1
+    active 1
   ]
   edge
   [
@@ -592,7 +592,7 @@ graph
     color "gray"
     type "walk"
     name "None"
-    isactive 1
+    active 1
   ]
   edge
   [
@@ -604,7 +604,7 @@ graph
     color "gray"
     type "walk"
     name "None"
-    isactive 1
+    active 1
   ]
   edge
   [
@@ -616,7 +616,7 @@ graph
     color "gray"
     type "walk"
     name "None"
-    isactive 1
+    active 1
   ]
   edge
   [
@@ -628,7 +628,7 @@ graph
     color "gray"
     type "walk"
     name "None"
-    isactive 1
+    active 1
   ]
   edge
   [
@@ -640,7 +640,7 @@ graph
     color "gray"
     type "walk"
     name "None"
-    isactive 1
+    active 1
   ]
   edge
   [
@@ -652,7 +652,7 @@ graph
     color "gray"
     type "walk"
     name "None"
-    isactive 1
+    active 1
   ]
   edge
   [
@@ -664,7 +664,7 @@ graph
     color "gray"
     type "walk"
     name "None"
-    isactive 1
+    active 1
   ]
   edge
   [
@@ -676,7 +676,7 @@ graph
     color "gray"
     type "walk"
     name "None"
-    isactive 1
+    active 1
   ]
   edge
   [
@@ -688,7 +688,7 @@ graph
     color "gray"
     type "walk"
     name "None"
-    isactive 1
+    active 1
   ]
   edge
   [
@@ -700,7 +700,7 @@ graph
     color "gray"
     type "walk"
     name "None"
-    isactive 1
+    active 1
   ]
   edge
   [
@@ -712,7 +712,7 @@ graph
     color "gray"
     type "walk"
     name "None"
-    isactive 1
+    active 1
   ]
   edge
   [
@@ -724,7 +724,7 @@ graph
     color "gray"
     type "walk"
     name "None"
-    isactive 1
+    active 1
   ]
   edge
   [
@@ -736,7 +736,7 @@ graph
     color "gray"
     type "walk"
     name "None"
-    isactive 1
+    active 1
   ]
   edge
   [
@@ -748,7 +748,7 @@ graph
     color "gray"
     type "walk"
     name "None"
-    isactive 1
+    active 1
   ]
   edge
   [
@@ -760,7 +760,7 @@ graph
     color "gray"
     type "walk"
     name "None"
-    isactive 1
+    active 1
   ]
   edge
   [
@@ -772,7 +772,7 @@ graph
     color "gray"
     type "walk"
     name "None"
-    isactive 1
+    active 1
   ]
   edge
   [
@@ -784,7 +784,7 @@ graph
     color "gray"
     type "walk"
     name "None"
-    isactive 1
+    active 1
   ]
   edge
   [
@@ -796,7 +796,7 @@ graph
     color "gray"
     type "walk"
     name "None"
-    isactive 1
+    active 1
   ]
   edge
   [
@@ -808,7 +808,7 @@ graph
     color "gray"
     type "walk"
     name "None"
-    isactive 1
+    active 1
   ]
   edge
   [
@@ -820,7 +820,7 @@ graph
     color "gray"
     type "walk"
     name "None"
-    isactive 1
+    active 1
   ]
   edge
   [
@@ -832,7 +832,7 @@ graph
     color "gray"
     type "walk"
     name "None"
-    isactive 1
+    active 1
   ]
   edge
   [
@@ -844,7 +844,7 @@ graph
     color "gray"
     type "walk"
     name "None"
-    isactive 1
+    active 1
   ]
   edge
   [
@@ -856,7 +856,7 @@ graph
     color "gray"
     type "walk"
     name "None"
-    isactive 1
+    active 1
   ]
   edge
   [
@@ -868,7 +868,7 @@ graph
     color "gray"
     type "walk"
     name "None"
-    isactive 1
+    active 1
   ]
   edge
   [
@@ -880,7 +880,7 @@ graph
     color "gray"
     type "walk"
     name "None"
-    isactive 1
+    active 1
   ]
   edge
   [
@@ -892,7 +892,7 @@ graph
     color "gray"
     type "walk"
     name "None"
-    isactive 1
+    active 1
   ]
   edge
   [
@@ -904,7 +904,7 @@ graph
     color "gray"
     type "walk"
     name "None"
-    isactive 1
+    active 1
   ]
   edge
   [
@@ -916,7 +916,7 @@ graph
     color "gray"
     type "walk"
     name "None"
-    isactive 1
+    active 1
   ]
   edge
   [
@@ -928,7 +928,7 @@ graph
     color "gray"
     type "walk"
     name "None"
-    isactive 1
+    active 1
   ]
   edge
   [
@@ -940,7 +940,7 @@ graph
     color "gray"
     type "walk"
     name "None"
-    isactive 1
+    active 1
   ]
   edge
   [
@@ -952,7 +952,7 @@ graph
     color "gray"
     type "walk"
     name "None"
-    isactive 1
+    active 1
   ]
   edge
   [
@@ -964,7 +964,7 @@ graph
     color "gray"
     type "walk"
     name "None"
-    isactive 1
+    active 1
   ]
   edge
   [
@@ -976,7 +976,7 @@ graph
     color "gray"
     type "walk"
     name "None"
-    isactive 1
+    active 1
   ]
   edge
   [
@@ -988,7 +988,7 @@ graph
     color "gray"
     type "walk"
     name "None"
-    isactive 1
+    active 1
   ]
   edge
   [
@@ -1000,7 +1000,7 @@ graph
     color "gray"
     type "walk"
     name "None"
-    isactive 1
+    active 1
   ]
   edge
   [
@@ -1012,7 +1012,7 @@ graph
     color "pink"
     type "bus"
     name "Bus_line_1"
-    isactive 1
+    active 1
   ]
   edge
   [
@@ -1024,7 +1024,7 @@ graph
     color "pink"
     type "bus"
     name "Bus_line_1"
-    isactive 1
+    active 1
   ]
   edge
   [
@@ -1036,7 +1036,7 @@ graph
     color "pink"
     type "bus"
     name "Bus_line_1"
-    isactive 1
+    active 1
   ]
   edge
   [
@@ -1048,7 +1048,7 @@ graph
     color "pink"
     type "bus"
     name "Bus_line_1"
-    isactive 1
+    active 1
   ]
   edge
   [
@@ -1060,7 +1060,7 @@ graph
     color "pink"
     type "bus"
     name "Bus_line_2"
-    isactive 1
+    active 1
   ]
   edge
   [
@@ -1072,7 +1072,7 @@ graph
     color "pink"
     type "bus"
     name "Bus_line_2"
-    isactive 1
+    active 1
   ]
   edge
   [
@@ -1084,7 +1084,7 @@ graph
     color "pink"
     type "bus"
     name "Bus_line_3"
-    isactive 1
+    active 1
   ]
   edge
   [
@@ -1096,7 +1096,7 @@ graph
     color "pink"
     type "bus"
     name "Bus_line_3"
-    isactive 1
+    active 1
   ]
   edge
   [
@@ -1108,7 +1108,7 @@ graph
     color "orange"
     type "train"
     name "Train_line_1"
-    isactive 1
+    active 1
   ]
   edge
   [
@@ -1120,7 +1120,7 @@ graph
     color "orange"
     type "train"
     name "Train_line_1"
-    isactive 1
+    active 1
   ]
   edge
   [
@@ -1132,6 +1132,6 @@ graph
     color "orange"
     type "train"
     name "Train_line_1"
-    isactive 1
+    active 1
   ]
 ]
