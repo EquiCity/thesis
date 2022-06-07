@@ -22,7 +22,8 @@ def egalitarian_jsd(g: ig.Graph, census_data: pd.DataFrame, groups: List[str] = 
     Returns:
 
     """
-    tt_samples, hops_samples, com_samples = get_tt_hops_com_dfs(g, census_data, com_threshold)
+    g_prime = g.subgraph_edges(g.es.select(active_eq=1), delete_vertices=False)
+    tt_samples, hops_samples, com_samples = get_tt_hops_com_dfs(g_prime, census_data, com_threshold)
 
     groups = list(tt_samples.group.unique()) if not groups else groups
     assert isinstance(groups, list)
@@ -82,7 +83,8 @@ def egalitarian_theil(g: ig.Graph, census_data: pd.DataFrame, groups: List[str] 
     Returns:
 
     """
-    tt_samples, hops_samples, com_samples = get_tt_hops_com_dfs(g, census_data, com_threshold)
+    g_prime = g.subgraph_edges(g.es.select(active_eq=1), delete_vertices=False)
+    tt_samples, hops_samples, com_samples = get_tt_hops_com_dfs(g_prime, census_data, com_threshold)
     metrics_values = {
         TravelMetric.TT.value: tt_samples,
         TravelMetric.HOPS.value: hops_samples,
