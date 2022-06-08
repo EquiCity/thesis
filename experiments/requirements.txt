@@ -1,6 +1,8 @@
 pandas
 geopandas
 numpy
-gym
-deap
+torch
+matplotlib
 igraph
+pygad
+tqdm
