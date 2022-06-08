@@ -1,0 +1,6 @@
+pandas
+geopandas
+numpy
+gym
+deap
+igraph
