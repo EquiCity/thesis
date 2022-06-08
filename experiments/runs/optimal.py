@@ -24,14 +24,14 @@ if __name__ == "__main__":
     edge_types = list(np.unique(g.es['type']))
     edge_types.remove('walk')
 
-    budget = 9
-    reward_func = utilitarian
+    budget = 10
+    reward_func = egalitarian_theil
 
     optimal_solutions = optimal_baseline(g=g, census_data=census_data, edge_types=edge_types, budget=budget,
                                          reward_func=reward_func, metrics=[TravelMetric.TT],
                                          com_threshold=15)
     rewards, edges = optimal_solutions[0]
 
-    plot_title = f'SARSA solution with {reward_func.__name__} and budget size {budget}'
+    plot_title = f'Optimal solution with {reward_func.__name__} and budget size {budget}'
     fig, ax = plot_rewards_and_graphs(g, [(rewards, edges)], plot_title)
     plt.show()

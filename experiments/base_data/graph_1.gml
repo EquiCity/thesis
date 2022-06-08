@@ -1,4 +1,4 @@
-Creator "igraph version 0.9.8 Sun Jun  5 19:38:15 2022"
+Creator "igraph version 0.9.8 Wed Jun  8 11:55:59 2022"
 Version 1
 graph
 [
@@ -1006,9 +1006,9 @@ graph
   [
     source 6
     target 7
-    distance 3.53553390593274
-    tt 2.12132034355964
-    weight 2.12132034355964
+    distance 1.4142135623731
+    tt 0.848528137423857
+    weight 0.848528137423857
     color "pink"
     type "bus"
     name "Bus_line_1"
@@ -1018,9 +1018,9 @@ graph
   [
     source 7
     target 6
-    distance 2.12132034355964
-    tt 1.27279220613579
-    weight 1.27279220613579
+    distance 1.4142135623731
+    tt 0.848528137423857
+    weight 0.848528137423857
     color "pink"
     type "bus"
     name "Bus_line_1"
@@ -1030,9 +1030,9 @@ graph
   [
     source 7
     target 10
-    distance 2.54950975679639
-    tt 1.52970585407784
-    weight 1.52970585407784
+    distance 1.4142135623731
+    tt 0.848528137423857
+    weight 0.848528137423857
     color "pink"
     type "bus"
     name "Bus_line_1"
@@ -1042,9 +1042,9 @@ graph
   [
     source 10
     target 7
-    distance 0.5
-    tt 0.3
-    weight 0.3
+    distance 1.4142135623731
+    tt 0.848528137423857
+    weight 0.848528137423857
     color "pink"
     type "bus"
     name "Bus_line_1"
@@ -1054,9 +1054,9 @@ graph
   [
     source 10
     target 9
-    distance 0.707106781186548
-    tt 0.424264068711929
-    weight 0.424264068711929
+    distance 0.5
+    tt 0.3
+    weight 0.3
     color "pink"
     type "bus"
     name "Bus_line_2"
@@ -1078,9 +1078,9 @@ graph
   [
     source 10
     target 11
-    distance 2.91547594742265
-    tt 1.74928556845359
-    weight 1.74928556845359
+    distance 0.5
+    tt 0.3
+    weight 0.3
     color "pink"
     type "bus"
     name "Bus_line_3"
@@ -1090,9 +1090,9 @@ graph
   [
     source 11
     target 10
-    distance 1.58113883008419
-    tt 0.948683298050514
-    weight 0.948683298050514
+    distance 0.5
+    tt 0.3
+    weight 0.3
     color "pink"
     type "bus"
     name "Bus_line_3"
@@ -1102,9 +1102,9 @@ graph
   [
     source 6
     target 10
-    distance 3.53553390593274
-    tt 0.212132034355964
-    weight 0.212132034355964
+    distance 2.82842712474619
+    tt 0.169705627484771
+    weight 0.169705627484771
     color "orange"
     type "train"
     name "Train_line_1"
@@ -1114,9 +1114,9 @@ graph
   [
     source 10
     target 8
-    distance 2.12132034355964
-    tt 0.127279220613579
-    weight 0.127279220613579
+    distance 2
+    tt 0.12
+    weight 0.12
     color "orange"
     type "train"
     name "Train_line_1"
@@ -1126,9 +1126,9 @@ graph
   [
     source 8
     target 6
-    distance 2.54950975679639
-    tt 0.152970585407784
-    weight 0.152970585407784
+    distance 2
+    tt 0.12
+    weight 0.12
     color "orange"
     type "train"
     name "Train_line_1"

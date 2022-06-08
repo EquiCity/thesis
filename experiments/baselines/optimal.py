@@ -6,6 +6,11 @@ import pandas as pd
 from experiments.rewards.egalitarian import egalitarian_theil
 from tqdm import tqdm
 from experiments.constants.travel_metric import TravelMetric
+import logging
+
+logging.basicConfig()
+logger = logging.getLogger(__file__)
+logger.setLevel(logging.INFO)
 
 
 def optimal_baseline(g: ig.Graph, census_data: pd.DataFrame, edge_types: List[str],
@@ -18,7 +23,7 @@ def optimal_baseline(g: ig.Graph, census_data: pd.DataFrame, edge_types: List[st
 
     removable_edges = g.es.select(type_in=edge_types, active_eq=1)
     possible_combinations = [[e.index for e in es] for es in it.combinations(removable_edges, budget)]
-
+    logger.info(f"Possible states: {possible_combinations}")
     rewards = - np.ones(len(possible_combinations)) * np.inf
 
     for i, candidate in enumerate(tqdm(possible_combinations)):
@@ -26,6 +31,7 @@ def optimal_baseline(g: ig.Graph, census_data: pd.DataFrame, edge_types: List[st
         g_prime.es[candidate]['active'] = 0
         rewards[i] = reward_func(g=g_prime, census_data=census_data, groups=groups,
                                  metrics=metrics, com_threshold=com_threshold)
+        logger.info(f"For state {candidate} obtained rewards {rewards[i]}")
 
     max_reward_candidates_idxs = np.where(rewards == rewards.max())[0]
 

@@ -23,6 +23,8 @@ def plot_rewards_and_graphs(base_graph: ig.Graph, solutions: List[Tuple[List[flo
         graph_plot = ax[1] if len(solutions) == 1 else ax[i][1]
 
         reward_plot.plot(np.arange(len(rewards)), rewards, '--bo')
+        reward_plot.set_xlim([0, len(rewards)])
+        reward_plot.set_ylim([0, max(rewards)])
 
         # major_ticks_top = np.linspace(0, np.min(rewards), 10)
         # minor_ticks_top = np.linspace(0, np.min(rewards), 100)

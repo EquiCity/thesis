@@ -70,6 +70,8 @@ class DeepMaxQLearner(AbstractDeepQLearner):
                 self.optimizer.step()
                 state = next_state
 
+            rewards_over_epochs.append(reward)
+
             if epsilon > 0.01:
                 epsilon -= (1 / self.epochs)
 

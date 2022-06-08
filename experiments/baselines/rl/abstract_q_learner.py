@@ -9,6 +9,11 @@ import numpy as np
 import pandas as pd
 
 import itertools as it
+import logging
+
+logging.basicConfig()
+logger = logging.getLogger(__file__)
+logger.setLevel(logging.INFO)
 
 
 class AbstractQLearner(abc.ABC):
@@ -28,8 +33,13 @@ class AbstractQLearner(abc.ABC):
 
         self.actions = [e.index for e in self.base_graph.es.select(type_in=edge_types, active_eq=1)]
 
+        if len(self.actions) <= self.goal:
+            raise ValueError(f"Can only choose {len(self.actions)} edges, "
+                             f"hence max budget is {len(self.actions)-1}. "
+                             f"Budget {self.goal} not possible.")
+
         self.q_values = {
-            self.get_state_key(tuple(e)): -np.ones(len(self.actions), dtype=np.float)
+            self.get_state_key(tuple(e)): np.zeros(len(self.actions), dtype=np.float)
             for k in range(self.goal + 1) for e in it.combinations(self.actions, k)
         }
 
@@ -50,6 +60,13 @@ class AbstractQLearner(abc.ABC):
             next_state = state + (edge_idx,)
             g_prime.es[list(next_state)]['active'] = 0
             reward = self.reward_function(g_prime, self.census_data)
+            # optimal = {72, 73, 74, 75, 76, 77, 78, 81, 82}
+            # if set(next_state).issubset(optimal):
+            #     if set(next_state) == optimal:
+            #         logger.info("REACHED OPTIMUM")
+                    # reward += 1000
+                # reward += 100
+
         except ValueError:
             reward = self.wrong_action_reward
             next_state = self.starting_state
@@ -60,6 +77,8 @@ class AbstractQLearner(abc.ABC):
     def choose_action(self, state: tuple, epsilon: float) -> int:
         available_actions = [action_idx for action_idx, action in enumerate(self.actions)
                              if action not in list(state)]
+
+        assert len(available_actions) > 0
 
         if np.random.binomial(1, epsilon) == 1:
             return np.random.choice(available_actions)

@@ -107,6 +107,7 @@ def egalitarian_theil(g: ig.Graph, census_data: pd.DataFrame, groups: List[str] 
         metric_df = metrics_values[metrics_values_key]
         X = metric_df.drop(columns='group').astype(float).to_numpy()
         Y = metric_df.group
-        theil_inequality[metric] = TheilD(X, Y).T[0]
+        theil_t = TheilD(X, Y).T[0] if X.sum() > 0 else 0.0
+        theil_inequality[metric] = theil_t
 
-    return -sum([theil_inequality[k] for k in theil_inequality])
+    return np.log(sum([theil_inequality[k] for k in theil_inequality]))

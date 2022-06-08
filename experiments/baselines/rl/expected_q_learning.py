@@ -11,12 +11,13 @@ class ExpectedQLearner(AbstractQLearner):
             raise RuntimeError("Cannot run training pipeline twice. Please create a new learner object")
 
         rewards_over_epochs = []
+        epsilon = 1.0
         iterator = tqdm(range(self.epochs)) if verbose else range(self.epochs)
         for i in iterator:
             ord_state = self.get_state_key(self.starting_state)
             rewards = 0
             while len(ord_state) != self.goal:
-                action = self.choose_action(ord_state, epsilon=1 / (i + 1))
+                action = self.choose_action(ord_state, epsilon=epsilon)
                 next_state, reward = self.step(ord_state, action)
                 next_ord_state = self.get_state_key(next_state)
                 rewards += reward
@@ -25,6 +26,10 @@ class ExpectedQLearner(AbstractQLearner):
                                                     reward + self.gamma * np.max(self.q_values[next_ord_state]) -
                                                     self.q_values[ord_state][action])
                 ord_state = next_ord_state
+            rewards_over_epochs.append(rewards)
+
+            if epsilon > 0.1:
+                epsilon -= 0.01
 
         self.trained = True
 

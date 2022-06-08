@@ -1,4 +1,4 @@
-Creator "igraph version 0.9.8 Sun Jun  5 19:38:18 2022"
+Creator "igraph version 0.9.8 Wed Jun  8 11:55:57 2022"
 Version 1
 graph
 [
@@ -193,9 +193,9 @@ graph
   [
     source 2
     target 3
-    distance 0.707106781186548
-    tt 0.424264068711929
-    weight 0.424264068711929
+    distance 2.82842712474619
+    tt 1.69705627484771
+    weight 1.69705627484771
     color "pink"
     type "bus"
     name "Bus_line_1"
@@ -205,9 +205,9 @@ graph
   [
     source 3
     target 2
-    distance 3.53553390593274
-    tt 2.12132034355964
-    weight 2.12132034355964
+    distance 2.82842712474619
+    tt 1.69705627484771
+    weight 1.69705627484771
     color "pink"
     type "bus"
     name "Bus_line_1"
@@ -217,9 +217,9 @@ graph
   [
     source 3
     target 4
-    distance 4.10121933088198
-    tt 2.46073159852919
-    weight 2.46073159852919
+    distance 0.565685424949238
+    tt 0.339411254969543
+    weight 0.339411254969543
     color "pink"
     type "bus"
     name "Bus_line_2"
@@ -229,9 +229,9 @@ graph
   [
     source 4
     target 3
-    distance 3.53553390593274
-    tt 2.12132034355964
-    weight 2.12132034355964
+    distance 0.565685424949238
+    tt 0.339411254969543
+    weight 0.339411254969543
     color "pink"
     type "bus"
     name "Bus_line_2"

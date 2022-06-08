@@ -54,12 +54,12 @@ def utilitarian(g: ig.Graph, census_data: pd.DataFrame, groups: List[str] = None
     for group in groups:
         tt_reward = float(tt_samples_hat[tt_samples_hat.group == group]['metric_value'].values.astype(float).mean())
         tt_reward *= TravelMetric.TT.value in metrics_names
-        hops_reward = float(hops_samples_hat[hops_samples_hat.group == group]['metric_value'].values.astype(float).mean())
-        hops_reward *= TravelMetric.HOPS.value in metrics_names
-        com_reward = float(com_samples_hat[com_samples_hat.group == group]['metric_value'].values.astype(float).mean())
-        com_reward *= TravelMetric.COM.value in metrics_names
+        # hops_reward = float(hops_samples_hat[hops_samples_hat.group == group]['metric_value'].values.astype(float).mean())
+        # hops_reward *= TravelMetric.HOPS.value in metrics_names
+        # com_reward = float(com_samples_hat[com_samples_hat.group == group]['metric_value'].values.astype(float).mean())
+        # com_reward *= TravelMetric.COM.value in metrics_names
 
-        group_reward = - tt_reward - hops_reward + com_reward
+        group_reward = - tt_reward #- hops_reward + com_reward
         # logger.info(f"computed reward {group_reward} for group {group}")
         reward += group_reward
 

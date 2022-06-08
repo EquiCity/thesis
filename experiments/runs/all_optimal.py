@@ -9,6 +9,7 @@ from experiments.rewards import (
     egalitarian_theil,
     utilitarian,
     elitarian,
+    simple,
 )
 import logging
 from matplotlib import pyplot as plt
@@ -27,7 +28,7 @@ if __name__ == "__main__":
 
     budget = 9
 
-    reward_func = egalitarian_theil
+    reward_func = simple
     considered_metrics = [TravelMetric.TT, TravelMetric.HOPS, TravelMetric.COM]
 
     optimal_solutions = optimal_baseline(g=g, census_data=census_data, edge_types=edge_types, budget=budget,
