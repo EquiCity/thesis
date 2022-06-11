@@ -1,11 +1,10 @@
 from typing import Tuple, List
 import igraph as ig
-import pandas as pd
-from ..rewards.egalitarian import egalitarian_theil
+from experiments.rewards import BaseReward
 
 
-def greedy_baseline(g: ig.Graph, census_data: pd.DataFrame, edge_types: List[str],
-                    budget: int = 5, reward_func: callable = egalitarian_theil) -> Tuple[List[float], List[int]]:
+def greedy_baseline(g: ig.Graph, reward: BaseReward, edge_types: List[str],
+                    budget: int = 5) -> Tuple[List[float], List[int]]:
 
     assert budget > 0
 
@@ -20,7 +19,7 @@ def greedy_baseline(g: ig.Graph, census_data: pd.DataFrame, edge_types: List[str
         all_rewards = {}
         for edge in removable_edges:
             g_prime.es[edge.index]['active'] = 0
-            r = reward_func(g_prime, census_data)
+            r = reward.evaluate(g_prime)
             g_prime.es[edge.index]['active'] = 1
             all_rewards[r] = edge.index
 

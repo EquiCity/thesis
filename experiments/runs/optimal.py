@@ -32,6 +32,6 @@ if __name__ == "__main__":
                                          com_threshold=15)
     rewards, edges = optimal_solutions[0]
 
-    plot_title = f'Optimal solution with {reward_func.__name__} and budget size {budget}'
+    plot_title = f'Optimal solution with {reward.__class__.__name__} and budget size {budget}'
     fig, ax = plot_rewards_and_graphs(g, [(rewards, edges)], plot_title)
     plt.show()

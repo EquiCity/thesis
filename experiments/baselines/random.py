@@ -2,19 +2,17 @@ from typing import List, Tuple
 import random
 import igraph as ig
 import pandas as pd
-from ..rewards.egalitarian import egalitarian_theil
+from experiments.rewards import BaseReward
 
 
-def random_baseline(g: ig.Graph, census_data: pd.DataFrame, edge_types: List[str],
-                    budget: int = 5, reward_func: callable = egalitarian_theil) -> Tuple[List[float], List[int]]:
+def random_baseline(g: ig.Graph, reward: BaseReward, edge_types: List[str],
+                    budget: int = 5) -> Tuple[List[float], List[int]]:
     """
 
     Args:
         edge_types:
         g:
-        census_data:
         budget:
-        reward_func:
 
     Returns:
 
@@ -32,7 +30,7 @@ def random_baseline(g: ig.Graph, census_data: pd.DataFrame, edge_types: List[str
         removed_edges.append(edge_to_remove)
 
         g_prime.es[edge_to_remove]['active'] = 0
-        r = reward_func(g_prime, census_data)
+        r = reward.evaluate(g_prime)
         rewards_per_removal.append(r)
 
     return rewards_per_removal, removed_edges

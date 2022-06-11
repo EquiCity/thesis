@@ -3,24 +3,23 @@ import igraph as ig
 import pandas as pd
 import pygad
 import logging
-from ..rewards.egalitarian import egalitarian_theil
+from experiments.rewards import BaseReward
 
 
 logger = logging.getLogger(__name__)
 
 
-def ga_baseline(g: ig.Graph, census_data: pd.DataFrame, edge_types: List[str],
-                budget: int = 5, reward_func: callable = egalitarian_theil, num_generations: int = 50,
+def ga_baseline(g: ig.Graph, reward: BaseReward, edge_types: List[str],
+                budget: int = 5, num_generations: int = 50,
                 num_parents_mating: int = 10, sol_per_pop: int = 30, crossover_probability: float = 0.4,
                 mutation_probability: float = 0.4, saturation: int = 20) -> Tuple[List[float], List[int]]:
     """
 
     Args:
+        reward:
         g:
-        census_data:
         edge_types:
         budget:
-        reward_func:
         num_generations:
         num_parents_mating:
         sol_per_pop:
@@ -37,7 +36,7 @@ def ga_baseline(g: ig.Graph, census_data: pd.DataFrame, edge_types: List[str],
         edges_to_delete = [(e.source_vertex.index, e.target_vertex.index) for e in g.es[list(solution)]]
         g_prime = g.copy()
         g_prime.delete_edges(edges_to_delete)
-        r = reward_func(g_prime, census_data)
+        r = reward.evaluate(g_prime)
         return r
 
     def callback_gen(ga_instance: pygad.GA):

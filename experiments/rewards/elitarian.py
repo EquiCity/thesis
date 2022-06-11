@@ -1,24 +1,17 @@
 import igraph as ig
-import pandas as pd
-# from .egalitarian import egalitarian
-from .utilitarian import utilitarian
-from typing import List
-from experiments.constants.travel_metric import TravelMetric
+from .utilitarian import UtilitarianReward
+from .egalitarian import EgalitarianTheilReward
+from .base_reward import BaseReward
 
 
-def elitarian(g: ig.Graph, census_data: pd.DataFrame, groups: List[str] = None,
-              metrics: List[TravelMetric] = None, com_threshold: float = 12) -> float:
-    """
+class ElitarianReward(BaseReward):
 
-    Args:
-        com_threshold:
-        groups:
-        g:
-        census_data:
-        group:
+    def _evaluate(self, g: ig.Graph, *args, **kwargs) -> float:
+        ur = UtilitarianReward(census_data=self.census_data, groups=self.groups,
+                               com_threshold=self.com_threshold)
+        # eg = EgalitarianTheilReward(census_data=self.census_data, groups=self.groups,
+        #                             com_threshold=self.com_threshold)
+        return ur.evaluate(g)  # + eg(g)
 
-    Returns:
-
-    """
-
-    return utilitarian(g, census_data, groups, com_threshold)  # + egalitarian(g, census_data, [group])
+    def _reward_scaling(self, reward: float) -> float:
+        return reward
