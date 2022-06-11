@@ -1,4 +1,5 @@
-from .egalitarian import egalitarian_theil, egalitarian_jsd
-from .utilitarian import utilitarian
-from .elitarian import elitarian
-from .simple import simple
+from .egalitarian import EgalitarianTheilReward, EgalitarianJSDReward
+from .utilitarian import UtilitarianReward
+from .elitarian import ElitarianReward
+from .total_ptn_distance_reward import TotalPTNDistanceReward
+from .base_reward import BaseReward
