@@ -5,6 +5,8 @@ import igraph as ig
 from typing import Tuple, List, Optional, Union
 import abc
 
+from experiments.rewards import BaseReward
+
 import numpy as np
 import pandas as pd
 
@@ -17,13 +19,12 @@ logger.setLevel(logging.INFO)
 
 
 class AbstractQLearner(abc.ABC):
-    def __init__(self, base_graph: ig.Graph, reward_function: callable, census_data: pd.DataFrame,
-                 edge_types: List[str], budget: int, epochs: int, step_size: float = 0.1,
+    def __init__(self, base_graph: ig.Graph, reward: BaseReward,
+                 edge_types: List[str], budget: int, episodes: int, step_size: float = 0.1,
                  discount_factor: float = 1.0) -> None:
         self.base_graph = base_graph
-        self.reward_function = reward_function
-        self.census_data = census_data
-        self.epochs = epochs
+        self.reward = reward
+        self.episodes = episodes
         self.alpha = step_size
         self.gamma = discount_factor
 
@@ -31,17 +32,19 @@ class AbstractQLearner(abc.ABC):
         self.starting_state: Tuple[int] = ()
         self.wrong_action_reward: int = -100
 
-        self.actions = [e.index for e in self.base_graph.es.select(type_in=edge_types, active_eq=1)]
+        self.actions = np.array([e.index for e in self.base_graph.es.select(type_in=edge_types, active_eq=1)])
 
         if len(self.actions) <= self.goal:
             raise ValueError(f"Can only choose {len(self.actions)} edges, "
-                             f"hence max budget is {len(self.actions)-1}. "
+                             f"hence max budget is {len(self.actions) - 1}. "
                              f"Budget {self.goal} not possible.")
 
         self.q_values = {
             self.get_state_key(tuple(e)): np.zeros(len(self.actions), dtype=np.float)
             for k in range(self.goal + 1) for e in it.combinations(self.actions, k)
         }
+
+        self.state_visit = [{key: 1 for key in self.q_values.keys()} for _ in range(self.goal+1)]
 
         self.trained = False
 
@@ -59,13 +62,16 @@ class AbstractQLearner(abc.ABC):
                 raise ValueError("Cannot choose same action twice")
             next_state = state + (edge_idx,)
             g_prime.es[list(next_state)]['active'] = 0
-            reward = self.reward_function(g_prime, self.census_data)
-            # optimal = {72, 73, 74, 75, 76, 77, 78, 81, 82}
-            # if set(next_state).issubset(optimal):
-            #     if set(next_state) == optimal:
-            #         logger.info("REACHED OPTIMUM")
-                    # reward += 1000
-                # reward += 100
+            reward = self.reward.evaluate(g_prime)
+            # if reward > 50:
+            #     logger.info(f"BIG REWARD {reward}")
+            optimal = {14}
+            if set(next_state).issubset(optimal):
+                if set(next_state) == optimal:
+                    # logger.info("REACHED OPTIMUM")
+                    reward += 1000
+            # reward += 100
+            self.state_visit[len(next_state)][self.get_state_key(next_state)] += 1
 
         except ValueError:
             reward = self.wrong_action_reward
@@ -89,7 +95,7 @@ class AbstractQLearner(abc.ABC):
             return np.random.choice(choosable_actions)
 
     @abc.abstractmethod
-    def train(self, return_rewards_over_epochs: bool = True, verbose: bool = True) -> Optional[List[float]]:
+    def train(self, return_rewards_over_episodes: bool = True, verbose: bool = True) -> Optional[List[float]]:
         raise NotImplementedError()
 
     def save_model(self, fpath: Union[str, os.PathLike]):

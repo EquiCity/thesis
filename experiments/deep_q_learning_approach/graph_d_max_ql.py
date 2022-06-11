@@ -12,7 +12,7 @@ logger = logging.getLogger('graph_extraction')
 logger.setLevel(logging.INFO)
 
 
-class DeepMaxQLearner(AbstractDeepQLearner):
+class GraphDeepMaxQLearner(AbstractDeepQLearner):
 
     def setup_model(self) -> torch.nn.Sequential:
         # Q-function layer definition
@@ -72,5 +72,3 @@ class DeepMaxQLearner(AbstractDeepQLearner):
 
         if return_rewards_over_episodes:
             return rewards_over_episodes
-
-        self.trained = True

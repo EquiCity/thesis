@@ -7,15 +7,15 @@ from tqdm import tqdm
 
 class SARSALearner(AbstractQLearner):
 
-    def train(self, return_rewards_over_epochs: bool = True, verbose: bool = True, expected: bool = False) -> Optional[List[float]]:
+    def train(self, return_rewards_over_episodes: bool = True, verbose: bool = True, expected: bool = False) -> Optional[List[float]]:
         if self.trained:
             raise RuntimeError("Cannot run training pipeline twice. Please create a new learner object")
 
-        rewards_over_epochs = []
+        rewards_over_episodes = []
 
         epsilon = 1.0
 
-        iterator = tqdm(range(self.epochs)) if verbose else range(self.epochs)
+        iterator = tqdm(range(self.episodes)) if verbose else range(self.episodes)
         for i in iterator:
             ord_state = self.get_state_key(self.starting_state)
             action = self.choose_action(ord_state, epsilon)
@@ -45,9 +45,9 @@ class SARSALearner(AbstractQLearner):
                 ord_state = next_ord_state
                 action = next_action
 
-            rewards_over_epochs.append(rewards)
+            rewards_over_episodes.append(rewards)
 
         self.trained = True
 
-        if return_rewards_over_epochs:
-            return rewards_over_epochs
+        if return_rewards_over_episodes:
+            return rewards_over_episodes

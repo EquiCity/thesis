@@ -6,14 +6,17 @@ from tqdm import tqdm
 
 class ExpectedQLearner(AbstractQLearner):
 
-    def train(self, return_rewards_over_epochs: bool = True, verbose: bool = True) -> List[float]:
+    def train(self, return_rewards_over_episodes: bool = True, verbose: bool = True) -> List[float]:
         if self.trained:
             raise RuntimeError("Cannot run training pipeline twice. Please create a new learner object")
 
-        rewards_over_epochs = []
+        rewards_over_episodes = []
         epsilon = 1.0
-        iterator = tqdm(range(self.epochs)) if verbose else range(self.epochs)
-        for i in iterator:
+        iterator = tqdm(range(self.episodes)) if verbose else range(self.episodes)
+
+        reward = -np.inf
+
+        for _ in iterator:
             ord_state = self.get_state_key(self.starting_state)
             rewards = 0
             while len(ord_state) != self.goal:
@@ -26,12 +29,12 @@ class ExpectedQLearner(AbstractQLearner):
                                                     reward + self.gamma * np.max(self.q_values[next_ord_state]) -
                                                     self.q_values[ord_state][action])
                 ord_state = next_ord_state
-            rewards_over_epochs.append(rewards)
+            rewards_over_episodes.append(reward)
 
             if epsilon > 0.1:
                 epsilon -= 0.01
 
         self.trained = True
 
-        if return_rewards_over_epochs:
-            return rewards_over_epochs
+        if return_rewards_over_episodes:
+            return rewards_over_episodes
