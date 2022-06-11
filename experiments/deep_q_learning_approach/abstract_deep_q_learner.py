@@ -7,16 +7,21 @@ import pandas as pd
 
 import torch
 from experiments.baselines.rl.abstract_q_learner import AbstractQLearner
+from experiments.rewards import BaseReward
+import logging
+
+logging.basicConfig()
+logger = logging.getLogger(__file__)
+logger.setLevel(logging.INFO)
 
 
 class AbstractDeepQLearner(AbstractQLearner, abc.ABC):
-    def __init__(self, base_graph: ig.Graph, reward_function: callable, census_data: pd.DataFrame,
-                 edge_types: List[str], budget: int, epochs: int, step_size: float = 0.1, discount_factor: float = 1.0,
+    def __init__(self, base_graph: ig.Graph, reward: BaseReward,
+                 edge_types: List[str], budget: int, episodes: int, step_size: float = 0.1, discount_factor: float = 1.0,
                  learning_rate: float = 0.03, loss_fn=torch.nn.MSELoss, optimizer=torch.optim.Adam) -> None:
-        super().__init__(base_graph, reward_function, census_data, edge_types, budget, epochs, step_size,
-                         discount_factor)
+        super().__init__(base_graph, reward, edge_types, budget, episodes, step_size, discount_factor)
 
-        self.starting_state: np.array = np.zeros(self.actions.size)
+        self.starting_state: torch.Tensor = torch.from_numpy(np.zeros(len(self.actions), dtype=bool))
         self.wrong_action_reward: int = -100
 
         self.actions = np.array([e.index for e in self.base_graph.es.select(type_in=edge_types, active_eq=1)])
@@ -39,9 +44,11 @@ class AbstractDeepQLearner(AbstractQLearner, abc.ABC):
             edge_idx = self.actions[action_idx]
             if edge_idx in state:
                 raise ValueError("Cannot choose same action twice")
-            next_state = state + (edge_idx,)
+            next_state = torch.from_numpy(np.zeros(len(self.actions), dtype=bool))
+            next_state[action_idx] = True
+            next_state += state
             g_prime.es[list(next_state)]['active'] = 0
-            reward = self.reward_function(g_prime, self.census_data)
+            reward = self.reward.evaluate(g_prime)
         except ValueError:
             reward = self.wrong_action_reward
             next_state = self.starting_state
@@ -51,18 +58,19 @@ class AbstractDeepQLearner(AbstractQLearner, abc.ABC):
     # choose an action based on epsilon greedy algorithm
     def choose_action(self, state: np.array, epsilon: float) -> int:
         available_actions = [action_idx for action_idx, action in enumerate(self.actions)
-                             if action not in list(state)]
+                             if action_idx not in np.where(state==1)[0]]
 
         if np.random.binomial(1, epsilon) == 1:
             return np.random.choice(available_actions)
         else:
-            values_ = self.q_values[state]
-            choosable_actions = [action_ for action_, value_ in enumerate(values_)
-                                 if value_ == np.max(values_[available_actions]) and action_ in available_actions]
+            choosable_actions = [action_ for action_ in available_actions
+                                 if self.q_values[action_] == torch.max(self.q_values[available_actions])]
+            if not choosable_actions:
+                logger.info("test")
             return np.random.choice(choosable_actions)
 
     @abc.abstractmethod
-    def train(self, return_rewards_over_epochs: bool = True, verbose: bool = True) -> Optional[List[float]]:
+    def train(self, return_rewards_over_episodes: bool = True, verbose: bool = True) -> Optional[List[float]]:
         raise NotImplementedError()
 
     def inference(self) -> Tuple[List[float], List[int]]:
