@@ -79,20 +79,19 @@ def _add_edges_to_graph(g: ig.Graph, osm_graph: nx.MultiDiGraph, from_node_type:
     edges_from = np.array([[e[0]['x'], e[0]['y']] for e in edges])
     edges_to = np.array([[e[1]['x'], e[1]['y']] for e in edges])
 
-    # distances = np.array([tc.shortest_path(osm_graph, orig_yx=(from_node['y'], from_node['x']),
-    #                                        dest_yx=(to_node['y'], to_node['x'])) for from_node, to_node in edges])
-    # distances = []
+    distances = []
 
     orig_nodes = ox.distance.nearest_nodes(osm_graph, edges_from[:, 0], edges_from[:, 1])
-    # dest_nodes = ox.distance.nearest_nodes(osm_graph, edges_to[:, 0], edges_to[:, 1])
-    # osmnx_routes = x.distance.shortest_path(osm_graph, orig_nodes, dest_nodes, 'length', cpus=None)
-    #
-    # for route in osmnx_routes:
-    #     edge_lengths = ox.utils_graph.get_route_edge_attributes(osm_graph, route, 'length')
-    #     route_len_m = sum(edge_lengths)
-    #     distances.append(route_len_m)
+    dest_nodes = ox.distance.nearest_nodes(osm_graph, edges_to[:, 0], edges_to[:, 1])
+    osmnx_routes = ox.distance.shortest_path(osm_graph, orig_nodes, dest_nodes, 'length', cpus=None)
 
-    distances = numpy.array([1000]*len(orig_nodes))
+    for route in osmnx_routes:
+        edge_lengths = ox.utils_graph.get_route_edge_attributes(osm_graph, route, 'length')
+        route_len_m = sum(edge_lengths)
+        distances.append(route_len_m)
+
+    distances = numpy.array(distances)
+    # distances = numpy.array([1000] * len(orig_nodes))
 
     E_WALK_attr = {
         'distance': distances,
@@ -169,7 +168,7 @@ class ProblemGraphGenerator:
         poi_xs = self.poi_gdf.geometry.x.to_numpy()
         poi_ys = self.poi_gdf.geometry.y.to_numpy()
 
-        if not len(set(rc_names)) == len(rc_names):
+        if not len(set(poi_names)) == len(poi_names):
             raise ValueError("Names of POIs in the GeoDataFrames have to be unique")
 
         _add_points_to_graph(g=g, xs=poi_xs, ys=poi_ys, v_type='poi_node', color='green', ref_name=poi_names)
@@ -188,6 +187,8 @@ class ProblemGraphGenerator:
 
         # Set all edges to be active
         g.es['active'] = 1
+        # Is needed to not generate an exception
+        del g.vs['id']
 
         final_out_file = self.out_dir_path.joinpath(f"{city}_problem_graph_{datetime.now().date()}.gml")
         ig.write(g, final_out_file)

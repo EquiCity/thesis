@@ -58,14 +58,14 @@ class GTFSGraphGenerator:
         out_path = self.gtfs_file_path.parent\
             .joinpath(f"{self.gtfs_file_path.with_suffix('').name}-filtered-by-{'_'.join(self.agencies)}.zip")
 
-        # Needed to make sure that the agencies that we want to filter for
-        # are actually available
-        with ZipFile(self.gtfs_file_path, 'r') as gtfs:
-            with gtfs.open('agency.txt') as agencies:
-                df = pd.read_csv(agencies)
-                available_agencies = set(df.agency_id.to_list())
-
         if not os.path.exists(out_path):
+            # Needed to make sure that the agencies that we want to filter for
+            # are actually available
+            with ZipFile(self.gtfs_file_path, 'r') as gtfs:
+                with gtfs.open('agency.txt') as agencies:
+                    df = pd.read_csv(agencies)
+                    available_agencies = set(df.agency_id.to_list())
+
             available_agencies = available_agencies.intersection(set(self.agencies))
             args = [e for sublist in [["-extract-agency", agency] for agency in available_agencies] for e in sublist]
             tool = "transitland"
