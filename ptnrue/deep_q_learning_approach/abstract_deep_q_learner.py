@@ -3,11 +3,10 @@ from typing import Tuple, List, Optional
 import abc
 
 import numpy as np
-import pandas as pd
 
 import torch
-from experiments.baselines.rl.abstract_q_learner import AbstractQLearner
-from experiments.rewards import BaseReward
+from ptnrue.baselines.rl.abstract_q_learner_baseline import AbstractQLearner
+from ..rewards import BaseReward
 import logging
 
 logging.basicConfig()
@@ -66,7 +65,9 @@ class AbstractDeepQLearner(AbstractQLearner, abc.ABC):
             choosable_actions = [action_ for action_ in available_actions
                                  if self.q_values[action_] == torch.max(self.q_values[available_actions])]
             if not choosable_actions:
-                logger.info("test")
+                m = f"Something has gone wrong. Choosable actions cannot be empty!"
+                logger.error(m + "\n{state=}\n{available_actions=}")
+                raise ValueError(m)
             return np.random.choice(choosable_actions)
 
     @abc.abstractmethod
@@ -89,5 +90,5 @@ class AbstractDeepQLearner(AbstractQLearner, abc.ABC):
         # is removed or not, i.e. whether an action was enacted or not.
         # Hence, we use the state to take out the actions, i.e. edge indexes
         # which represent the final state
-        final_state = self.actions[state.astype(np.bool)]
+        final_state = self.actions[state.bool().numpy()]
         return rewards_per_removal, final_state
