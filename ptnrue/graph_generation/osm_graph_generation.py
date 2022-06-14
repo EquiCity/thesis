@@ -1,6 +1,6 @@
 import osmnx as ox
 import networkx as nx
-from utils.osm_utils import get_bbox
+from .utils.osm_utils import get_bbox
 from pathlib import Path
 from datetime import datetime
 from ..constants.osm_network_types import OSMNetworkTypes

@@ -16,8 +16,8 @@ logger = logging.getLogger(__file__)
 logger.setLevel(logging.INFO)
 
 if __name__ == "__main__":
-    g = ig.load("./base_data/graph_1.gml")
-    census_data = gpd.read_file("./base_data/census_data_1.geojson")
+    g = ig.load("../base_data/graph_1.gml")
+    census_data = gpd.read_file("../base_data/census_data_1.geojson")
     edge_types = list(np.unique(g.es['type']))
     edge_types.remove('walk')
     budget = 9

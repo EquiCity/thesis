@@ -4,7 +4,7 @@ from ptnrue.graph_generation.problem_graph_generator import ProblemGraphGenerato
 
 
 if __name__ == "__main__":
-    AMS_DATA = Path('/home/rico/Documents/thesis/experiments/ams_data')
+    AMS_DATA = Path('../ams_data')
 
     poi_gdf = gpd.read_file(AMS_DATA.joinpath('non_residential_functions_geojson_latlng.json'))
     poi_gdf = poi_gdf[poi_gdf.Functie == 'Onderwijs']

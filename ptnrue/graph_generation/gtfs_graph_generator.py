@@ -8,13 +8,13 @@ import urbanaccess as ua
 import pandas as pd
 import subprocess
 
-from utils.graph_helper_utils import (
+from .utils.graph_helper_utils import (
     ua_transit_network_to_nx,
     append_length_attribute,
 )
-from utils.osm_utils import get_bbox
-from exceptions import GraphGenerationError
-from utils.file_management_utils import (
+from .utils.osm_utils import get_bbox
+from .exceptions import GraphGenerationError
+from .utils.file_management_utils import (
     remove_files_in_dir,
 )
 import igraph as ig

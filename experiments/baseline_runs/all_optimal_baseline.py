@@ -15,12 +15,12 @@ logger = logging.getLogger(__file__)
 logger.setLevel(logging.INFO)
 
 if __name__ == "__main__":
-    g: ig.Graph = ig.load("./base_data/graph_0.gml")
-    census_data = gpd.read_file("./base_data/census_data_0.geojson")
+    g: ig.Graph = ig.load("../base_data/graph_1.gml")
+    census_data = gpd.read_file("../base_data/census_data_1.geojson")
     edge_types = list(np.unique(g.es['type']))
     edge_types.remove('walk')
 
-    budget = 2
+    budget = 9
 
     com_threshold = 15
     considered_metrics = [TravelMetric.TT, TravelMetric.HOPS, TravelMetric.COM]

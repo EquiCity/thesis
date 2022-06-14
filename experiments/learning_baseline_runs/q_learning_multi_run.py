@@ -14,8 +14,8 @@ logger = logging.getLogger(__file__)
 logger.setLevel(logging.INFO)
 
 if __name__ == "__main__":
-    g = ig.load("./base_data/graph_1.gml")
-    census_data = gpd.read_file("./base_data/census_data_1.geojson")
+    g = ig.load("../base_data/graph_1.gml")
+    census_data = gpd.read_file("../base_data/census_data_1.geojson")
     edge_types = list(np.unique(g.es['type']))
     edge_types.remove('walk')
     budget = 9
@@ -39,7 +39,7 @@ if __name__ == "__main__":
         rewards_over_episodes = q_learner.train(return_rewards_over_episodes=True, verbose=False)
         rewards, edges = q_learner.inference()
         edge_diffs = [set(edges).symmetric_difference(opt) for opt in optimal_edges]
-        if any([ed == {} for ed in edge_diffs]):
+        if any([ed == set() for ed in edge_diffs]):
             logger.info("Found optimal solution")
             successful += 1
         else:

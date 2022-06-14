@@ -21,7 +21,7 @@ if __name__ == "__main__":
     budget = 9
     com_threshold = 15
     reward = EgalitarianTheilReward(census_data, com_threshold)
-    episodes = 200
+    episodes = 100
 
     max_q_learner = MaxQLearner(g, reward, edge_types, budget, episodes)
     rewards_over_episodes = max_q_learner.train(return_rewards_over_episodes=True)
