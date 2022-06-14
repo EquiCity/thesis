@@ -4,6 +4,12 @@ from utils.osm_utils import get_bbox
 from pathlib import Path
 from datetime import datetime
 from experiments.constants.osm_network_types import OSMNetworkTypes
+import logging
+
+
+logging.basicConfig()
+logger = logging.getLogger(__name__)
+logger.setLevel(logging.INFO)
 
 
 class OSMGraphGenerator:
