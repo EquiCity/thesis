@@ -1,4 +1,13 @@
 import setuptools
+import os
+
+# Obtained from https://stackoverflow.com/a/53069528
+lib_folder = os.path.dirname(os.path.realpath(__file__))
+requirement_path = lib_folder + '/requirements.txt'
+install_requires = []
+if os.path.isfile(requirement_path):
+    with open(requirement_path) as f:
+        install_requires = f.read().splitlines()
 
 setuptools.setup(
     name="ptnrue",
@@ -19,4 +28,5 @@ setuptools.setup(
     package_dir={"": "."},
     packages=setuptools.find_packages(where="."),
     python_requires=">=3.8",
+    install_requires=install_requires,
 )

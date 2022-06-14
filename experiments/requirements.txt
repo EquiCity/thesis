@@ -1,9 +1,0 @@
-pandas
-geopandas
-numpy
-torch
-matplotlib
-igraph
-pygad
-tqdm
--e git+https://github.com/EquiCity/thesis@0a8c374c8f03bb88b78c21eedf9ea6c46f1eafa6#egg=ptnrue&subdirectory=ptnrue_package
