@@ -1,15 +1,12 @@
-import datetime
-
-from experiments.baselines.rl.expected_q_learning import ExpectedQLearner
+from ptnrue.baselines.rl.expected_q_learning_basleline import ExpectedQLearner
 import igraph as ig
 import numpy as np
 import geopandas as gpd
-from experiments.rewards import (
+from ptnrue.rewards import (
     EgalitarianTheilReward,
-    UtilitarianReward,
 )
 import logging
-from experiments.plotting.solution_plotting import plot_rewards_and_graphs
+from ptnrue.plotting.solution_plotting import plot_rewards_and_graphs
 from matplotlib import pyplot as plt
 
 logging.basicConfig()
@@ -17,16 +14,17 @@ logger = logging.getLogger(__file__)
 logger.setLevel(logging.INFO)
 
 if __name__ == "__main__":
-    g = ig.load("./base_data/graph_1.gml")
-    census_data = gpd.read_file("./base_data/census_data_1.geojson")
+    g = ig.load("../base_data/graph_1.gml")
+    census_data = gpd.read_file("../base_data/census_data_1.geojson")
     edge_types = list(np.unique(g.es['type']))
     edge_types.remove('walk')
     budget = 9
     com_threshold = 15
-    reward = EgalitarianTheilReward(census_data, com_threshold)
+    reward = EgalitarianTheilReward(census_data=census_data, com_threshold=15)
     episodes = 200
 
-    q_learner = ExpectedQLearner(g, reward, edge_types, budget, episodes, step_size=1)
+    q_learner = ExpectedQLearner(base_graph=g, reward=reward, edge_types=edge_types,
+                                 budget=budget, episodes=episodes, step_size=1)
     rewards_over_episodes = q_learner.train(return_rewards_over_episodes=True)
     rewards, edges = q_learner.inference()
 

@@ -1,6 +1,6 @@
 from typing import Optional, List
 
-from .abstract_q_learner import AbstractQLearner
+from .abstract_q_learner_baseline import AbstractQLearner
 import numpy as np
 from tqdm import tqdm
 

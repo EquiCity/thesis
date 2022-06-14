@@ -1,15 +1,12 @@
-from experiments.baselines.rl.expected_q_learning import ExpectedQLearner
+from ptnrue.baselines.rl.expected_q_learning_basleline import ExpectedQLearner
 import igraph as ig
 import numpy as np
 import geopandas as gpd
-from experiments.rewards import (
-    EgalitarianTheilReward,
-    UtilitarianReward
+from ptnrue.rewards import (
+    EgalitarianTheilReward
 )
-from experiments.baselines.optimal import optimal_baseline
+from ptnrue.baselines.optimal_baseline import optimal_baseline
 import logging
-from experiments.plotting.solution_plotting import plot_rewards_and_graphs
-from matplotlib import pyplot as plt
 from tqdm import tqdm
 
 logging.basicConfig()
@@ -31,8 +28,8 @@ if __name__ == "__main__":
     successful = 0
 
     logger.info("Finding optimal solutions first")
-    optimal_solutions = optimal_baseline(g=g, edge_types=edge_types, budget=budget,
-                                         reward=reward)
+    optimal_solutions = optimal_baseline(g=g, edge_types=edge_types,
+                                         budget=budget, reward=reward)
     optimal_edges = [set(opt[1]) for opt in optimal_solutions]
 
     logger.info("Proceeding with multi-run Q-Learning")

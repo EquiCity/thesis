@@ -1,12 +1,10 @@
-from experiments.baselines.rl.sarsa_learner import SARSALearner
+from ptnrue.baselines.rl.sarsa_learner_baseline import SARSALearner
 import igraph as ig
 import numpy as np
 import geopandas as gpd
-from experiments.rewards.egalitarian import egalitarian_theil
+from ptnrue.rewards import EgalitarianTheilReward
 import logging
-from experiments.plotting.solution_plotting import plot_rewards_and_graphs
 from matplotlib import pyplot as plt
-from datetime import datetime
 
 logging.basicConfig()
 logger = logging.getLogger(__file__)
@@ -18,10 +16,11 @@ if __name__ == "__main__":
     edge_types = list(np.unique(g.es['type']))
     edge_types.remove('walk')
     budget = 9
-    reward_func = egalitarian_theil
+    reward = EgalitarianTheilReward(census_data=census_data, com_threshold=15)
     episodes = 1000
 
-    q_learner = SARSALearner(g, reward_func, census_data, edge_types, budget, episodes)
+    q_learner = SARSALearner(base_graph=g, reward=reward, edge_types=edge_types,
+                             budget=budget, episodes=episodes)
     rewards_over_episodes = q_learner.train(return_rewards_over_episodes=True)
     rewards, edges = q_learner.inference()
 

@@ -1,8 +1,8 @@
-from experiments.baselines.random import random_baseline
+from ptnrue.baselines.random_baseline import random_baseline
 import igraph as ig
 import numpy as np
 import geopandas as gpd
-from experiments.rewards.egalitarian import egalitarian_theil
+from ptnrue.rewards import EgalitarianTheilReward
 import logging
 
 logging.basicConfig()
@@ -16,7 +16,8 @@ if __name__ == "__main__":
     edge_types.remove('walk')
     logger.info(f"Considered edges: {edge_types}")
     budget = 9
-    reward_func = egalitarian_theil
+    reward = EgalitarianTheilReward(census_data=census_data, com_threshold=15)
 
-    rewards, edges = random_baseline(g, census_data, edge_types, budget, reward_func)
+    rewards, edges = random_baseline(g=g, reward=reward,
+                                     edge_types=edge_types, budget=budget)
     logger.info(f"Removed edges: {edges}")

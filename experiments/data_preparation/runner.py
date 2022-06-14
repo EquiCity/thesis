@@ -1,6 +1,6 @@
 from pathlib import Path
 import geopandas as gpd
-from .graph_generation.problem_graph_generator import ProblemGraphGenerator
+from ptnrue.graph_generation.problem_graph_generator import ProblemGraphGenerator
 
 
 if __name__ == "__main__":

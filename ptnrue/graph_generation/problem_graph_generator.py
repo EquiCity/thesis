@@ -10,11 +10,11 @@ import osmnx as ox
 import numpy as np
 import networkx as nx
 from pathlib import Path
-from experiments.constants.osm_network_types import OSMNetworkTypes
+from ..constants.osm_network_types import OSMNetworkTypes
 from gtfs_graph_generator import GTFSGraphGenerator
 from osm_graph_generation import OSMGraphGenerator
 from utils.list_utils import check_all_lists_of_same_length
-from experiments.constants.travel_speed import MetricTravelSpeed
+from ..constants.travel_speed import MetricTravelSpeed
 import logging
 
 

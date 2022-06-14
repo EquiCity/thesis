@@ -1,8 +1,7 @@
 from typing import List, Tuple
 import random
 import igraph as ig
-import pandas as pd
-from experiments.rewards import BaseReward
+from ..rewards import BaseReward
 
 
 def random_baseline(g: ig.Graph, reward: BaseReward, edge_types: List[str],
@@ -10,6 +9,7 @@ def random_baseline(g: ig.Graph, reward: BaseReward, edge_types: List[str],
     """
 
     Args:
+        reward:
         edge_types:
         g:
         budget:
