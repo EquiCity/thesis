@@ -82,16 +82,18 @@ def _add_edges_to_graph(g: ig.Graph, osm_graph: nx.MultiDiGraph, from_node_type:
     distances = []
 
     orig_nodes = ox.distance.nearest_nodes(osm_graph, edges_from[:, 0], edges_from[:, 1])
-    dest_nodes = ox.distance.nearest_nodes(osm_graph, edges_to[:, 0], edges_to[:, 1])
-    osmnx_routes = ox.distance.shortest_path(osm_graph, orig_nodes, dest_nodes, 'length', cpus=None)
+    # dest_nodes = ox.distance.nearest_nodes(osm_graph, edges_to[:, 0], edges_to[:, 1])
+    # osmnx_routes = ox.distance.shortest_path(osm_graph, orig_nodes, dest_nodes, 'length', cpus=None)
+    #
+    # for route in osmnx_routes:
+    #     edge_lengths = ox.utils_graph.get_route_edge_attributes(osm_graph, route, 'length')
+    #     route_len_m = sum(edge_lengths)
+    #     distances.append(route_len_m)
+    #
+    # distances = numpy.array(distances)
 
-    for route in osmnx_routes:
-        edge_lengths = ox.utils_graph.get_route_edge_attributes(osm_graph, route, 'length')
-        route_len_m = sum(edge_lengths)
-        distances.append(route_len_m)
-
-    distances = numpy.array(distances)
-    # distances = numpy.array([1000] * len(orig_nodes))
+    # For debugging comment above and uncomment below
+    distances = numpy.array([1000] * len(orig_nodes))
 
     E_WALK_attr = {
         'distance': distances,
