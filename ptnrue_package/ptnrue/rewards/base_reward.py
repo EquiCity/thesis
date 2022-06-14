@@ -2,7 +2,7 @@ import abc
 import igraph as ig
 import pandas as pd
 from typing import List, Dict
-from ptnrue_package.ptnrue.constants.travel_metric import TravelMetric
+from ..constants.travel_metric import TravelMetric
 from ._utils import get_tt_hops_com_dfs
 import logging
 
