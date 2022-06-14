@@ -1,9 +1,9 @@
-from ptnrue.baselines.ga_baseline import ga_baseline
+from ptnrue_package.ptnrue.baselines.ga_baseline import ga_baseline
 import igraph as ig
 import numpy as np
 import geopandas as gpd
-from ptnrue.rewards import EgalitarianTheilReward
-from ptnrue.plotting.solution_plotting import plot_rewards_and_graphs
+from ptnrue_package.ptnrue import EgalitarianTheilReward
+from ptnrue_package.ptnrue.plotting import plot_rewards_and_graphs
 import logging
 from matplotlib import pyplot as plt
 

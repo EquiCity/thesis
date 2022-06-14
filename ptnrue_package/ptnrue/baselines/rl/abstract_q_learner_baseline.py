@@ -5,7 +5,7 @@ import igraph as ig
 from typing import Tuple, List, Optional, Union
 import abc
 
-from ...rewards import BaseReward
+from ptnrue_package.ptnrue.rewards import BaseReward
 
 import numpy as np
 

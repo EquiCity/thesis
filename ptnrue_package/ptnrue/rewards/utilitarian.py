@@ -1,6 +1,6 @@
 import igraph as ig
 from ._utils import series_min_max_norm
-from ..constants.travel_metric import TravelMetric
+from ptnrue_package.ptnrue.constants.travel_metric import TravelMetric
 from .base_reward import BaseReward
 import logging
 

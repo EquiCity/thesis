@@ -1,12 +1,12 @@
-from ptnrue.baselines.rl.expected_q_learning_basleline import ExpectedQLearner
+from ptnrue_package.ptnrue.baselines.rl.expected_q_learning_basleline import ExpectedQLearner
 import igraph as ig
 import numpy as np
 import geopandas as gpd
-from ptnrue.rewards import (
+from ptnrue_package.ptnrue.rewards import (
     EgalitarianTheilReward,
 )
 import logging
-from ptnrue.plotting.solution_plotting import plot_rewards_and_graphs
+from ptnrue_package.ptnrue.plotting.solution_plotting import plot_rewards_and_graphs
 from matplotlib import pyplot as plt
 
 logging.basicConfig()

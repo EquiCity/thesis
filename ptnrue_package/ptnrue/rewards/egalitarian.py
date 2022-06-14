@@ -1,6 +1,5 @@
 import igraph as ig
 import statsmodels.api as sm
-from matplotlib import pyplot as plt
 import numpy as np
 from inequality.theil import TheilD
 from .base_reward import BaseReward

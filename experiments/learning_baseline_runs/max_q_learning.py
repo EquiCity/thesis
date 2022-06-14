@@ -1,11 +1,11 @@
-from ptnrue.baselines.rl.max_q_learner_baseline import MaxQLearner
+from ptnrue_package.ptnrue.baselines.rl.max_q_learner_baseline import MaxQLearner
 import igraph as ig
 import numpy as np
 import geopandas as gpd
-from ptnrue.rewards import (
+from ptnrue_package.ptnrue.rewards import (
     EgalitarianTheilReward
 )
-from ptnrue.plotting.solution_plotting import plot_rewards_and_graphs
+from ptnrue_package.ptnrue.plotting.solution_plotting import plot_rewards_and_graphs
 import logging
 from matplotlib import pyplot as plt
 
