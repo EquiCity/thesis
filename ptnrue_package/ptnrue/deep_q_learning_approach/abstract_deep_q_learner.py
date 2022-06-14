@@ -5,8 +5,8 @@ import abc
 import numpy as np
 
 import torch
-from ptnrue.baselines.rl.abstract_q_learner_baseline import AbstractQLearner
-from ..rewards import BaseReward
+from ptnrue_package.ptnrue.baselines.rl.abstract_q_learner_baseline import AbstractQLearner
+from ptnrue_package.ptnrue.rewards import BaseReward
 import logging
 
 logging.basicConfig()

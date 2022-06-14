@@ -1,14 +1,14 @@
 import datetime
 
-from ptnrue.deep_q_learning_approach.dense_d_max_ql import DeepMaxQLearner
+from ptnrue_package.ptnrue.deep_q_learning_approach.dense_d_max_ql import DeepMaxQLearner
 import igraph as ig
 import numpy as np
 import geopandas as gpd
-from ptnrue.rewards import (
+from ptnrue_package.ptnrue.rewards import (
     EgalitarianTheilReward,
 )
 import logging
-from ptnrue.plotting.solution_plotting import plot_rewards_and_graphs
+from ptnrue_package.ptnrue.plotting.solution_plotting import plot_rewards_and_graphs
 from matplotlib import pyplot as plt
 
 logging.basicConfig()

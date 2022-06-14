@@ -1,11 +1,11 @@
-from ptnrue.baselines.rl.expected_q_learning_basleline import ExpectedQLearner
+from ptnrue_package.ptnrue.baselines.rl.expected_q_learning_basleline import ExpectedQLearner
 import igraph as ig
 import numpy as np
 import geopandas as gpd
-from ptnrue.rewards import (
+from ptnrue_package.ptnrue.rewards import (
     EgalitarianTheilReward
 )
-from ptnrue.baselines.optimal_baseline import optimal_baseline
+from ptnrue_package.ptnrue.baselines.optimal_baseline import optimal_baseline
 import logging
 from tqdm import tqdm
 

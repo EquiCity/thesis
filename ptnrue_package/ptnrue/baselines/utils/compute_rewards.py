@@ -1,6 +1,6 @@
 import igraph as ig
 from typing import List
-from ...rewards.base_reward import BaseReward
+from ptnrue_package.ptnrue.rewards.base_reward import BaseReward
 import logging
 
 logging.basicConfig()
