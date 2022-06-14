@@ -1,8 +1,8 @@
-from ptnrue_package.ptnrue.baselines import random_baseline
+from ptnrue.baselines import random_baseline
 import igraph as ig
 import numpy as np
 import geopandas as gpd
-from ptnrue_package.ptnrue import EgalitarianTheilReward
+from ptnrue import EgalitarianTheilReward
 import logging
 
 logging.basicConfig()

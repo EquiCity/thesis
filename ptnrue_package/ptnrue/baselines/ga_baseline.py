@@ -3,7 +3,7 @@ import igraph as ig
 import numpy as np
 import pygad
 import logging
-from ptnrue_package.ptnrue.rewards import BaseReward
+from ..rewards import BaseReward
 from .utils.compute_rewards import compute_rewards_over_removals
 
 
