@@ -1,0 +1,13 @@
+pandas
+geopandas
+numpy
+torch
+matplotlib
+igraph
+networkx
+osmnx
+pygad
+tqdm
+pyarrow
+urbanaccess
+ua2nx
