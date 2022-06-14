@@ -1,14 +1,14 @@
 import datetime
 
-from experiments.deep_q_learning_approach.dense_d_max_ql import DeepMaxQLearner
+from ptnrue.deep_q_learning_approach.dense_d_max_ql import DeepMaxQLearner
 import igraph as ig
 import numpy as np
 import geopandas as gpd
-from experiments.rewards import (
+from ptnrue.rewards import (
     EgalitarianTheilReward,
 )
 import logging
-from experiments.plotting.solution_plotting import plot_rewards_and_graphs
+from ptnrue.plotting.solution_plotting import plot_rewards_and_graphs
 from matplotlib import pyplot as plt
 
 logging.basicConfig()
@@ -23,7 +23,7 @@ if __name__ == "__main__":
     budget = 9
     com_threshold = 15
     reward = EgalitarianTheilReward(census_data, com_threshold)
-    episodes = 1000
+    episodes = 1
 
     q_learner = DeepMaxQLearner(g, reward, edge_types, budget, episodes)
     rewards_over_episodes = q_learner.train()

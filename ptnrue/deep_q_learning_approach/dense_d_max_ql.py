@@ -70,7 +70,7 @@ class DeepMaxQLearner(AbstractDeepQLearner):
             if epsilon > 0.1:
                 epsilon -= 0.01
 
+        self.trained = True
+
         if return_rewards_over_episodes:
             return rewards_over_episodes
-
-        self.trained = True

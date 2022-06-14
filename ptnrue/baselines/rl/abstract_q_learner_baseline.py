@@ -5,10 +5,9 @@ import igraph as ig
 from typing import Tuple, List, Optional, Union
 import abc
 
-from experiments.rewards import BaseReward
+from ...rewards import BaseReward
 
 import numpy as np
-import pandas as pd
 
 import itertools as it
 import logging

@@ -1,9 +1,10 @@
 from typing import List, Tuple
 import igraph as ig
-import pandas as pd
+import numpy as np
 import pygad
 import logging
-from experiments.rewards import BaseReward
+from ..rewards import BaseReward
+from .utils.compute_rewards import compute_rewards_over_removals
 
 
 logger = logging.getLogger(__name__)
@@ -33,9 +34,14 @@ def ga_baseline(g: ig.Graph, reward: BaseReward, edge_types: List[str],
     removable_edges = g.es.select(type_in=edge_types, active_eq=1).indices
 
     def individual_fitness(solution: List[int], solution_idx: int):
-        edges_to_delete = [(e.source_vertex.index, e.target_vertex.index) for e in g.es[list(solution)]]
+        edges_to_remove = [e.index for e in g.es[list(solution)]]
+
+        # Encode that the same edge cannot be removed multiple times
+        if np.unique(np.array(edges_to_remove)).size != np.array(edges_to_remove).size:
+            return -100
+
         g_prime = g.copy()
-        g_prime.delete_edges(edges_to_delete)
+        g_prime.delete_edges(edges_to_remove)
         r = reward.evaluate(g_prime)
         return r
 
@@ -79,7 +85,9 @@ def ga_baseline(g: ig.Graph, reward: BaseReward, edge_types: List[str],
 
     solution, solution_fitness, solution_idx = ga_instance.best_solution()
 
+    rewards = compute_rewards_over_removals(g, budget, reward, list(solution))
+
     logger.info("Parameters of the best solution : {solution}".format(solution=solution))
     logger.info("Fitness value of the best solution = {solution_fitness}".format(solution_fitness=solution_fitness))
 
-    return solution_fitness, solution
+    return rewards, solution

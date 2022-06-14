@@ -1,4 +1,4 @@
-from .abstract_q_learner import AbstractQLearner
+from .abstract_q_learner_baseline import AbstractQLearner
 import numpy as np
 from typing import List
 from tqdm import tqdm

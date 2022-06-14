@@ -2,9 +2,10 @@ import itertools as it
 from typing import Tuple, List
 import igraph as ig
 import numpy as np
-from experiments.rewards import BaseReward
+from ..rewards import BaseReward
 from tqdm import tqdm
 import logging
+from .utils.compute_rewards import compute_rewards_over_removals
 
 logging.basicConfig()
 logger = logging.getLogger(__file__)
@@ -35,12 +36,7 @@ def optimal_baseline(g: ig.Graph, reward: BaseReward, edge_types: List[str],
     for cand_i in max_reward_candidates_idxs:
         logger.info(f"For state {possible_combinations[cand_i]} obtained rewards {rewards[cand_i]}")
         es_idx_list = possible_combinations[cand_i]
-        rewards_per_removal = []
-        for i in range(0, budget):
-            g_prime = g.copy()
-            g_prime.es[es_idx_list[0:i+1]]['active'] = 0
-            rewards_per_removal.append(reward.evaluate(g_prime))
-
+        rewards_per_removal = compute_rewards_over_removals(g, budget, reward, es_idx_list)
         optimal_solutions_and_rewards_per_removal.append((rewards_per_removal, es_idx_list))
 
     return optimal_solutions_and_rewards_per_removal
