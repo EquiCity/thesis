@@ -13,10 +13,10 @@ module load 2021
 module load Anaconda3/2021.05
 
 # Your job starts in the directory where you call sbatch
-cd $HOME
+cd $HOME/...
 
 # Activate your environment
 source activate thesis
 
 # Run your code
-srun python -u problem_graph_generator.py
+srun python -u runner.py
