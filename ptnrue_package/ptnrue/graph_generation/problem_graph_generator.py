@@ -13,7 +13,6 @@ from ..constants.travel_speed import MetricTravelSpeed
 from .utils.graph_expansion import add_points_to_graph, add_edges_to_graph
 import logging
 
-
 logging.basicConfig()
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.DEBUG)
@@ -87,7 +86,8 @@ class ProblemGraphGenerator:
             raise ValueError("Names of residential centroids in the GeoDataFrames have to be unique")
 
         # Names have to be integers!
-        add_points_to_graph(g=g, xs=rc_xs, ys=rc_ys, v_type='res_node', color='red', ref_name=rc_names)
+        add_points_to_graph(g=g, names=rc_names, xs=rc_xs, ys=rc_ys,
+                            v_type='res_node', color='RED', ref_name=rc_names)
 
         # Add all POIs as vertices
         logger.debug("Adding POI vertices to graph")
@@ -98,30 +98,39 @@ class ProblemGraphGenerator:
         if not len(set(poi_names)) == len(poi_names):
             raise ValueError("Names of POIs in the GeoDataFrames have to be unique")
 
-        add_points_to_graph(g=g, xs=poi_xs, ys=poi_ys, v_type='poi_node', color='green', ref_name=poi_names)
+        add_points_to_graph(g=g, names=poi_names, xs=poi_xs, ys=poi_ys,
+                            v_type='poi_node', color='GREEN', ref_name=poi_names)
 
         # Add edges from all res centroids to all POIs
         logger.debug(f"Adding edges res_node->poi_node")
         add_edges_to_graph(g=g, osm_graph=osm_graph, from_node_type='res_node', to_node_type='poi_node',
-                            e_type='walk', speed=MetricTravelSpeed.WALKING.value, color='grey')
+                           e_type='walk', speed=MetricTravelSpeed.WALKING.value, color='GRAY')
 
         # Add edges from all res centroids to all PT stations
         logger.debug(f"Adding edges res_node->pt_node")
         add_edges_to_graph(g=g, osm_graph=osm_graph, from_node_type='res_node', to_node_type='pt_node',
-                            e_type='walk', speed=MetricTravelSpeed.WALKING.value, color='grey')
+                           e_type='walk', speed=MetricTravelSpeed.WALKING.value, color='GRAY')
 
         # Add edges from all PT stations to all POIs
         logger.debug(f"Adding edges pt_node->poi_node")
         add_edges_to_graph(g=g, osm_graph=osm_graph, from_node_type='pt_node', to_node_type='poi_node',
-                            e_type='walk', speed=MetricTravelSpeed.WALKING.value, color='grey')
+                           e_type='walk', speed=MetricTravelSpeed.WALKING.value, color='GRAY')
 
         # Set all edges to be active
         g.es['active'] = 1
-        # Is needed to not generate an exception
-        del g.vs['id']
 
-        logger.debug("Writing final problem graph")
+        # Clean up node and edge attributes to keep only what is needed
+        for vs_attr in g.vs.attributes():
+            if vs_attr not in ['name', 'uniqueagencyid', 'stopid', 'x', 'y', 'color', 'type']:
+                del g.vs[vs_attr]
+
+        for es_attr in g.es.attributes():
+            if es_attr not in ['name', 'routetype', 'uniqueagencyid', 'uniquerouteid',
+                               'tt', 'weight', 'color', 'type', 'active']:
+                del g.es[es_attr]
+
         final_out_file = self.out_dir_path.joinpath(f"{self.city}_problem_graph_{datetime.now().date()}.gml")
+        logger.debug(f"Writing final problem graph to {final_out_file}")
         ig.write(g, final_out_file)
 
         return final_out_file

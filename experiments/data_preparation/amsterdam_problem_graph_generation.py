@@ -14,7 +14,6 @@ if __name__ == "__main__":
     census_gdf = gpd.read_parquet(AMS_DATA.joinpath('kwb_21_ams_neighborhoods.parquet'))
     census_gdf = gpd.GeoDataFrame(census_gdf[['BU_NAAM', 'res_centroid']], geometry='res_centroid')
     census_gdf['name'] = census_gdf['BU_NAAM']
-    del census_gdf['BU_NAAM']
 
     city = "Amsterdam"
     gtfs_zip_file_path = AMS_DATA.joinpath('gtfs.zip')

@@ -7,8 +7,8 @@ import itertools as it
 from .list_utils import check_all_lists_of_same_length
 
 
-def add_points_to_graph(g: ig.Graph, xs: List[float], ys: List[float],
-                         v_type: str, color: str = None, **kwargs) -> None:
+def add_points_to_graph(g: ig.Graph, names: List[str], xs: List[float], ys: List[float],
+                        v_type: str, color: str = None, **kwargs) -> None:
     """
 
     Args:
@@ -28,12 +28,9 @@ def add_points_to_graph(g: ig.Graph, xs: List[float], ys: List[float],
         lists.append(value)
     check_all_lists_of_same_length(*lists)
 
-    # Really don't want to set name attribute
-    if 'name' in kwargs:
-        del kwargs['name']
-
     # Add points as vertices
     v_attrs = {
+        'name': names,
         'x': xs,
         'y': ys,
         'type': v_type,
@@ -45,7 +42,7 @@ def add_points_to_graph(g: ig.Graph, xs: List[float], ys: List[float],
 
 
 def add_edges_to_graph(g: ig.Graph, osm_graph: nx.MultiDiGraph, from_node_type: str, to_node_type: str,
-                        e_type: str, speed: float, color: str = None) -> None:
+                       e_type: str, speed: float, color: str = None) -> None:
     """
 
     Args:
@@ -54,7 +51,7 @@ def add_edges_to_graph(g: ig.Graph, osm_graph: nx.MultiDiGraph, from_node_type: 
         to_nodes:
         distances:
         e_type:
-        speed:
+        speed: transit speed in km/h
         color:
 
     Returns:
@@ -69,24 +66,26 @@ def add_edges_to_graph(g: ig.Graph, osm_graph: nx.MultiDiGraph, from_node_type: 
 
     distances = []
 
-    orig_nodes = ox.distance.nearest_nodes(osm_graph, edges_from[:, 0], edges_from[:, 1])
-    dest_nodes = ox.distance.nearest_nodes(osm_graph, edges_to[:, 0], edges_to[:, 1])
-    osmnx_routes = ox.distance.shortest_path(osm_graph, orig_nodes, dest_nodes, 'length', cpus=None)
-
-    for route in osmnx_routes:
-        edge_lengths = ox.utils_graph.get_route_edge_attributes(osm_graph, route, 'length')
-        route_len_m = sum(edge_lengths)
-        distances.append(route_len_m)
+    # orig_nodes = ox.distance.nearest_nodes(osm_graph, edges_from[:, 0], edges_from[:, 1])
+    # dest_nodes = ox.distance.nearest_nodes(osm_graph, edges_to[:, 0], edges_to[:, 1])
+    # osmnx_routes = ox.distance.shortest_path(osm_graph, orig_nodes, dest_nodes, 'length', cpus=None)
+    #
+    # for route in osmnx_routes:
+    #     edge_lengths = ox.utils_graph.get_route_edge_attributes(osm_graph, route, 'length')
+    #     route_len_m = sum(edge_lengths)
+    #     distances.append(route_len_m)
 
     # For debugging comment above and uncomment below
-    # distances = [1000] * len(orig_nodes)
+    distances = [1000] * len(edges)
+
     distances = np.array(distances)
 
-    E_WALK_attr = {
+    edge_attrs = {
         'distance': distances,
         'type': e_type,
-        'tt': (distances / speed) * 60,
-        'weight': (distances / speed) * 60,
+        'traveltime': (distances / speed * 1000) * 60,
+        'weight': (distances / speed * 1000) * 60,
         'color': color,
     }
-    g.add_edges(edges, E_WALK_attr)
+
+    g.add_edges(edges, edge_attrs)
