@@ -17,9 +17,9 @@ from .exceptions import GraphGenerationError
 from .utils.file_management_utils import (
     remove_files_in_dir,
 )
+from ..constants.gtfs_network_types import GTFSNetworkTypes
 import igraph as ig
 import logging
-
 
 logging.basicConfig()
 logger = logging.getLogger(__name__)
@@ -44,7 +44,7 @@ class GTFSGraphGenerator:
         self.contract_vertices = contract_vertices
 
     def _filter_gtfs(self):
-        out_path = self.gtfs_file_path.parent\
+        out_path = self.gtfs_file_path.parent \
             .joinpath(f"{self.gtfs_file_path.with_suffix('').name}-filtered-by-{'_'.join(self.agencies)}.zip")
 
         if not os.path.exists(out_path):
@@ -109,6 +109,28 @@ class GTFSGraphGenerator:
                 # Generate transit graph WITHOUT headways
                 G_transit = ua_transit_network_to_nx(transit_net)
                 G_transit = append_length_attribute(G_transit)
+
+                # Add edge attributes
+                edge_attrs = {
+                    (node1, node2, key): {
+                        'type': GTFSNetworkTypes(int(data['route_type'])).name.lower(),
+                        'tt': data['travel_time'],
+                        'name': data['unique_route_id'] + '_' + str(data['sequence']),
+                        'color': 'BLACK',
+                    } for node1, node2, key, data in G_transit.edges(keys=True, data=True)
+                }
+
+                nx.set_edge_attributes(G_transit, edge_attrs)
+
+                # Add node attributes
+                node_attrs = {
+                    node: {
+                        'name': data['stop_name'],
+                        'color': 'BLUE',
+                    } for node, data in G_transit.nodes(data=True)
+                }
+
+                nx.set_node_attributes(G_transit, node_attrs)
 
                 # Contract vertices if requested
                 if self.contract_vertices:
