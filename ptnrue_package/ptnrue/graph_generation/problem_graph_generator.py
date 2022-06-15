@@ -12,6 +12,7 @@ from .osm_graph_generation import OSMGraphGenerator
 from ..constants.travel_speed import MetricTravelSpeed
 from .utils.graph_expansion import add_points_to_graph, add_edges_to_graph
 import logging
+from datetime import datetime
 
 logging.basicConfig()
 logger = logging.getLogger(__name__)
@@ -54,7 +55,8 @@ class ProblemGraphGenerator:
         """
 
         # Generate GTFS Graph
-        logger.debug("Starting GTFS graph generation")
+        start_time = datetime.now()
+        logger.debug(f"Starting GTFS graph generation on {start_time}")
         gtfs_graph_file_path = self.gtfs_graph_generator.generate_and_store_graph()
         logger.debug(f"Created GTFS graph and stored in {gtfs_graph_file_path}")
 
@@ -130,7 +132,8 @@ class ProblemGraphGenerator:
                 del g.es[es_attr]
 
         final_out_file = self.out_dir_path.joinpath(f"{self.city}_problem_graph_{datetime.now().date()}.gml")
-        logger.debug(f"Writing final problem graph to {final_out_file}")
+        logger.debug(f"Writing final problem graph to {final_out_file}.\n"
+                     f"This operation took {datetime.now()-start_time}")
         ig.write(g, final_out_file)
 
         return final_out_file
