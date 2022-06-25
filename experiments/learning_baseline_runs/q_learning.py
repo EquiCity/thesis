@@ -21,7 +21,7 @@ if __name__ == "__main__":
     budget = 9
     com_threshold = 15
     reward = EgalitarianTheilReward(census_data=census_data, com_threshold=15)
-    episodes = 150
+    episodes = 250
 
     q_learner = ExpectedQLearner(base_graph=g, reward=reward, edge_types=edge_types,
                                  budget=budget, episodes=episodes, step_size=1)

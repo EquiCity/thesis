@@ -21,7 +21,7 @@ if __name__ == "__main__":
     budget = 9
     com_threshold = 15
     reward = EgalitarianTheilReward(census_data, com_threshold)
-    episodes = 100
+    episodes = 300
     runs = 10
     random_seeds = np.arange(0,runs)+2048
 
@@ -35,7 +35,7 @@ if __name__ == "__main__":
     logger.info("Proceeding with multi-run Q-Learning")
     for r in tqdm(range(runs)):
         np.random.seed(random_seeds[r])
-        q_learner = ExpectedQLearner(g, reward, edge_types, budget, episodes, step_size=0.1)
+        q_learner = ExpectedQLearner(g, reward, edge_types, budget, episodes, step_size=1)
         rewards_over_episodes = q_learner.train(return_rewards_over_episodes=True, verbose=False)
         rewards, edges = q_learner.inference()
         edge_diffs = [set(edges).symmetric_difference(opt) for opt in optimal_edges]
