@@ -1,8 +1,0 @@
-pandas
-geopandas
-numpy
-torch
-matplotlib
-igraph
-pygad
-tqdm

@@ -43,11 +43,6 @@ GTFS_DATA_DIR = Path(os.getenv('GTFS_DATA_DIR', './data/day_gtfs_files'))
 TRANSIT_GRAPH_DATA_DIR = Path(os.getenv('TRANSIT_GRAPH_DATA_DIR', './data/transit_graphs'))
 
 
-@cache
-def _get_osm_nodes_and_edges(bbox: Tuple):
-    return ua.osm.load.ua_network_from_bbox(bbox=bbox)
-
-
 def _remove_files_in_dir(curr_run_dir: Union[Path, str]):
     for f in os.listdir(curr_run_dir):
         os.remove(curr_run_dir.joinpath(f))
