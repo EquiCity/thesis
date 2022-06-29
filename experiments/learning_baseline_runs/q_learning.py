@@ -18,7 +18,7 @@ if __name__ == "__main__":
     census_data = gpd.read_file("../base_data/census_data_1.geojson")
     edge_types = list(np.unique(g.es['type']))
     edge_types.remove('walk')
-    budget = 9
+    budget = 3
     com_threshold = 15
     reward = EgalitarianTheilReward(census_data=census_data, com_threshold=15)
     episodes = 250

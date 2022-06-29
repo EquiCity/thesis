@@ -27,7 +27,7 @@ class MaxQLearner(AbstractQLearner):
                 # Q-Learning update
                 self.q_values[ord_state][action] += self.alpha * (
                                                     np.max([reward, self.gamma * np.max(self.q_values[next_ord_state])]) -
-                                                    self.q_values[next_ord_state][action])
+                                                    self.q_values[ord_state][action])
                 ord_state = next_ord_state
             rewards_over_episodes.append(max_reward)
 

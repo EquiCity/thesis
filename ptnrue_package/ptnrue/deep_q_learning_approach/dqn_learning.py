@@ -12,7 +12,7 @@ logger = logging.getLogger('graph_extraction')
 logger.setLevel(logging.INFO)
 
 
-class GraphDeepMaxQLearner(AbstractDeepQLearner):
+class DeepQLearner(AbstractDeepQLearner):
 
     def setup_model(self) -> torch.nn.Sequential:
         # Q-function layer definition
@@ -33,27 +33,27 @@ class GraphDeepMaxQLearner(AbstractDeepQLearner):
         rewards_over_episodes = []
         epsilon = 1.0
 
-        iterator = tqdm(range(self.episodes)) if verbose else range(self.episodes)
+        episode_iterator = tqdm(range(self.episodes)) if verbose else range(self.episodes)
 
-        for i in iterator:
+        for ep in episode_iterator:
             state = self.starting_state
 
-            max_reward = -np.inf
-
             while state[state == 1].size()[0] != self.goal:
-                self.q_values = self.model(state.float())
+                # Choose action with epsilon-greedy strategy
                 action_ = self.choose_action(state, epsilon)
                 next_state, reward = self.step(state, action_)
+
+                # self.replay_buffer.add((state, action_, reward, next_state))
 
                 with torch.no_grad():
                     newQ = self.model(next_state.float())
 
                 maxQ = torch.max(newQ)
 
-                if reward == self.wrong_action_reward:
-                    Y = reward + (self.gamma * maxQ)
-                else:
+                if next_state[next_state == 1].size()[0] == self.goal:
                     Y = reward
+                else:
+                    Y = reward + self.gamma * maxQ
 
                 Y = torch.tensor(Y, dtype=torch.float).detach()
                 X = self.q_values.squeeze()[action_]
@@ -69,6 +69,8 @@ class GraphDeepMaxQLearner(AbstractDeepQLearner):
 
             if epsilon > 0.1:
                 epsilon -= 0.01
+
+        self.trained = True
 
         if return_rewards_over_episodes:
             return rewards_over_episodes

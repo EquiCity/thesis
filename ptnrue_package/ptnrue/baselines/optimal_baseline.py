@@ -14,12 +14,13 @@ logger.setLevel(logging.INFO)
 
 def optimal_baseline(g: ig.Graph, reward: BaseReward, edge_types: List[str],
                      budget: int = 5) -> List[Tuple[List[float], List[int]]]:
-
     assert budget > 0
     assert budget < len(g.es.select(type_in=edge_types))
 
     removable_edges = g.es.select(type_in=edge_types, active_eq=1)
     possible_combinations = [[e.index for e in es] for es in it.combinations(removable_edges, budget)]
+    # possible_combinations = [[72, 73, 74, 75, 76, 78, 81, 82, 79]]
+    # possible_combinations = [[72, 73, 74, 75, 76, 78, 81, 82, 79, 77]]
     logger.info(f"Possible states: {possible_combinations}")
     rewards = -np.ones(len(possible_combinations)) * np.inf
 
@@ -40,3 +41,22 @@ def optimal_baseline(g: ig.Graph, reward: BaseReward, edge_types: List[str],
         optimal_solutions_and_rewards_per_removal.append((rewards_per_removal, es_idx_list))
 
     return optimal_solutions_and_rewards_per_removal
+
+
+def optimal_baseline_up_to_budget_k(g: ig.Graph, reward: BaseReward,
+                                    edge_types: List[str], budget: int = 5) -> List[Tuple[List[float], List[int]]]:
+    all_opt = []
+    for k in range(1,budget):
+        opt_sol_rew_tuple_list = optimal_baseline(g, reward, edge_types, k)
+        all_opt.extend(opt_sol_rew_tuple_list)
+
+    all_opt = np.array(all_opt, dtype=object)
+    opt_idxs = np.argmax(all_opt[:,0][-1]).tolist()
+    opt_idxs = [opt_idxs] if isinstance(opt_idxs, int) else opt_idxs
+
+    output = []
+
+    for idx in opt_idxs:
+        output.append(tuple(all_opt[idx, :].tolist()))
+
+    return output

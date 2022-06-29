@@ -24,9 +24,12 @@ class AbstractDeepQLearner(AbstractQLearner, abc.ABC):
         self.wrong_action_reward: int = -100
 
         self.actions = np.array([e.index for e in self.base_graph.es.select(type_in=edge_types, active_eq=1)])
-        self.q_values = None
 
         self.model = self.setup_model()
+
+        with torch.no_grad():
+            self.q_values = self.q_values = self.model(self.starting_state.float())
+
         self.loss_fn = loss_fn()
         self.learning_rate = learning_rate
         self.optimizer = optimizer(self.model.parameters(), lr=self.learning_rate)

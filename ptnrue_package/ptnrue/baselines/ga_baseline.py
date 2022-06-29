@@ -41,7 +41,7 @@ def ga_baseline(g: ig.Graph, reward: BaseReward, edge_types: List[str],
             return -100
 
         g_prime = g.copy()
-        g_prime.delete_edges(edges_to_remove)
+        g_prime.es[edges_to_remove]['active'] = False
         r = reward.evaluate(g_prime)
         return r
 
