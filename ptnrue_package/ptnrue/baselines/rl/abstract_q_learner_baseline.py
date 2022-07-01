@@ -19,7 +19,7 @@ logger.setLevel(logging.INFO)
 
 class AbstractQLearner(abc.ABC):
     def __init__(self, base_graph: ig.Graph, reward: BaseReward,
-                 edge_types: List[str], budget: int, episodes: int, step_size: float = 0.1,
+                 edge_types: List[str], budget: int, episodes: int, step_size: float = 1.0,
                  discount_factor: float = 1.0) -> None:
         self.base_graph = base_graph
         self.reward = reward

@@ -1,4 +1,4 @@
-Creator "igraph version 0.9.8 Fri Jul  1 00:03:39 2022"
+Creator "igraph version 0.9.8 Fri Jul  1 00:03:48 2022"
 Version 1
 graph
 [
@@ -120,7 +120,7 @@ graph
     weight 3.39411254969543
     color "gray"
     type "walk"
-    name 0
+    name "None"
     active 1
   ]
   edge
@@ -132,7 +132,7 @@ graph
     weight 33.6856052342837
     color "gray"
     type "walk"
-    name 0
+    name "None"
     active 1
   ]
   edge
@@ -144,7 +144,7 @@ graph
     weight 47.517575695736
     color "gray"
     type "walk"
-    name 0
+    name "None"
     active 1
   ]
   edge
@@ -156,7 +156,7 @@ graph
     weight 33.6856052342837
     color "gray"
     type "walk"
-    name 0
+    name "None"
     active 1
   ]
   edge
@@ -168,7 +168,7 @@ graph
     weight 33.6856052342837
     color "gray"
     type "walk"
-    name 0
+    name "None"
     active 1
   ]
   edge
@@ -180,7 +180,7 @@ graph
     weight 3.39411254969543
     color "gray"
     type "walk"
-    name 0
+    name "None"
     active 1
   ]
   edge
@@ -192,7 +192,7 @@ graph
     weight 33.6856052342837
     color "gray"
     type "walk"
-    name 0
+    name "None"
     active 1
   ]
   edge
@@ -204,7 +204,7 @@ graph
     weight 47.517575695736
     color "gray"
     type "walk"
-    name 0
+    name "None"
     active 1
   ]
   edge
@@ -216,7 +216,7 @@ graph
     weight 47.517575695736
     color "gray"
     type "walk"
-    name 0
+    name "None"
     active 1
   ]
   edge
@@ -228,7 +228,7 @@ graph
     weight 33.6856052342837
     color "gray"
     type "walk"
-    name 0
+    name "None"
     active 1
   ]
   edge
@@ -240,7 +240,7 @@ graph
     weight 3.39411254969543
     color "gray"
     type "walk"
-    name 0
+    name "None"
     active 1
   ]
   edge
@@ -252,7 +252,7 @@ graph
     weight 33.6856052342837
     color "gray"
     type "walk"
-    name 0
+    name "None"
     active 1
   ]
   edge
@@ -264,7 +264,7 @@ graph
     weight 33.6856052342837
     color "gray"
     type "walk"
-    name 0
+    name "None"
     active 1
   ]
   edge
@@ -276,7 +276,7 @@ graph
     weight 47.517575695736
     color "gray"
     type "walk"
-    name 0
+    name "None"
     active 1
   ]
   edge
@@ -288,7 +288,7 @@ graph
     weight 33.6856052342837
     color "gray"
     type "walk"
-    name 0
+    name "None"
     active 1
   ]
   edge
@@ -300,7 +300,7 @@ graph
     weight 3.39411254969543
     color "gray"
     type "walk"
-    name 0
+    name "None"
     active 1
   ]
   edge
@@ -312,7 +312,7 @@ graph
     weight 1.69705627484771
     color "gray"
     type "walk"
-    name 0
+    name "None"
     active 1
   ]
   edge
@@ -324,7 +324,7 @@ graph
     weight 30.0239904076723
     color "gray"
     type "walk"
-    name 0
+    name "None"
     active 1
   ]
   edge
@@ -336,7 +336,7 @@ graph
     weight 42.4264068711929
     color "gray"
     type "walk"
-    name 0
+    name "None"
     active 1
   ]
   edge
@@ -348,7 +348,7 @@ graph
     weight 30.0239904076723
     color "gray"
     type "walk"
-    name 0
+    name "None"
     active 1
   ]
   edge
@@ -360,7 +360,7 @@ graph
     weight 30.0239904076723
     color "gray"
     type "walk"
-    name 0
+    name "None"
     active 1
   ]
   edge
@@ -372,7 +372,7 @@ graph
     weight 1.69705627484771
     color "gray"
     type "walk"
-    name 0
+    name "None"
     active 1
   ]
   edge
@@ -384,7 +384,7 @@ graph
     weight 30.0239904076723
     color "gray"
     type "walk"
-    name 0
+    name "None"
     active 1
   ]
   edge
@@ -396,7 +396,7 @@ graph
     weight 42.4264068711929
     color "gray"
     type "walk"
-    name 0
+    name "None"
     active 1
   ]
   edge
@@ -408,7 +408,7 @@ graph
     weight 42.4264068711929
     color "gray"
     type "walk"
-    name 0
+    name "None"
     active 1
   ]
   edge
@@ -420,7 +420,7 @@ graph
     weight 30.0239904076723
     color "gray"
     type "walk"
-    name 0
+    name "None"
     active 1
   ]
   edge
@@ -432,7 +432,7 @@ graph
     weight 1.69705627484771
     color "gray"
     type "walk"
-    name 0
+    name "None"
     active 1
   ]
   edge
@@ -444,7 +444,7 @@ graph
     weight 30.0239904076723
     color "gray"
     type "walk"
-    name 0
+    name "None"
     active 1
   ]
   edge
@@ -456,7 +456,7 @@ graph
     weight 30.0239904076723
     color "gray"
     type "walk"
-    name 0
+    name "None"
     active 1
   ]
   edge
@@ -468,7 +468,7 @@ graph
     weight 42.4264068711929
     color "gray"
     type "walk"
-    name 0
+    name "None"
     active 1
   ]
   edge
@@ -480,7 +480,7 @@ graph
     weight 30.0239904076723
     color "gray"
     type "walk"
-    name 0
+    name "None"
     active 1
   ]
   edge
@@ -492,7 +492,7 @@ graph
     weight 1.69705627484771
     color "gray"
     type "walk"
-    name 0
+    name "None"
     active 1
   ]
   edge
@@ -504,7 +504,7 @@ graph
     weight 5.09116882454314
     color "gray"
     type "walk"
-    name 0
+    name "None"
     active 1
   ]
   edge
@@ -516,7 +516,7 @@ graph
     weight 32.5993864972947
     color "gray"
     type "walk"
-    name 0
+    name "None"
     active 1
   ]
   edge
@@ -528,7 +528,7 @@ graph
     weight 45.8205194208883
     color "gray"
     type "walk"
-    name 0
+    name "None"
     active 1
   ]
   edge
@@ -540,7 +540,7 @@ graph
     weight 32.5993864972947
     color "gray"
     type "walk"
-    name 0
+    name "None"
     active 1
   ]
   edge
@@ -552,7 +552,7 @@ graph
     weight 32.5993864972947
     color "gray"
     type "walk"
-    name 0
+    name "None"
     active 1
   ]
   edge
@@ -564,7 +564,7 @@ graph
     weight 5.09116882454314
     color "gray"
     type "walk"
-    name 0
+    name "None"
     active 1
   ]
   edge
@@ -576,7 +576,7 @@ graph
     weight 32.5993864972947
     color "gray"
     type "walk"
-    name 0
+    name "None"
     active 1
   ]
   edge
@@ -588,7 +588,7 @@ graph
     weight 45.8205194208883
     color "gray"
     type "walk"
-    name 0
+    name "None"
     active 1
   ]
   edge
@@ -600,7 +600,7 @@ graph
     weight 45.8205194208883
     color "gray"
     type "walk"
-    name 0
+    name "None"
     active 1
   ]
   edge
@@ -612,7 +612,7 @@ graph
     weight 32.5993864972947
     color "gray"
     type "walk"
-    name 0
+    name "None"
     active 1
   ]
   edge
@@ -624,7 +624,7 @@ graph
     weight 5.09116882454314
     color "gray"
     type "walk"
-    name 0
+    name "None"
     active 1
   ]
   edge
@@ -636,7 +636,7 @@ graph
     weight 32.5993864972947
     color "gray"
     type "walk"
-    name 0
+    name "None"
     active 1
   ]
   edge
@@ -648,7 +648,7 @@ graph
     weight 32.5993864972947
     color "gray"
     type "walk"
-    name 0
+    name "None"
     active 1
   ]
   edge
@@ -660,7 +660,7 @@ graph
     weight 45.8205194208883
     color "gray"
     type "walk"
-    name 0
+    name "None"
     active 1
   ]
   edge
@@ -672,7 +672,7 @@ graph
     weight 32.5993864972947
     color "gray"
     type "walk"
-    name 0
+    name "None"
     active 1
   ]
   edge
@@ -684,7 +684,7 @@ graph
     weight 5.09116882454314
     color "gray"
     type "walk"
-    name 0
+    name "None"
     active 1
   ]
   edge
@@ -694,9 +694,9 @@ graph
     distance 2.6
     tt 0.156
     weight 0.156
-    color "orange"
+    color "blue"
     type "train"
-    name 0
+    name "Train_line_0"
     active 1
   ]
   edge
@@ -706,9 +706,9 @@ graph
     distance 2.6
     tt 0.156
     weight 0.156
-    color "orange"
+    color "green"
     type "train"
-    name 0
+    name "Train_line_1"
     active 1
   ]
   edge
@@ -718,9 +718,9 @@ graph
     distance 2.6
     tt 0.156
     weight 0.156
-    color "orange"
+    color "purple"
     type "train"
-    name 0
+    name "Train_line_2"
     active 1
   ]
   edge
@@ -732,7 +732,7 @@ graph
     weight 0.156
     color "orange"
     type "train"
-    name 0
+    name "Train_line_3"
     active 1
   ]
 ]
