@@ -14,13 +14,23 @@ logger.setLevel(logging.INFO)
 
 def optimal_baseline(g: ig.Graph, reward: BaseReward, edge_types: List[str],
                      budget: int = 5) -> List[Tuple[List[float], List[int]]]:
+    """
+
+    Args:
+        g:
+        reward:
+        edge_types:
+        budget:
+
+    Returns:
+
+    """
     assert budget > 0
     assert budget < len(g.es.select(type_in=edge_types))
 
     removable_edges = g.es.select(type_in=edge_types, active_eq=1)
     possible_combinations = [[e.index for e in es] for es in it.combinations(removable_edges, budget)]
-    # possible_combinations = [[72, 73, 74, 75, 76, 78, 81, 82, 79]]
-    # possible_combinations = [[72, 73, 74, 75, 76, 78, 81, 82, 79, 77]]
+
     logger.info(f"Possible states: {possible_combinations}")
     rewards = -np.ones(len(possible_combinations)) * np.inf
 
@@ -43,10 +53,25 @@ def optimal_baseline(g: ig.Graph, reward: BaseReward, edge_types: List[str],
     return optimal_solutions_and_rewards_per_removal
 
 
-def optimal_baseline_up_to_budget_k(g: ig.Graph, reward: BaseReward,
-                                    edge_types: List[str], budget: int = 5) -> List[Tuple[List[float], List[int]]]:
+def optimal_max_baseline(g: ig.Graph, reward: BaseReward,
+                         edge_types: List[str], budget: int = 5) -> List[Tuple[List[float], List[int]]]:
+    """
+    Optimal baseline considering all solutions in 0<k<=budget, i.e. S = {nC1, nC2, ..., nCbudget}
+    Args:
+        g:
+        reward:
+        edge_types:
+        budget:
+
+    Returns:
+        List of optimal configuration reaching maximum rewards over all solutions in S as a
+        list of rewards over each removal in that solution and the edges removed.
+    """
+    assert budget > 0
+    assert budget < len(g.es.select(type_in=edge_types))
+
     all_opt = []
-    for k in range(1,budget):
+    for k in range(1, budget):
         opt_sol_rew_tuple_list = optimal_baseline(g, reward, edge_types, k)
         all_opt.extend(opt_sol_rew_tuple_list)
 

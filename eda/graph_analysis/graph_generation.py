@@ -30,7 +30,7 @@ import logging
 # Logger and output config
 settings.log_consolse = False
 logging.basicConfig()
-logger = logging.getLogger('graph_extraction')
+logger = logging.getLogger(__name__)
 logger.setLevel(logging.INFO)
 
 # Settings

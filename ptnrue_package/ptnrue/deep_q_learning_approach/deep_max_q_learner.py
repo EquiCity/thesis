@@ -8,7 +8,7 @@ from tqdm import tqdm
 
 
 logging.basicConfig()
-logger = logging.getLogger('graph_extraction')
+logger = logging.getLogger(__name__)
 logger.setLevel(logging.INFO)
 
 

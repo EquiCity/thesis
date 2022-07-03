@@ -1,4 +1,4 @@
-from .optimal_baseline import optimal_baseline, optimal_baseline_up_to_budget_k
+from .optimal_baseline import optimal_baseline, optimal_max_baseline
 from .random_baseline import random_baseline
 from .greedy_baseline import greedy_baseline
 from .ga_baseline import ga_baseline

@@ -11,7 +11,7 @@ from typing import Tuple, List
 
 from ptnrue.plotting.solution_plotting import plot_rewards_and_graphs
 
-from ptnrue.baselines.optimal_baseline import optimal_baseline, optimal_baseline_up_to_budget_k
+from ptnrue.baselines.optimal_baseline import optimal_baseline, optimal_max_baseline
 from matplotlib import pyplot as plt
 
 
@@ -59,7 +59,7 @@ if __name__ == "__main__":
         datasets[dataset]['configuration'] = {}
 
         for reward_func in datasets[dataset]['rewards']:
-            datasets[dataset]['configuration'][reward_func] = optimal_baseline_up_to_budget_k(
+            datasets[dataset]['configuration'][reward_func] = optimal_max_baseline(
                 g=datasets[dataset]['graph'],
                 reward=datasets[dataset]['rewards'][reward_func],
                 edge_types=datasets[dataset]['edge_types'],

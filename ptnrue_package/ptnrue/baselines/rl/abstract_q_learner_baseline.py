@@ -4,8 +4,10 @@ import pickle
 import igraph as ig
 from typing import Tuple, List, Optional, Union
 import abc
+import math
 
-from ptnrue.rewards import BaseReward
+from ...rewards import BaseReward
+from ...q_learning_utils.epsilon_schedule import EpsilonSchedule
 
 import numpy as np
 
@@ -20,6 +22,7 @@ logger.setLevel(logging.INFO)
 class AbstractQLearner(abc.ABC):
     def __init__(self, base_graph: ig.Graph, reward: BaseReward,
                  edge_types: List[str], budget: int, episodes: int, step_size: float = 1.0,
+                 eps_start: float = 1.0, eps_end: float = 0.01, eps_decay: float = 200, static_eps_steps: int = 0,
                  discount_factor: float = 1.0) -> None:
         self.base_graph = base_graph
         self.reward = reward
@@ -43,10 +46,19 @@ class AbstractQLearner(abc.ABC):
             for k in range(self.goal + 1) for e in it.combinations(self.actions, k)
         }
 
+        self.eps_schedule = EpsilonSchedule(eps_start=eps_start, eps_end=eps_end,
+                                            eps_decay=eps_decay, static_eps_steps=static_eps_steps)
+
+        self.steps_done = 0
+
         self.state_visits = None
         self.reset_state_visits()
 
         self.trained = False
+
+    def _increment_step(self):
+        self.steps_done += 1
+        self.eps_schedule.make_step()
 
     @staticmethod
     def get_state_key(removed_edges: Tuple) -> Tuple:
@@ -72,6 +84,7 @@ class AbstractQLearner(abc.ABC):
             reward = self.wrong_action_reward
             next_state = self.starting_state
 
+        self._increment_step()
         return next_state, reward
 
     # choose an action based on epsilon greedy algorithm

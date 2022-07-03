@@ -1,12 +1,9 @@
-import pickle
-
 from ptnrue.baselines.rl.expected_q_learning_basleline import ExpectedQLearner
 import igraph as ig
 import numpy as np
 import geopandas as gpd
 from ptnrue.rewards import (
     EgalitarianTheilReward,
-    CustomReward,
 )
 from ptnrue.plotting.policy_plotting import PolicyPlotter
 import logging
@@ -21,14 +18,12 @@ if __name__ == "__main__":
     dataset = 5
     g = ig.load(f"../base_data/graph_{dataset}.gml")
     census_data = gpd.read_file(f"../base_data/census_data_{dataset}.geojson")
-    reward_dict = pickle.load(open(f"../base_data/reward_dict_{dataset}.pkl",'rb'))
     edge_types = list(np.unique(g.es['type']))
     edge_types.remove('walk')
     budget = 3
     com_threshold = 15
-    # reward = EgalitarianTheilReward(census_data=census_data, com_threshold=15)
-    reward = CustomReward(reward_dict=reward_dict, census_data=census_data, com_threshold=15)
-    episodes = 250
+    reward = EgalitarianTheilReward(census_data=census_data, com_threshold=15)
+    episodes = 10
 
     q_learner = ExpectedQLearner(base_graph=g, reward=reward, edge_types=edge_types,
                                  budget=budget, episodes=episodes, step_size=1.0)
