@@ -78,10 +78,10 @@ class AbstractDeepQLearner(AbstractQLearner, abc.ABC):
 
         # TODO convert this to entry parameter
         self.policy_net = DQN(len(self.actions)).to(device)
-        # self.target_net = DQN(len(self.actions)).to(device)
-        # self.target_net.load_state_dict(self.policy_net.state_dict())
-        # self.target_net.eval()
-        self.target_net = DummyTargetNet().evaluate()
+        self.target_net = DQN(len(self.actions)).to(device)
+        self.target_net.load_state_dict(self.policy_net.state_dict())
+        self.target_net.eval()
+        # self.target_net = DummyTargetNet().evaluate()
 
         self.batch_size = batch_size
         self.target_update = target_network_update_step
@@ -90,10 +90,10 @@ class AbstractDeepQLearner(AbstractQLearner, abc.ABC):
         self.eps_end = eps_end
         self.eps_decay = eps_decay
 
-        self.eps = EpsilonSchedule(eps_start=eps_start, eps_end=eps_end, eps_decay=eps_decay,
-                                   static_eps_steps=static_eps_steps)
+        self.eps_schedule = EpsilonSchedule(eps_start=eps_start, eps_end=eps_end,
+                                            eps_decay=eps_decay, static_eps_steps=static_eps_steps)
 
-        self.network_loss = []
+        self.policy_net_loss = []
 
         # TODO convert this to entry parameter (also learning rate)
         # self.optimizer = optim.SGD(self.policy_net.parameters(), lr=1e-2, momentum=0.0)
@@ -208,7 +208,7 @@ class AbstractDeepQLearner(AbstractQLearner, abc.ABC):
 
         # Compute Huber loss
         loss = self.criterion(state_action_values, expected_state_action_values.unsqueeze(1))
-        self.network_loss.append(loss.item())
+        self.policy_net_loss.append(loss.item())
         # Optimize the model
         self.optimizer.zero_grad()
         loss.backward()

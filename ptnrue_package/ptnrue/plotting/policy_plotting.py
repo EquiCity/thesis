@@ -17,10 +17,10 @@ class PolicyPlotter:
     def __init__(self):
         pass
 
-    def _plot_policy(self, states: List[Any], actions: List[int], policy: np.array,
+    def _plot_policy(self, states_labels: List[Any], actions_labels: List[int], policy: np.array,
                      fig: plt.Figure = None, ax: plt.Axes = None) -> Tuple[plt.Figure, plt.Axes]:
-        n_actions = len(actions)
-        n_states = len(states)
+        n_actions = len(actions_labels)
+        n_states = len(states_labels)
 
         if not ax:
             fig, ax = plt.subplots(1, 1)
@@ -47,8 +47,8 @@ class PolicyPlotter:
         ax.set_yticks(np.arange(centers[3], centers[2] + dy, dy))
 
         # Labels for major ticks
-        ax.set_xticklabels(actions)
-        ax.set_yticklabels(states)
+        ax.set_xticklabels(actions_labels)
+        ax.set_yticklabels(states_labels)
 
         fig.colorbar(im, orientation='vertical')
         fig.tight_layout()
@@ -73,8 +73,7 @@ class PolicyPlotter:
         for i, state in enumerate(states):
             policy[i] = policy_dict[state]
 
-        return self._plot_policy(fig=fig, ax=ax, states=states,
-                                 actions=actions, policy=policy)
+        return self._plot_policy(states_labels=states, actions_labels=actions, policy=policy, fig=fig, ax=ax)
 
     def from_model(self, model: nn.Module, budget: int, actions: List[int],
                    fig: plt.Figure = None, ax: plt.Axes = None) -> Tuple[plt.Figure, plt.Axes]:
@@ -106,5 +105,7 @@ class PolicyPlotter:
         policy[policy < 0] = 0
         policy = policy * masker_end_of_budget
 
-        return self._plot_policy(fig=fig, ax=ax, states=states,
-                                 actions=actions, policy=policy)
+        actions_np = np.array(actions)
+        states_labels = [tuple(actions_np[torch.argwhere(s == 1).numpy().flatten().tolist()]) for s in states]
+
+        return self._plot_policy(states_labels=states_labels, actions_labels=actions, policy=policy, fig=fig, ax=ax)

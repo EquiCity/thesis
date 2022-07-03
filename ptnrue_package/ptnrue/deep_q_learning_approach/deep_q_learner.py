@@ -1,4 +1,4 @@
-from typing import Optional, List
+from typing import Optional, List, Tuple
 
 import numpy as np
 import torch
@@ -16,13 +16,15 @@ class DeepQLearner(AbstractDeepQLearner):
     def _compute_q_learning_targets(self, reward_batch: torch.tensor, next_state_values: torch.tensor) -> torch.tensor:
         return reward_batch + (self.gamma * next_state_values)
 
-    def train(self, return_rewards_over_episodes: bool = True, verbose: bool = True) -> Optional[List[float]]:
+    def train(self, return_rewards_over_episodes: bool = True,
+              return_eps_values: bool = True, verbose: bool = True) -> Optional[Tuple[List[float], List[float]]]:
         cum_rewards_over_episodes = []
+        eps_values = []
 
         episode_iterator = tqdm(range(self.episodes)) if verbose else range(self.episodes)
 
         # for each episode
-        for i_episode, ep in enumerate(episode_iterator):
+        for ep in episode_iterator:
             state = self.starting_state
             cum_reward = 0
 
@@ -30,7 +32,7 @@ class DeepQLearner(AbstractDeepQLearner):
             while state[state == 1].size()[0] < self.goal:
 
                 # Choose action with epsilon-greedy strategy
-                epsilon = 1.0 # self.eps_schedule.get_current_eps()
+                epsilon = self.eps_schedule.get_current_eps()
                 action_ = self.choose_action(state, epsilon)
                 next_state, reward = self.step(state, action_)
 
@@ -51,10 +53,16 @@ class DeepQLearner(AbstractDeepQLearner):
             # Update the target network, copying all weights and biases in DQN
             # if i_episode % self.target_update == 0:
             #     self.target_net.load_state_dict(self.policy_net.state_dict())
-
+            eps_values.append(self.eps_schedule.get_current_eps())
             cum_rewards_over_episodes.append(cum_reward)
 
         self.trained = True
 
+        output = []
         if return_rewards_over_episodes:
-            return cum_rewards_over_episodes
+            output.append(cum_rewards_over_episodes)
+
+        if return_eps_values:
+            output.append(eps_values)
+
+        return tuple(output)

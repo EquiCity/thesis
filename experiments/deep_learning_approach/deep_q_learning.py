@@ -31,13 +31,13 @@ if __name__ == "__main__":
     reward = CustomReward(reward_dict=reward_dict, census_data=census_data,
                           com_threshold=com_threshold)
 
-    episodes = 10_000
+    episodes = 1_000
     batch_size = 128
     replay_memory_size = 512
     eps_start = 1.0
-    eps_end = 0.0
-    eps_decay = 100
-    static_eps_steps = 6000
+    eps_end = 0.00
+    eps_decay = 200
+    static_eps_steps = 1000
 
     target_network_update_step = 500
 
@@ -48,13 +48,18 @@ if __name__ == "__main__":
                              eps_start=eps_start, eps_end=eps_end, eps_decay=eps_decay,
                              static_eps_steps=static_eps_steps)
 
-    rewards_over_episodes = q_learner.train()
+    rewards_over_episodes, eps_values_over_steps = q_learner.train()
     rewards, edges = q_learner.inference()
 
     fig,ax = plt.subplots(2, 1, figsize=(10,10))
-    ax[0].plot(range(len(q_learner.network_loss)), q_learner.network_loss)
+    sub_sampled_policy_net_loss = q_learner.policy_net_loss[0::budget]
 
-    ax[1].plot(range(len(rewards_over_episodes)), rewards_over_episodes)
+    ax[0].plot(range(len(sub_sampled_policy_net_loss)), sub_sampled_policy_net_loss, label='Policy Net Loss')
+
+    ax[1].plot(range(len(rewards_over_episodes)), rewards_over_episodes, label='Cumulative Reward')
+    ax2 = ax[1].twinx()
+    ax2.plot(range(len(eps_values_over_steps)), eps_values_over_steps, color='orange', label='Epsilon')
+    fig.legend()
     plt.show()
 
     # Plot the policy
