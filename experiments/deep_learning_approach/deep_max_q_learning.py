@@ -1,7 +1,7 @@
 import datetime
 import pickle
 
-from ptnrue.deep_q_learning_approach.deep_q_learner import DeepQLearner
+from ptnrue.deep_q_learning_approach.deep_max_q_learner import DeepMaxQLearner
 import igraph as ig
 import numpy as np
 import geopandas as gpd
@@ -31,27 +31,27 @@ if __name__ == "__main__":
     reward = CustomReward(reward_dict=reward_dict, census_data=census_data,
                           com_threshold=com_threshold)
 
-    episodes = 1_000
+    episodes = 5_000
     batch_size = 128
-    replay_memory_size = 512
+    replay_memory_size = 128
     eps_start = 1.0
-    eps_end = 1.0
+    eps_end = 0.01
     eps_decay = 200
-    static_eps_steps = 1000
+    static_eps_steps = budget * 2500
 
-    target_network_update_step = 500
+    target_network_update_step = 100
 
-    q_learner = DeepQLearner(base_graph=g, reward=reward, budget=budget, edge_types=edge_types,
-                             target_network_update_step=target_network_update_step,
-                             episodes=episodes, batch_size=batch_size,
-                             replay_memory_size=replay_memory_size,
-                             eps_start=eps_start, eps_end=eps_end, eps_decay=eps_decay,
-                             static_eps_steps=static_eps_steps)
+    q_learner = DeepMaxQLearner(base_graph=g, reward=reward, budget=budget, edge_types=edge_types,
+                                target_network_update_step=target_network_update_step,
+                                episodes=episodes, batch_size=batch_size,
+                                replay_memory_size=replay_memory_size,
+                                eps_start=eps_start, eps_end=eps_end, eps_decay=eps_decay,
+                                static_eps_steps=static_eps_steps)
 
     rewards_over_episodes, eps_values_over_steps = q_learner.train()
     rewards, edges = q_learner.inference()
 
-    fig,ax = plt.subplots(2, 1, figsize=(10,10))
+    fig, ax = plt.subplots(2, 1, figsize=(10, 10))
     sub_sampled_policy_net_loss = q_learner.policy_net_loss[0::budget]
 
     ax[0].plot(range(len(sub_sampled_policy_net_loss)), sub_sampled_policy_net_loss, label='Policy Net Loss')

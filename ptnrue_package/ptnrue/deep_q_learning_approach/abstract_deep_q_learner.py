@@ -28,7 +28,41 @@ device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 # Code adapted from https://pytorch.org/tutorials/intermediate/reinforcement_q_learning.html
 
 
-class DummyTargetNet:
+class DummyQTargetNet:
+
+    def __init__(self):
+        pass
+
+    def evaluate(self):
+        def func(x: torch.Tensor):
+            q_table = {
+                '[0.0, 1.0, 1.0, 1.0]': torch.tensor([0.00000, 0.00000, 0.00000, 0.00000]),
+                '[1.0, 0.0, 1.0, 1.0]': torch.tensor([0.00000, 0.00000, 0.00000, 0.00000]),
+                '[1.0, 1.0, 0.0, 1.0]': torch.tensor([0.00000, 0.00000, 0.00000, 0.00000]),
+                '[1.0, 1.0, 1.0, 0.0]': torch.tensor([0.00000, 0.00000, 0.00000, 0.00000]),
+                '[0.0, 0.0, 1.0, 1.0]': torch.tensor([0.00000, 0.00000, 0.00000, 0.00000]),
+                '[0.0, 1.0, 0.0, 1.0]': torch.tensor([50.00000, 0.00000, 0.00000, 0.00000]),
+                '[0.0, 1.0, 1.0, 0.0]': torch.tensor([0.00000, 0.00000, 0.00000, 0.00000]),
+                '[1.0, 0.0, 0.0, 1.0]': torch.tensor([0.00000, 0.00000, 0.00000, 0.00000]),
+                '[1.0, 0.0, 1.0, 0.0]': torch.tensor([0.00000, 0.00000, 0.00000, 0.00000]),
+                '[1.0, 1.0, 0.0, 0.0]': torch.tensor([0.00000, 0.00000, 0.00000, 50.00000]),
+                '[0.0, 0.0, 0.0, 1.0]': torch.tensor([0.00000, 50.00000, 50.00000, 0.00000]),
+                '[0.0, 0.0, 1.0, 0.0]': torch.tensor([0.00000, 100.00000, 0.00000, 50.00000]),
+                '[0.0, 1.0, 0.0, 0.0]': torch.tensor([50.00000, 0.00000, 100.00000, 50.00000]),
+                '[1.0, 0.0, 0.0, 0.0]': torch.tensor([0.00000, 50.00000, 0.00000, 0.00000]),
+                '[0.0, 0.0, 0.0, 0.0]': torch.tensor([50.00000, 100.00000, 100.00000, 50.00000]),
+            }
+            final_values = []
+
+            for i in x.tolist():
+                final_values.append(q_table[str(i)])
+
+            return torch.cat(final_values).view(-1, len(i))
+
+        return func
+
+
+class DummyMaxQTargetNet:
 
     def __init__(self):
         pass
@@ -81,7 +115,8 @@ class AbstractDeepQLearner(AbstractQLearner, abc.ABC):
         self.target_net = DQN(len(self.actions)).to(device)
         self.target_net.load_state_dict(self.policy_net.state_dict())
         self.target_net.eval()
-        # self.target_net = DummyTargetNet().evaluate()
+        # self.target_net = DummyQTargetNet().evaluate()
+        # self.target_net = DummyQTargetNet().evaluate()
 
         self.batch_size = batch_size
         self.target_update = target_network_update_step
@@ -183,7 +218,8 @@ class AbstractDeepQLearner(AbstractQLearner, abc.ABC):
         # non_final_list = [s for s in batch.next_state if s is not None]
         non_final_next_states = torch.cat(batch.next_state).view(len(batch.next_state), -1).float()
         state_batch = torch.cat(batch.state).view(len(batch.state), -1).float()
-        available_actions_batch = torch.cat(batch.available_actions_next_state).view(len(batch.available_actions_next_state), -1)
+        available_actions_batch = torch.cat(batch.available_actions_next_state).view(
+            len(batch.available_actions_next_state), -1)
         action_batch = torch.cat(batch.action)
         reward_batch = torch.tensor(batch.reward)
 

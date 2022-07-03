@@ -35,7 +35,7 @@ class PolicyPlotter:
         for i in range(n_states):
             for j in range(n_actions):
                 background_c = np.array(im.cmap(im.norm(policy[n_states - 1 - i, j]))[:3])
-                text = ax.text(j, i, policy[n_states - 1 - i][j].numpy().round(1),
+                text = ax.text(j, i, policy[n_states - 1 - i][j].round(1),
                                ha="center", va="center", color="black" if np.any(background_c > 0.8) else "w")
 
         ax.set_xlabel("Actions")
@@ -104,6 +104,8 @@ class PolicyPlotter:
         policy = policy * masker_not_allowed
         policy[policy < 0] = 0
         policy = policy * masker_end_of_budget
+
+        policy = policy.numpy()
 
         actions_np = np.array(actions)
         states_labels = [tuple(actions_np[torch.argwhere(s == 1).numpy().flatten().tolist()]) for s in states]
