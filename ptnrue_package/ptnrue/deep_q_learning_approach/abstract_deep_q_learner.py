@@ -134,7 +134,7 @@ class AbstractDeepQLearner(AbstractQLearner, abc.ABC):
         # self.optimizer = optim.SGD(self.policy_net.parameters(), lr=1e-2, momentum=0.0)
         self.optimizer = optim.Adam(self.policy_net.parameters())
         # TODO convert this to entry parameter
-        self.criterion = nn.SmoothL1Loss()
+        self.criterion = nn.MSELoss()
         self.replay_memory_size = replay_memory_size
         self.memory = ReplayMemory(self.replay_memory_size)
 
@@ -268,11 +268,11 @@ class AbstractDeepQLearner(AbstractQLearner, abc.ABC):
         for i in range(self.goal):
             action_idx = self.choose_action(state, 0)
             state, reward = self.step(state, action_idx)
-            rewards_per_removal.append(reward)
+            rewards_per_removal.append(reward.item())
 
         # A state is nothing else than an indicator as of whether an edge
         # is removed or not, i.e. whether an action was enacted or not.
         # Hence, we use the state to take out the actions, i.e. edge indexes
         # which represent the final state
-        final_state = self.actions[state.bool().numpy()]
+        final_state = self.actions[state.bool().numpy()].numpy()
         return rewards_per_removal, final_state

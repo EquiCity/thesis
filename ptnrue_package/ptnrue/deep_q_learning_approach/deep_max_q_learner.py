@@ -25,7 +25,7 @@ class DeepMaxQLearner(AbstractDeepQLearner):
         episode_iterator = tqdm(range(self.episodes)) if verbose else range(self.episodes)
 
         # for each episode
-        for ep in episode_iterator:
+        for i_episode, ep in enumerate(episode_iterator):
             state = self.starting_state
             max_reward = -math.inf
 
@@ -40,11 +40,11 @@ class DeepMaxQLearner(AbstractDeepQLearner):
                 max_reward = max([reward.item(), max_reward])
 
                 # Store this transitions as an experience in the replay buffer
-                if len(self.memory) < self.replay_memory_size:
-                    available_actions_next_state = self._get_available_actions(next_state)
-                    available_actions_next_state_t = self._get_available_actions_boolean_tensor(available_actions_next_state)
-                    # 'state', 'action', 'next_state', 'available_actions_next_state', 'reward'
-                    self.memory.push(state, action_, next_state, available_actions_next_state_t, reward)
+                # if len(self.memory) < self.replay_memory_size:
+                available_actions_next_state = self._get_available_actions(next_state)
+                available_actions_next_state_t = self._get_available_actions_boolean_tensor(available_actions_next_state)
+                # 'state', 'action', 'next_state', 'available_actions_next_state', 'reward'
+                self.memory.push(state, action_, next_state, available_actions_next_state_t, reward)
 
                 # Move to the next state
                 state = next_state
@@ -53,8 +53,9 @@ class DeepMaxQLearner(AbstractDeepQLearner):
                 self.optimize_model()
 
             # Update the target network, copying all weights and biases in DQN
-            # if i_episode % self.target_update == 0:
-            #     self.target_net.load_state_dict(self.policy_net.state_dict())
+            if i_episode % self.target_update == 0:
+                self.target_net.load_state_dict(self.policy_net.state_dict())
+
             eps_values.append(self.eps_schedule.get_current_eps())
             max_rewards_over_episodes.append(max_reward)
 

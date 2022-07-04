@@ -1,6 +1,8 @@
 import datetime
 import pickle
 
+import torch
+import random
 from ptnrue.deep_q_learning_approach.deep_q_learner import DeepQLearner
 import igraph as ig
 import numpy as np
@@ -35,11 +37,16 @@ if __name__ == "__main__":
     batch_size = 128
     replay_memory_size = 512
     eps_start = 1.0
-    eps_end = 1.0
+    eps_end = 0.01
     eps_decay = 200
     static_eps_steps = 1000
 
     target_network_update_step = 500
+
+    seed = 7936196411838627532
+    torch.manual_seed(seed)
+    np.random.seed(seed)
+    random.seed(seed)
 
     q_learner = DeepQLearner(base_graph=g, reward=reward, budget=budget, edge_types=edge_types,
                              target_network_update_step=target_network_update_step,

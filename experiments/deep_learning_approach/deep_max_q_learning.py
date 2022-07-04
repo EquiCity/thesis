@@ -9,6 +9,8 @@ from ptnrue.rewards import (
     EgalitarianTheilReward,
     CustomReward,
 )
+import torch
+import random
 import logging
 from ptnrue.plotting.solution_plotting import plot_rewards_and_graphs
 from ptnrue.plotting.policy_plotting import PolicyPlotter
@@ -31,15 +33,20 @@ if __name__ == "__main__":
     reward = CustomReward(reward_dict=reward_dict, census_data=census_data,
                           com_threshold=com_threshold)
 
-    episodes = 5_000
-    batch_size = 128
-    replay_memory_size = 128
+    episodes = 10_000
+    batch_size = 256
+    replay_memory_size = 1024
     eps_start = 1.0
-    eps_end = 0.01
-    eps_decay = 200
-    static_eps_steps = budget * 2500
+    eps_end = 1.0
+    eps_decay = 1000
+    static_eps_steps = budget * 5000
 
-    target_network_update_step = 100
+    target_network_update_step = 500
+
+    seed = 1033
+    torch.manual_seed(seed)
+    np.random.seed(seed)
+    random.seed(seed)
 
     q_learner = DeepMaxQLearner(base_graph=g, reward=reward, budget=budget, edge_types=edge_types,
                                 target_network_update_step=target_network_update_step,
