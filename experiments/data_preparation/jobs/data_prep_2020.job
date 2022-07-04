@@ -6,7 +6,7 @@
 #SBATCH --cpus-per-task=32
 #SBATCH --time=01:00:00
 #SBATCH --mem=64000M
-#SBATCH --output=slurm_output_%A.out
+#SBATCH --output=problem_graph_generation_2020_%A.out
 
 module purge
 module load 2021
