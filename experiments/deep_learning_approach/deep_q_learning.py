@@ -22,31 +22,32 @@ logger = logging.getLogger(__file__)
 logger.setLevel(logging.INFO)
 
 if __name__ == "__main__":
-    dataset = 5
+    dataset = 3
     g = ig.load(Path(f"../base_data/graph_{dataset}.gml"))
     census_data = gpd.read_file(Path(f"../base_data/census_data_{dataset}.geojson"))
-    reward_dict = pickle.load(open(f"../base_data/reward_dict_{dataset}.pkl", 'rb'))
+    # reward_dict = pickle.load(open(f"../base_data/reward_dict_{dataset}.pkl", 'rb'))
     edge_types = list(np.unique(g.es['type']))
     edge_types.remove('walk')
-    budget = 3
+    budget = 10
     com_threshold = 15
-    reward = CustomReward(reward_dict=reward_dict, census_data=census_data,
-                          com_threshold=com_threshold)
+    # reward = CustomReward(reward_dict=reward_dict, census_data=census_data,
+    #                       com_threshold=com_threshold)
+    reward = EgalitarianTheilReward(census_data=census_data, com_threshold=com_threshold)
 
-    episodes = 1_000
+    episodes = 200
     batch_size = 128
-    replay_memory_size = 512
+    replay_memory_size = 2048
     eps_start = 1.0
     eps_end = 0.01
     eps_decay = 200
-    static_eps_steps = 1000
+    static_eps_steps = 100
 
-    target_network_update_step = 500
+    target_network_update_step = 50
 
-    seed = 7936196411838627532
-    torch.manual_seed(seed)
-    np.random.seed(seed)
-    random.seed(seed)
+    # seed = 1024
+    # torch.manual_seed(seed)
+    # np.random.seed(seed)
+    # random.seed(seed)
 
     q_learner = DeepQLearner(base_graph=g, reward=reward, budget=budget, edge_types=edge_types,
                              target_network_update_step=target_network_update_step,

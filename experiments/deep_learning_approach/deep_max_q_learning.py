@@ -33,20 +33,20 @@ if __name__ == "__main__":
     reward = CustomReward(reward_dict=reward_dict, census_data=census_data,
                           com_threshold=com_threshold)
 
-    episodes = 10_000
+    episodes = 200
     batch_size = 256
-    replay_memory_size = 1024
+    replay_memory_size = 2048
     eps_start = 1.0
-    eps_end = 1.0
-    eps_decay = 1000
-    static_eps_steps = budget * 5000
+    eps_end = 0.01
+    eps_decay = 100
+    static_eps_steps = budget * 100
 
-    target_network_update_step = 500
+    target_network_update_step = 20
 
-    seed = 1033
-    torch.manual_seed(seed)
-    np.random.seed(seed)
-    random.seed(seed)
+    # seed = 1033
+    # torch.manual_seed(seed)
+    # np.random.seed(seed)
+    # random.seed(seed)
 
     q_learner = DeepMaxQLearner(base_graph=g, reward=reward, budget=budget, edge_types=edge_types,
                                 target_network_update_step=target_network_update_step,

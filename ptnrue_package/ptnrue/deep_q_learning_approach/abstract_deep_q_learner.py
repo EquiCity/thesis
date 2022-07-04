@@ -132,7 +132,7 @@ class AbstractDeepQLearner(AbstractQLearner, abc.ABC):
 
         # TODO convert this to entry parameter (also learning rate)
         # self.optimizer = optim.SGD(self.policy_net.parameters(), lr=1e-2, momentum=0.0)
-        self.optimizer = optim.Adam(self.policy_net.parameters())
+        self.optimizer = optim.Adam(self.policy_net.parameters(), lr=1)
         # TODO convert this to entry parameter
         self.criterion = nn.MSELoss()
         self.replay_memory_size = replay_memory_size
