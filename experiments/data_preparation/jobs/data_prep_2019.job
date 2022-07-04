@@ -3,7 +3,7 @@
 #SBATCH --partition=short
 #SBATCH --job-name=GTFSDownloadJob
 #SBATCH --ntasks=1
-#SBATCH --cpus-per-task=32
+#SBATCH --cpus-per-task=16
 #SBATCH --time=00:05:00
 #SBATCH --mem=64000M
 #SBATCH --output=slurm_output_%A.out
@@ -13,7 +13,7 @@ module load 2021
 module load Anaconda3/2021.05
 
 # Your job starts in the directory where you call sbatch
-cd $HOME
+# cd $HOME
 
 # Activate your environment
 source activate thesis
@@ -22,4 +22,4 @@ source activate thesis
 export BASE_DATA_PATH=/home/fiorista/thesis/repo/experiments/historical_data/ams_2019
 
 # Run your code
-srun python -u problem_graph_generator.py
+srun python -u problem_graph_generation.py
