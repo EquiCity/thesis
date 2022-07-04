@@ -1,10 +1,14 @@
+import pickle
+
 from ptnrue.baselines.rl.expected_q_learning_basleline import ExpectedQLearner
 import igraph as ig
 import numpy as np
 import geopandas as gpd
 from ptnrue.rewards import (
     EgalitarianTheilReward,
+    CustomReward,
 )
+from ptnrue.plotting.policy_plotting import PolicyPlotter
 import logging
 from ptnrue.plotting.solution_plotting import plot_rewards_and_graphs
 from matplotlib import pyplot as plt
@@ -14,17 +18,20 @@ logger = logging.getLogger(__file__)
 logger.setLevel(logging.INFO)
 
 if __name__ == "__main__":
-    g = ig.load("../base_data/graph_1.gml")
-    census_data = gpd.read_file("../base_data/census_data_1.geojson")
+    dataset = 5
+    g = ig.load(f"../base_data/graph_{dataset}.gml")
+    census_data = gpd.read_file(f"../base_data/census_data_{dataset}.geojson")
+    reward_dict = pickle.load(open(f"../base_data/reward_dict_{dataset}.pkl",'rb'))
     edge_types = list(np.unique(g.es['type']))
     edge_types.remove('walk')
-    budget = 9
+    budget = 3
     com_threshold = 15
-    reward = EgalitarianTheilReward(census_data=census_data, com_threshold=15)
-    episodes = 150
+    # reward = EgalitarianTheilReward(census_data=census_data, com_threshold=15)
+    reward = CustomReward(reward_dict=reward_dict, census_data=census_data, com_threshold=15)
+    episodes = 250
 
     q_learner = ExpectedQLearner(base_graph=g, reward=reward, edge_types=edge_types,
-                                 budget=budget, episodes=episodes, step_size=1)
+                                 budget=budget, episodes=episodes, step_size=1.0)
     rewards_over_episodes = q_learner.train(return_rewards_over_episodes=True)
     rewards, edges = q_learner.inference()
 
@@ -34,15 +41,7 @@ if __name__ == "__main__":
     plt.ylabel("Cumulative Reward (Return)")
     plt.show()
 
-    policy = np.ones((len(q_learner.q_values), len(q_learner.actions)))
-
-    for i, state in enumerate(q_learner.q_values):
-        policy[i] = q_learner.q_values[state]
-    # extent=[xmin,xmax,ymin,ymax]
-    plt.imshow(policy, aspect='auto', extent=[0,len(q_learner.actions),0,len(q_learner.q_values)])
-    plt.xlabel("Actions")
-    plt.ylabel("States")
-    plt.colorbar()
+    ax = PolicyPlotter().from_dict(policy_dict=q_learner.q_values, actions=q_learner.actions)
     plt.show()
 
     plot_title = f'Q Learning solution with {reward.__class__.__name__} and budget size {budget}'

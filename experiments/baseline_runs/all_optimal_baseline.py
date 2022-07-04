@@ -1,26 +1,32 @@
-from ptnrue import optimal_baseline
+from ptnrue.baselines.optimal_baseline import optimal_baseline
 import igraph as ig
 import numpy as np
 import geopandas as gpd
-from ptnrue import (
+from ptnrue.rewards import (
     EgalitarianTheilReward,
 )
 import logging
 from matplotlib import pyplot as plt
-from ptnrue import TravelMetric
-from ptnrue.plotting import plot_rewards_and_graphs
+from ptnrue.constants.travel_metric import TravelMetric
+from ptnrue.plotting.solution_plotting import plot_rewards_and_graphs
 
 logging.basicConfig()
 logger = logging.getLogger(__file__)
 logger.setLevel(logging.INFO)
 
 if __name__ == "__main__":
-    g: ig.Graph = ig.load("../base_data/graph_1.gml")
-    census_data = gpd.read_file("../base_data/census_data_1.geojson")
+    dataset = 1
+    g: ig.Graph = ig.load(f"../base_data/graph_{dataset}.gml")
+    census_data = gpd.read_file(f"../base_data/census_data_{dataset}.geojson")
     edge_types = list(np.unique(g.es['type']))
     edge_types.remove('walk')
-
-    budget = 9
+    num_edges = len(g.es.select(type_in=edge_types))
+    # Dataset 3
+    # 8  [72, 73, 74, 75, 76, 78, 81, 82]
+    # 9  [72, 73, 74, 75, 76, 78, 81, 82, 79]
+    # 10 [[72, 73, 74, 75, 76, 78, 81, 82, 79, 77],
+    #     [72, 73, 74, 75, 76, 78, 81, 82, 79, 80]]
+    budget = 3
 
     com_threshold = 15
     considered_metrics = [TravelMetric.TT, TravelMetric.HOPS, TravelMetric.COM]
@@ -30,11 +36,20 @@ if __name__ == "__main__":
     optimal_solutions = optimal_baseline(g=g, edge_types=edge_types, budget=budget,
                                          reward=reward)
 
-    plot_title = f'All optimal {reward.__class__.__name__} solutions for budget size {budget}'
-    plot_rewards_and_graphs(g, optimal_solutions, plot_title)
+    plot_title = f'All optimal egalitarian solutions for {budget} removals'
+
+    # Y_Ticks:
+    # Dataset_1 = list(np.arange(90, 102, 2))
+    # Dataset_2 = list(np.arange(40, 72, 2))
+    # Dataset_3 = list(np.arange(62, 76, 2))
+
+    plot_rewards_and_graphs(g, optimal_solutions, plot_title,
+                            xticks=list(range(0, num_edges + 1)),
+                            yticks=list(np.arange(40, 72, 2)))
 
     # fig.tight_layout()
     # fig.savefig(f"./plots/{budget}_{reward.__class__.__name__}_"
     #             f"{'_'.join([e.value for e in considered_metrics])}_optimal_solutions.png",
     #             bbox_inches='tight')
     plt.show()
+    # plt.savefig(f'./plots/dataset_{dataset+1}_optimal_solutions_budget_{budget}.png')

@@ -9,12 +9,13 @@ logger.setLevel(logging.INFO)
 
 
 def compute_rewards_over_removals(base_graph: ig.Graph, budget: int, reward: BaseReward,
-                                  removed_edge_list: List[int]) -> List[float]:
+                                  removed_edge_list: List[int], verbose: bool = False) -> List[float]:
     rewards_per_removal = []
     for i in range(0, budget):
         g_prime = base_graph.copy()
         g_prime.es[removed_edge_list[0:i + 1]]['active'] = 0
-        logger.info(reward.evaluate(g_prime))
+        if verbose:
+            logger.info(reward.evaluate(g_prime))
         rewards_per_removal.append(reward.evaluate(g_prime))
 
     return rewards_per_removal

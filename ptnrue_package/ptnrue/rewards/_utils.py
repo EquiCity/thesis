@@ -13,6 +13,7 @@ def evaluate_graph(g: ig.Graph) -> pd.DataFrame:
 
     failed = {}
 
+    #TODO Use get_shortest_paths instead between nb_node and poi instead of iterating through all
     for i, o in enumerate(nb_nodes):
         for j, d in enumerate(poi_nodes):
             # Travel Time

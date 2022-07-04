@@ -4,7 +4,7 @@
 #SBATCH --job-name=ProblemGraphGenerationJob
 #SBATCH --ntasks=1
 #SBATCH --cpus-per-task=32
-#SBATCH --time=10:00:00
+#SBATCH --time=00:05:00
 #SBATCH --mem=64000M
 #SBATCH --output=slurm_output_%A.out
 
