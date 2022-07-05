@@ -4,35 +4,52 @@ from typing import Tuple
 import numpy as np
 
 
+# import ray
+# from typing import List
+#
+# @ray.remote
+# class GraphActor:
+#     def __init__(self, graph: ig.Graph):
+#         self.graph = graph
+#
+#     def set_graph(self, v):
+#         self.graph = v
+#
+#     def get_graph(self):
+#         return self.graph
+#
+#
+# @ray.remote
+# class ShortestPathComputer:
+#     def __init__(self, graph_actor):
+#         self.graph_actor = graph_actor
+#
+#     def get_shortes_path(self, v_rc: ig.Vertex, v_poi_list: List[ig.Vertex]):
+#         return ray.get(self.graph_actor.get_graph.remote())
+
+
 def evaluate_graph(g: ig.Graph) -> pd.DataFrame:
     nb_nodes = g.vs.select(type_eq='res_node')
     poi_nodes = g.vs.select(type_eq='poi_node')
 
-    tt_mx = np.zeros((len(nb_nodes), len(poi_nodes)))
-    hops_mx = np.zeros((len(nb_nodes), len(poi_nodes)))
 
-    failed = {}
 
-    #TODO Use get_shortest_paths instead between nb_node and poi instead of iterating through all
-    for i, o in enumerate(nb_nodes):
-        for j, d in enumerate(poi_nodes):
-            # Travel Time
-            tt = g.shortest_paths(o, d, weights='tt')[0][0]
-            if tt == np.inf:
-                if not failed.get(f"{o['node_id']}_tt", None) == d['node_id']:
-                    failed[f"{o['node_id']}_tt"] = d["node_id"]
-            else:
-                tt_mx[i, j] = tt
-            # Number of hops
-            edges = g.get_shortest_paths(o, d, weights='tt', output='epath')[0]
-            if edges == np.inf or not edges:
-                if not failed.get(f"{o['node_id']}_edges", None) == d["node_id"]:
-                    failed[f"{o['node_id']}_edges"] = d["node_id"]
-            else:
-                # TODO: consider whether this is correct. Consider that we cannot make any assumption over the
-                # TODO: fitness of the number of edges here as we don't take into consideration whether it's a
-                # TODO: really long one or not.
-                hops_mx[i, j] = len(edges)
+
+    shortest_paths_tt = g.shortest_paths(nb_nodes, poi_nodes, weights='tt')
+
+    # Travel Time
+    tt_mx = np.array(shortest_paths_tt)
+    # Assign max over both dimensions to inf values
+    tt_mx[tt_mx == np.inf] = tt_mx.max(1).max()
+
+    # Number of hops
+    hops_mx = []
+    for v_rc in nb_nodes:
+        shortest_path_edges = g.get_shortest_paths(v_rc, poi_nodes, weights='tt', output='epath')
+        hops_mx.append([len(es) for es in shortest_path_edges])
+
+    hops_mx = np.array(hops_mx)
+    hops_mx[hops_mx == 0] = 1
 
     df_tt = pd.DataFrame(tt_mx, columns=poi_nodes['name'])
     df_tt['metric'] = 'travel_time'
