@@ -41,10 +41,7 @@ class AbstractQLearner(abc.ABC):
                              f"hence max budget is {len(self.actions) - 1}. "
                              f"Budget {self.goal} not possible.")
 
-        self.q_values = {
-            self.get_state_key(tuple(e)): np.zeros(len(self.actions), dtype=np.float)
-            for k in range(self.goal + 1) for e in it.combinations(self.actions, k)
-        }
+        self.q_values = self._get_q_value_dict()
 
         self.eps_schedule = EpsilonSchedule(eps_start=eps_start, eps_end=eps_end,
                                             eps_decay=eps_decay, static_eps_steps=static_eps_steps)
@@ -59,6 +56,12 @@ class AbstractQLearner(abc.ABC):
     def _increment_step(self):
         self.steps_done += 1
         self.eps_schedule.make_step()
+
+    def _get_q_value_dict(self):
+        return {
+            self.get_state_key(tuple(e)): np.zeros(len(self.actions), dtype=np.float)
+            for k in range(self.goal + 1) for e in it.combinations(self.actions, k)
+        }
 
     @staticmethod
     def get_state_key(removed_edges: Tuple) -> Tuple:

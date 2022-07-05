@@ -138,6 +138,9 @@ class AbstractDeepQLearner(AbstractQLearner, abc.ABC):
         self.replay_memory_size = replay_memory_size
         self.memory = ReplayMemory(self.replay_memory_size)
 
+    def _get_q_value_dict(self):
+        return {}
+
     def _increment_step(self):
         self.eps_schedule.make_step()
         # self.eps_values.append(self.eps_schedule.get_current_eps())
