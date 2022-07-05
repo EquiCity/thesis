@@ -41,17 +41,18 @@ def add_points_to_graph(g: ig.Graph, names: List[str], xs: List[float], ys: List
     g.add_vertices(len(xs), v_attrs)
 
 
-def add_edges_to_graph(g: ig.Graph, osm_graph: nx.MultiDiGraph, from_node_type: str, to_node_type: str,
+def add_edges_to_graph(g: ig.Graph, osm_graph: nx.MultiDiGraph,
+                       from_node_type: str, to_node_type: str,
                        e_type: str, speed: float, color: str = None) -> None:
     """
 
     Args:
         g:
-        from_nodes:
-        to_nodes:
-        distances:
+        osm_graph:
+        from_node_type:
+        to_node_type:
         e_type:
-        speed: transit speed in km/h
+        speed:
         color:
 
     Returns:
@@ -66,25 +67,25 @@ def add_edges_to_graph(g: ig.Graph, osm_graph: nx.MultiDiGraph, from_node_type: 
 
     distances = []
 
-    # orig_nodes = ox.distance.nearest_nodes(osm_graph, edges_from[:, 0], edges_from[:, 1])
-    # dest_nodes = ox.distance.nearest_nodes(osm_graph, edges_to[:, 0], edges_to[:, 1])
-    # osmnx_routes = ox.distance.shortest_path(osm_graph, orig_nodes, dest_nodes, 'length', cpus=None)
-    #
-    # for route in osmnx_routes:
-    #     edge_lengths = ox.utils_graph.get_route_edge_attributes(osm_graph, route, 'length')
-    #     route_len_m = sum(edge_lengths)
-    #     distances.append(route_len_m)
+    orig_nodes = ox.distance.nearest_nodes(osm_graph, edges_from[:, 0], edges_from[:, 1])
+    dest_nodes = ox.distance.nearest_nodes(osm_graph, edges_to[:, 0], edges_to[:, 1])
+    osmnx_routes = ox.distance.shortest_path(osm_graph, orig_nodes, dest_nodes, 'length', cpus=None)
+
+    for route in osmnx_routes:
+        edge_lengths = ox.utils_graph.get_route_edge_attributes(osm_graph, route, 'length')
+        route_len_m = sum(edge_lengths)
+        distances.append(route_len_m)
 
     # For debugging comment above and uncomment below
-    distances = [1000] * len(edges)
+    # distances = [1000] * len(edges)
 
     distances = np.array(distances)
+    distances[distances == np.inf] = distances.max()
 
     edge_attrs = {
         'distance': distances,
         'type': e_type,
-        'traveltime': (distances / speed * 1000) * 60,
-        'weight': (distances / speed * 1000) * 60,
+        'tt': (distances / speed * 1000) * 60,
         'color': color,
     }
 
