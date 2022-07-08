@@ -16,6 +16,7 @@ import logging
 import torch.optim as optim
 import random
 import math
+from ..exceptions.q_learner_exceptions import ActionAlreadyTakenError
 
 logging.basicConfig()
 logger = logging.getLogger(__file__)
@@ -178,7 +179,9 @@ class AbstractDeepQLearner(AbstractQLearner, abc.ABC):
 
         try:
             if state[action_idx].item() != 0:
-                raise ValueError(f"Cannot choose same action twice {action_idx} is already active in {state}")
+                raise ActionAlreadyTakenError(
+                    f"Cannot choose same action twice {action_idx} is already active in {state}"
+                )
 
             # Create the next state
             next_state = state.detach().clone()
@@ -192,9 +195,9 @@ class AbstractDeepQLearner(AbstractQLearner, abc.ABC):
             reward = self.reward.evaluate(g_prime)
             reward = torch.tensor([[reward]], device=device, dtype=torch.long)
 
-        except ValueError as e:
+        except ActionAlreadyTakenError as e:
             logger.error(f"Reached a wrong state: {str(e)}")
-            reward = self.wrong_action_reward
+            reward = torch.tensor([[self.wrong_action_reward]])
             next_state = self.starting_state
         self._increment_step()
         return next_state, reward
@@ -264,7 +267,6 @@ class AbstractDeepQLearner(AbstractQLearner, abc.ABC):
     def inference(self) -> Tuple[List[float], List[int]]:
         if not self.trained:
             raise RuntimeError("Please run the training before inference")
-
         state = self.starting_state
         rewards_per_removal = []
 

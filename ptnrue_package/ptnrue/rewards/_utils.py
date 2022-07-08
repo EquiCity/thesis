@@ -2,53 +2,102 @@ import igraph as ig
 import pandas as pd
 from typing import Tuple
 import numpy as np
+import multiprocessing
+import ray
+from typing import List
+
+CPU_COUNT = multiprocessing.cpu_count()
 
 
-# import ray
-# from typing import List
-#
-# @ray.remote
-# class GraphActor:
-#     def __init__(self, graph: ig.Graph):
-#         self.graph = graph
-#
-#     def set_graph(self, v):
-#         self.graph = v
-#
-#     def get_graph(self):
-#         return self.graph
-#
-#
-# @ray.remote
-# class ShortestPathComputer:
-#     def __init__(self, graph_actor):
-#         self.graph_actor = graph_actor
-#
-#     def get_shortes_path(self, v_rc: ig.Vertex, v_poi_list: List[ig.Vertex]):
-#         return ray.get(self.graph_actor.get_graph.remote())
+class Singleton(object):
+    def __new__(cls, *args, **kwds):
+        it = cls.__dict__.get("__it__")
+        if it is not None:
+            return it
+        cls.__it__ = it = object.__new__(cls)
+        it.init(*args, **kwds)
+        return it
+
+    def init(self, *args, **kwds):
+        pass
+
+
+@ray.remote
+class GraphActor(Singleton):
+
+    instance = None
+
+    def __init__(self, graph: ig.Graph):
+        if not self.instance:
+            self.graph = graph
+
+    def get_instance(self):
+        return self
+
+    def set_graph(self, v):
+        self.graph = v
+
+    def get_graph(self):
+        return self.graph
+
+
+@ray.remote
+def get_shortest_path(graph_actor: GraphActor, v_rc_ids: List[int], v_poi_ids: List[int]):
+    graph = ray.get(graph_actor.get_graph.remote())
+    v_rcs = graph.vs[v_rc_ids]
+    v_poi_list = graph.vs[v_poi_ids]
+    return graph.shortest_paths(v_rcs, v_poi_list, weights='tt')
+
+
+@ray.remote
+def get_shortest_path_length(graph_actor: GraphActor, v_rcs: List[ig.Vertex],
+                             v_poi_list: ig.EdgeSeq) -> List[List[int]]:
+    graph = ray.get(graph_actor.get_graph.remote())
+    shortest_paths = []
+    for v_rc in v_rcs:
+        shortest_path_edges = graph.get_shortest_paths(v_rc, v_poi_list, weights='tt', output='epath')
+        shortest_paths.append([len(es) for es in shortest_path_edges])
+
+    return shortest_paths
+
+
+def _to_array(ray_list: List[ray.ObjectRef], n_nb_nodes: int, n_poi_nodes: int) -> np.array:
+    batch_computation = np.vstack(
+        [np.array(ray.get(rows)).flatten().reshape(len(ray.get(rows)), n_poi_nodes) for rows in ray_list]
+    )
+    assert batch_computation.shape == (n_nb_nodes, n_poi_nodes)
+    return np.vstack(batch_computation)
 
 
 def evaluate_graph(g: ig.Graph) -> pd.DataFrame:
     nb_nodes = g.vs.select(type_eq='res_node')
+    nb_node_ids = [elem.index for elem in nb_nodes]
+    n_nb_nodes = len(nb_nodes)
     poi_nodes = g.vs.select(type_eq='poi_node')
+    poi_node_ids = [elem.index for elem in poi_nodes]
+    n_poi_nodes = len(poi_nodes)
 
+    global_graph_actor = GraphActor.remote(graph=g)
 
+    tt_mx_ray = []
+    hops_mx_ray = []
 
+    BATCH_SIZE = 100
 
-    shortest_paths_tt = g.shortest_paths(nb_nodes, poi_nodes, weights='tt')
+    for i in range(0, len(nb_node_ids), BATCH_SIZE):
+        batch_nb_node_ids = nb_node_ids[i: i + BATCH_SIZE]
+        shortest_path_values = get_shortest_path.remote(global_graph_actor, batch_nb_node_ids, poi_node_ids)
+        tt_mx_ray.append(shortest_path_values)
+
+        shortest_path_edges = get_shortest_path_length.remote(global_graph_actor, batch_nb_node_ids, poi_node_ids)
+        hops_mx_ray.append(shortest_path_edges)
 
     # Travel Time
-    tt_mx = np.array(shortest_paths_tt)
-    # Assign max over both dimensions to inf values
+    tt_mx = _to_array(tt_mx_ray, n_nb_nodes, n_poi_nodes)
     tt_mx[tt_mx == np.inf] = tt_mx.max(1).max()
 
-    # Number of hops
-    hops_mx = []
-    for v_rc in nb_nodes:
-        shortest_path_edges = g.get_shortest_paths(v_rc, poi_nodes, weights='tt', output='epath')
-        hops_mx.append([len(es) for es in shortest_path_edges])
-
-    hops_mx = np.array(hops_mx)
+    # Hops
+    hops_mx = _to_array(hops_mx_ray, n_nb_nodes, n_poi_nodes)
     hops_mx[hops_mx == 0] = 1
 
     df_tt = pd.DataFrame(tt_mx, columns=poi_nodes['name'])

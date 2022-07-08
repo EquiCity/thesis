@@ -23,7 +23,7 @@ class ProblemGraphGenerator:
 
     def __init__(self, city: str, gtfs_zip_file_path: Path, out_dir_path: Path,
                  day: str, time_from: str, time_to: str, agencies: List[str],
-                 poi_gdf: gpd.GeoDataFrame, census_gdf: gpd.GeoDataFrame) -> None:
+                 poi_gdf: gpd.GeoDataFrame, census_gdf: gpd.GeoDataFrame, modalities: List[str] = None) -> None:
         """
 
         Args:
@@ -35,12 +35,14 @@ class ProblemGraphGenerator:
             time_to:
             poi_gdf:
             census_gdf:
+            modalities: A list of modalities (e.g. ['tram', 'metro', 'bus']) to filter for. If None all modalities
+                        are regarded.
         """
         self.city = city
         self.gtfs_graph_generator = GTFSGraphGenerator(city=city, gtfs_zip_file_path=gtfs_zip_file_path,
                                                        out_dir_path=out_dir_path, day=day,
                                                        time_from=time_from, time_to=time_to, agencies=agencies,
-                                                       contract_vertices=True)
+                                                       contract_vertices=True, modalities=modalities)
         self.osm_graph_generator = OSMGraphGenerator(city=city, network_type=OSMNetworkTypes.WALK,
                                                      graph_out_path=out_dir_path)
         self.out_dir_path = out_dir_path
@@ -123,7 +125,7 @@ class ProblemGraphGenerator:
 
         # Clean up node and edge attributes to keep only what is needed
         for vs_attr in g.vs.attributes():
-            if vs_attr not in ['name', 'uniqueagencyid', 'stopid', 'x', 'y', 'color', 'type']:
+            if vs_attr not in ['name', 'uniqueagencyid', 'routetype', 'stopid', 'x', 'y', 'color', 'type']:
                 del g.vs[vs_attr]
 
         for es_attr in g.es.attributes():

@@ -8,6 +8,7 @@ import math
 
 from ...rewards import BaseReward
 from ...q_learning_utils.epsilon_schedule import EpsilonSchedule
+from ...exceptions.q_learner_exceptions import ActionAlreadyTakenError
 
 import numpy as np
 
@@ -77,13 +78,15 @@ class AbstractQLearner(abc.ABC):
         try:
             edge_idx = self.actions[action_idx]
             if edge_idx in state:
-                raise ValueError("Cannot choose same action twice")
+                raise ActionAlreadyTakenError(
+                    f"Cannot choose same action twice {action_idx} is already active in {state}"
+                )
             next_state = state + (edge_idx,)
             g_prime.es[list(next_state)]['active'] = 0
             reward = self.reward.evaluate(g_prime)
             self.state_visits[self.get_state_key(next_state)] += 1
 
-        except ValueError:
+        except ActionAlreadyTakenError:
             reward = self.wrong_action_reward
             next_state = self.starting_state
 

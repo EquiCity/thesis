@@ -30,7 +30,8 @@ class GTFSGraphGenerator:
 
     def __init__(self, city: str, gtfs_zip_file_path: Path, out_dir_path: Path,
                  day: str, time_from: str, time_to: str,
-                 agencies: List[str] = None, contract_vertices: bool = False) -> None:
+                 agencies: List[str] = None, contract_vertices: bool = False,
+                 modalities: List[str] = None) -> None:
         self.city = city
         bbox = get_bbox(city)
         # (lng_max, lat_min, lng_min, lat_max)
@@ -42,6 +43,7 @@ class GTFSGraphGenerator:
         self.time_from = time_from
         self.time_to = time_to
         self.contract_vertices = contract_vertices
+        self.modalities = modalities
 
     def _filter_gtfs(self):
         out_path = self.gtfs_file_path.parent \
@@ -127,10 +129,16 @@ class GTFSGraphGenerator:
                     node: {
                         'name': data['stop_name'],
                         'color': 'BLUE',
+                        'modality_type': GTFSNetworkTypes(int(data['route_type'])).name.lower(),
                     } for node, data in G_transit.nodes(data=True)
                 }
 
                 nx.set_node_attributes(G_transit, node_attrs)
+
+                if self.modalities:
+                    non_modality_nodes = [n for n,v in G_transit.nodes(data=True)
+                                          if v['modality_type'] not in self.modalities]
+                    G_transit.remove_nodes_from(non_modality_nodes)
 
                 # Contract vertices if requested
                 if self.contract_vertices:
