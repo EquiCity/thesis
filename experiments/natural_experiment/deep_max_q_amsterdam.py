@@ -1,4 +1,5 @@
 import datetime
+import os
 import pickle
 
 from ptnrue.deep_q_learning_approach.deep_max_q_learner import DeepMaxQLearner
@@ -13,7 +14,6 @@ import torch
 import random
 import logging
 from ptnrue.plotting.solution_plotting import plot_rewards_and_graphs
-from ptnrue.plotting.policy_plotting import PolicyPlotter
 from matplotlib import pyplot as plt
 from pathlib import Path
 import ray
@@ -24,17 +24,14 @@ logger.setLevel(logging.INFO)
 
 ray.init(ignore_reinit_error=True)
 
+GRAPH_PATH = Path(os.environ['GRAPH_PATH'])
+CENSUS_PARQUET_PATH = Path(os.environ['CENSUS_PARQUET_PATH'])
+
+
 if __name__ == "__main__":
-    g: ig.Graph = ig.load(
-        Path(f"/home/rico/Documents/thesis/experiments/historical_data_ams/ams_2020/Amsterdam_problem_graph_2020.gml"))
-    origin_vertices = {e.source for e in g.es.select(type_in=['metro'])}
-    target_vertices = {e.target for e in g.es.select(type_in=['metro'])}
-    metro_station_vertices = list(origin_vertices.union(target_vertices))
-    metro_station_vertices.extend(g.vs.select(type='poi_node'))
-    metro_station_vertices.extend(g.vs.select(type='res_node'))
-    g = g.induced_subgraph(metro_station_vertices)
-    census_data = gpd.read_parquet(Path(
-        f"/home/rico/Documents/thesis/eda/data/Amsterdam/cleaned_neighbourhood_data/kwb_20_ams_neighborhoods.parquet"))
+    g: ig.Graph = ig.load(GRAPH_PATH)
+    census_data = gpd.read_parquet(CENSUS_PARQUET_PATH)
+
     census_data['n_inh'] = census_data['a_inw']
     census_data['neighborhood'] = census_data['BU_NAAM']
 
@@ -45,15 +42,15 @@ if __name__ == "__main__":
     reward = EgalitarianTheilReward(census_data=census_data,
                                     com_threshold=com_threshold)
 
-    episodes = 50 # 10_000
-    batch_size = 32 # 12
+    episodes = 10_000
+    batch_size = 512
     replay_memory_size = 8192
     eps_start = 1.0
     eps_end = 0.01
     eps_decay = 5_000
-    static_eps_steps = budget * 5 # 0_000
+    static_eps_steps = budget * 5_000
 
-    target_network_update_step = 1 # _000
+    target_network_update_step = 100
 
     # seed = 1033
     # torch.manual_seed(seed)
@@ -79,14 +76,15 @@ if __name__ == "__main__":
     ax2 = ax[1].twinx()
     ax2.plot(range(len(eps_values_over_steps)), eps_values_over_steps, color='orange', label='Epsilon')
     fig.legend()
-    plt.savefig('./output.png')
+    plt.savefig(f'./output_{datetime.datetime.now()}.png')
 
     # # Plot the policy
     # _, _ = PolicyPlotter().from_model(model=q_learner.policy_net, budget=budget, actions=q_learner.actions.tolist())
     #
     # plt.show()
-    # plot_title = f'Q Learning solution with {reward.__class__.__name__} and budget size {budget}'
-    # fig, ax = plot_rewards_and_graphs(g, [(rewards, edges)], plot_title)
+    plot_title = f'Q Learning solution with {reward.__class__.__name__} and budget size {budget}'
+    fig, ax = plot_rewards_and_graphs(g, [(rewards, edges)], plot_title)
+    plt.savefig(f'./output_{datetime.datetime.now()}.png')
     # plt.show()
-    # # logger.info(f"Removed edges: {edges}")
-    # # q_learner.save_model(f"models/ql_{episodes}_{reward.__class__.__name__}_{budget}_{datetime.datetime.now()}_.pkl")
+    logger.info(f"Removed edges: {edges}")
+    q_learner.save_model(f"./ql_{episodes}_{reward.__class__.__name__}_{budget}_{datetime.datetime.now()}.pkl")

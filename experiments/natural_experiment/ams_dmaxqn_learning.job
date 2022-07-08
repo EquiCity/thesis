@@ -1,0 +1,23 @@
+#!/bin/bash
+
+#SBATCH --partition=fat
+#SBATCH --job-name=GTFSDownloadJob
+#SBATCH --ntasks=1
+#SBATCH --cpus-per-task=16
+#SBATCH --time=10:00:00
+#SBATCH --mem=32000M
+#SBATCH --output=ams_dqn_museum_metro_%A.out
+
+module purge
+module load 2021
+module load Anaconda3/2021.05
+
+# Activate your environment
+source activate thesis
+
+# Set environmental variables
+export GRAPH_PATH=/home/fiorista/thesis/repo/experiments/natural_experiment/Amsterdam_problem_graph_2020_museum_metro.gml
+export CENSUS_PARQUET_PATH=/home/fiorista/thesis/repo/experiments/natural_experiment/neighborhoods.parquet
+
+# Run your code
+srun python -u deep_max_q_amsterdam.py
