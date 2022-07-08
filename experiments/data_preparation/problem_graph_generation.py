@@ -33,6 +33,7 @@ if __name__ == "__main__":
                                             out_dir_path=out_dir_path, day=day,
                                             time_from=time_from, time_to=time_to,
                                             agencies=['GVB', 'IFF:GVB', 'IFF:NS', 'IFF:NSI', 'IFF:RNET'],
-                                            poi_gdf=poi_gdf, census_gdf=census_gdf, modalities=modalities)
+                                            poi_gdf=poi_gdf, census_gdf=census_gdf, modalities=modalities,
+                                            distances_computation_mode='haversine')
 
     graph_generator.generate_problem_graph()
