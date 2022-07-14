@@ -74,7 +74,7 @@ if __name__ == "__main__":
                                     static_eps_steps=static_eps_steps)
 
     rewards_over_episodes, eps_values_over_steps = max_q_learner.train()
-    max_q_learner.save_model(f"./ql_{episodes}_{reward.__class__.__name__}_{budget}_{datetime.datetime.now()}.pkl")
+    max_q_learner.save_model(f"./ql_{episodes}_{reward.__class__.__name__}_{budget}_{datetime.datetime.now().isoformat()}.pkl")
     rewards, edges = max_q_learner.inference()
 
     fig, ax = plt.subplots(2, 1, figsize=(10, 10))
@@ -86,7 +86,7 @@ if __name__ == "__main__":
     ax2 = ax[1].twinx()
     ax2.plot(range(len(eps_values_over_steps)), eps_values_over_steps, color='orange', label='Epsilon')
     fig.legend()
-    plt.savefig(f'./output_{datetime.datetime.now()}.png')
+    plt.savefig(f'./output_{datetime.datetime.now().isoformat()}.png')
 
     plot_title = f'Q Learning solution with {reward.__class__.__name__} and budget size {budget}'
     plt.show()
