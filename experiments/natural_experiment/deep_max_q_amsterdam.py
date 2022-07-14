@@ -90,4 +90,4 @@ if __name__ == "__main__":
 
     plot_title = f'Q Learning solution with {reward.__class__.__name__} and budget size {budget}'
     plt.show()
-    logger.info(f"Removed edges: {edges}")
+    logger.info(f"Removed edges: {edges} | rewards: {rewards}")

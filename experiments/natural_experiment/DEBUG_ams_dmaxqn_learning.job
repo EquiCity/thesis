@@ -6,10 +6,11 @@
 #SBATCH --cpus-per-task=16
 #SBATCH --time=00:04:00
 #SBATCH --mem=32000M
-#SBATCH --output=DEBUG_ams_dqn_museum_metro_%A.out
+#SBATCH --output=dmaxqn_museum_metro_DEBUG.out
 
 module purge
 module load 2021
+module load JupyterHub/1.4.1-GCCcore-10.3.0
 module load Anaconda3/2021.05
 
 # Activate your environment
@@ -20,4 +21,7 @@ export GRAPH_PATH=/home/fiorista/thesis/repo/experiments/natural_experiment/Amst
 export CENSUS_PARQUET_PATH=/home/fiorista/thesis/repo/experiments/natural_experiment/neighborhoods.parquet
 
 # Run your code
+#srun conda install -c conda-forge mamba 
+#srun mamba install -c conda-forge scipy=1.6.0
+
 srun python -u deep_max_q_amsterdam.py
