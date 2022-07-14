@@ -47,20 +47,20 @@ if __name__ == "__main__":
 
     edge_types = list(np.unique(g.es['type']))
     edge_types.remove('walk')
-    budget = 20
+    budget = 10
     com_threshold = 15
     reward = EgalitarianTheilReward(census_data=census_data,
                                     com_threshold=com_threshold)
 
-    episodes = 6_000
-    batch_size = 512
-    replay_memory_size = 8192
+    episodes = 800
+    batch_size = 256
+    replay_memory_size = 4096
     eps_start = 1.0
     eps_end = 0.01
-    eps_decay = 2000
-    static_eps_steps = budget * 4000
+    eps_decay = 1000
+    static_eps_steps = budget * 500
 
-    target_network_update_step = 100
+    target_network_update_step = 50
 
     seed = 2048
     torch.manual_seed(seed)
