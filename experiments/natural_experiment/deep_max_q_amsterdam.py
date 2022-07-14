@@ -28,8 +28,10 @@ GRAPH_PATH = Path(os.environ['GRAPH_PATH'])
 CENSUS_PARQUET_PATH = Path(os.environ['CENSUS_PARQUET_PATH'])
 
 if __name__ == "__main__":
+    logger.info("Loading data")
     g: ig.Graph = ig.load(GRAPH_PATH)
     census_data = gpd.read_parquet(CENSUS_PARQUET_PATH)
+    logger.info("Completed loading data")
 
     census_data["neighborhood"] = 'RC_' + census_data['BU_NAAM']
     census_data['n_inh'] = census_data['a_inw']
@@ -41,7 +43,6 @@ if __name__ == "__main__":
     census_data["n_western"] = (census_data['a_inw'] * (census_data['a_w_all'] / all_w_nw_inh)).astype('int')
     census_data["n_non_western"] = census_data['a_inw'] - census_data["n_western"]
 
-
     census_data = census_data[["neighborhood", "n_inh", "n_western", "n_non_western", "res_centroids", "geometry"]]
 
     edge_types = list(np.unique(g.es['type']))
@@ -51,7 +52,7 @@ if __name__ == "__main__":
     reward = EgalitarianTheilReward(census_data=census_data,
                                     com_threshold=com_threshold)
 
-    episodes = 6_000
+    episodes = 3
     batch_size = 512
     replay_memory_size = 8192
     eps_start = 1.0
@@ -73,6 +74,7 @@ if __name__ == "__main__":
                                     eps_start=eps_start, eps_end=eps_end, eps_decay=eps_decay,
                                     static_eps_steps=static_eps_steps)
 
+    logger.info("Starting Training")
     rewards_over_episodes, eps_values_over_steps = max_q_learner.train()
     max_q_learner.save_model(f"./ql_{episodes}_{reward.__class__.__name__}_{budget}_{datetime.datetime.now().isoformat()}.pkl")
     rewards, edges = max_q_learner.inference()
