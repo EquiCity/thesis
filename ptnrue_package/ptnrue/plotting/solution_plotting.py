@@ -89,7 +89,6 @@ def plot_rewards_and_graphs(base_graph: ig.Graph, solutions: List[Tuple[List[flo
     fig.suptitle(title, fontsize=20)
 
     for i, (rewards, edges) in enumerate(solutions):
-
         reward_plot = ax[0] if len(solutions) == 1 else ax[i][0]
         graph_plot = ax[1] if len(solutions) == 1 else ax[i][1]
 
@@ -99,4 +98,36 @@ def plot_rewards_and_graphs(base_graph: ig.Graph, solutions: List[Tuple[List[flo
 
         logger.info(f"For solution {i}, Removed edges: {edges}")
 
+    return fig, ax
+
+
+def plot_full_problem_exploration(base_graph: ig.Graph,
+                                  configurations: List[List[List[int]]], rewards: List[List[float]]):
+    n_cols = len(configurations)
+    n_rows = max([len(c) for c in configurations])
+
+    fig, ax = plt.subplots(n_rows, n_cols, sharex=True, sharey=True, figsize=(4 * n_cols, 3.2 * n_rows),
+                           constrained_layout = True)
+
+    for i, (config_candidates, rewards) in enumerate(zip(configurations, rewards)):
+        for j, (cand, reward) in enumerate(zip(config_candidates, rewards)):
+            plot_graph(ax=ax[j, i], base_graph=base_graph, edges=cand)
+            # ax[j, i].legend([], [f'$\\mathdefault{reward}$'],
+            #                 loc="lower center", title="Reward")
+            font = {'family': 'DejaVu Sans',
+                    'color': 'black',
+                    'weight': 'bold',
+                    'size': 18
+                    }
+
+            # add text with custom font
+            ax[j, i].set_title(f'Reward: {reward:.4f}', fontdict=font)
+            ax[j, i].set_xticks([])
+            ax[j, i].set_yticks([])
+        for a in ax[j+1:, i]:
+            a.axis('off')
+
+    # fig.subplots_adjust(wspace=0, hspace=1)
+    # fig.tight_layout()
+    # plt.subplots_adjust(bottom=0, left=.01, right=.99, top=.90, hspace=.35)
     return fig, ax

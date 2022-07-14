@@ -136,4 +136,5 @@ class AbstractQLearner(abc.ABC):
             rewards_per_removal.append(reward)
 
         final_state = list(edges_removed)
+
         return rewards_per_removal, final_state

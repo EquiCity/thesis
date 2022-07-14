@@ -84,7 +84,6 @@ def ga_baseline(g: ig.Graph, reward: BaseReward, edge_types: List[str],
                 budget: int = 5, num_generations: int = 50,
                 num_parents_mating: int = 10, sol_per_pop: int = 30, crossover_probability: float = 0.4,
                 mutation_probability: float = 0.4, saturation: int = 20) -> Tuple[List[float], List[int]]:
-
     def fitness_func(solution: List[int], solution_idx: int):
         edges_to_remove = [e.index for e in g.es[list(solution)]]
 
@@ -108,7 +107,6 @@ def ga_max_baseline(g: ig.Graph, reward: BaseReward, edge_types: List[str],
                     budget: int = 5, num_generations: int = 50,
                     num_parents_mating: int = 10, sol_per_pop: int = 30, crossover_probability: float = 0.4,
                     mutation_probability: float = 0.4, saturation: int = 20) -> Tuple[List[float], List[int]]:
-
     def fitness_func(solution: List[int], solution_idx: int):
         edges_to_remove = [e.index for e in g.es[list(solution)]]
 
@@ -126,8 +124,10 @@ def ga_max_baseline(g: ig.Graph, reward: BaseReward, edge_types: List[str],
 
         return max(rewards)
 
-    return _ga_runner(g=g, reward=reward, edge_types=edge_types, fitness_func=fitness_func,
-                      budget=budget, num_generations=num_generations,
-                      num_parents_mating=num_parents_mating, sol_per_pop=sol_per_pop,
-                      crossover_probability=crossover_probability,
-                      mutation_probability=mutation_probability, saturation=saturation)
+    rewards, solution = _ga_runner(g=g, reward=reward, edge_types=edge_types, fitness_func=fitness_func,
+                                   budget=budget, num_generations=num_generations,
+                                   num_parents_mating=num_parents_mating, sol_per_pop=sol_per_pop,
+                                   crossover_probability=crossover_probability,
+                                   mutation_probability=mutation_probability, saturation=saturation)
+    max_idx = np.argmax(rewards) + 1
+    return rewards[:max_idx], solution[:max_idx]

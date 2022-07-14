@@ -1,6 +1,6 @@
 from .abstract_q_learner_baseline import AbstractQLearner
 import numpy as np
-from typing import List
+from typing import List, Tuple
 from tqdm import tqdm
 
 
@@ -36,3 +36,11 @@ class MaxQLearner(AbstractQLearner):
 
         if return_rewards_over_episodes:
             return max_rewards_over_episodes
+
+    def inference(self) -> Tuple[List[float], List[int]]:
+        rewards_per_removal, final_state = super(MaxQLearner, self).inference()
+
+        # Crop until max
+        max_idx = np.argmax(rewards_per_removal) + 1
+
+        return rewards_per_removal[:max_idx], final_state[:max_idx]

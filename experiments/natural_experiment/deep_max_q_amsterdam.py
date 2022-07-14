@@ -22,53 +22,63 @@ logging.basicConfig()
 logger = logging.getLogger(__file__)
 logger.setLevel(logging.INFO)
 
-ray.init(ignore_reinit_error=True)
+# ray.init(ignore_reinit_error=True)
 
 GRAPH_PATH = Path(os.environ['GRAPH_PATH'])
 CENSUS_PARQUET_PATH = Path(os.environ['CENSUS_PARQUET_PATH'])
-
 
 if __name__ == "__main__":
     g: ig.Graph = ig.load(GRAPH_PATH)
     census_data = gpd.read_parquet(CENSUS_PARQUET_PATH)
 
+    census_data["neighborhood"] = 'RC_' + census_data['BU_NAAM']
     census_data['n_inh'] = census_data['a_inw']
-    census_data['neighborhood'] = census_data['BU_NAAM']
+    census_data["res_centroids"] = census_data["res_centroid"]
+    census_data["geometry"] = census_data["res_centroid"]
+
+    all_w_nw_inh = census_data['a_w_all'] + census_data['a_nw_all'] + 0.0001
+
+    census_data["n_western"] = (census_data['a_inw'] * (census_data['a_w_all'] / all_w_nw_inh)).astype('int')
+    census_data["n_non_western"] = census_data['a_inw'] - census_data["n_western"]
+
+
+    census_data = census_data[["neighborhood", "n_inh", "n_western", "n_non_western", "res_centroids", "geometry"]]
 
     edge_types = list(np.unique(g.es['type']))
     edge_types.remove('walk')
-    budget = 20
+    budget = 1
     com_threshold = 15
     reward = EgalitarianTheilReward(census_data=census_data,
                                     com_threshold=com_threshold)
 
-    episodes = 10_000
+    episodes = 1
     batch_size = 512
     replay_memory_size = 8192
     eps_start = 1.0
     eps_end = 0.01
-    eps_decay = 5_000
-    static_eps_steps = budget * 5_000
+    eps_decay = 1000
+    static_eps_steps = budget * 5000
 
     target_network_update_step = 100
 
-    # seed = 1033
-    # torch.manual_seed(seed)
-    # np.random.seed(seed)
-    # random.seed(seed)
+    seed = 2048
+    torch.manual_seed(seed)
+    np.random.seed(seed)
+    random.seed(seed)
 
-    q_learner = DeepMaxQLearner(base_graph=g, reward=reward, budget=budget, edge_types=edge_types,
-                                target_network_update_step=target_network_update_step,
-                                episodes=episodes, batch_size=batch_size,
-                                replay_memory_size=replay_memory_size,
-                                eps_start=eps_start, eps_end=eps_end, eps_decay=eps_decay,
-                                static_eps_steps=static_eps_steps)
+    max_q_learner = DeepMaxQLearner(base_graph=g, reward=reward, budget=budget, edge_types=edge_types,
+                                    target_network_update_step=target_network_update_step,
+                                    episodes=episodes, batch_size=batch_size,
+                                    replay_memory_size=replay_memory_size,
+                                    eps_start=eps_start, eps_end=eps_end, eps_decay=eps_decay,
+                                    static_eps_steps=static_eps_steps)
 
-    rewards_over_episodes, eps_values_over_steps = q_learner.train()
-    rewards, edges = q_learner.inference()
+    rewards_over_episodes, eps_values_over_steps = max_q_learner.train()
+    max_q_learner.save_model(f"./ql_{episodes}_{reward.__class__.__name__}_{budget}_{datetime.datetime.now()}.pkl")
+    rewards, edges = max_q_learner.inference()
 
     fig, ax = plt.subplots(2, 1, figsize=(10, 10))
-    sub_sampled_policy_net_loss = q_learner.policy_net_loss[0::budget]
+    sub_sampled_policy_net_loss = max_q_learner.policy_net_loss[0::budget]
 
     ax[0].plot(range(len(sub_sampled_policy_net_loss)), sub_sampled_policy_net_loss, label='Policy Net Loss')
 
@@ -78,13 +88,6 @@ if __name__ == "__main__":
     fig.legend()
     plt.savefig(f'./output_{datetime.datetime.now()}.png')
 
-    # # Plot the policy
-    # _, _ = PolicyPlotter().from_model(model=q_learner.policy_net, budget=budget, actions=q_learner.actions.tolist())
-    #
-    # plt.show()
     plot_title = f'Q Learning solution with {reward.__class__.__name__} and budget size {budget}'
-    fig, ax = plot_rewards_and_graphs(g, [(rewards, edges)], plot_title)
-    plt.savefig(f'./output_{datetime.datetime.now()}.png')
-    # plt.show()
+    plt.show()
     logger.info(f"Removed edges: {edges}")
-    q_learner.save_model(f"./ql_{episodes}_{reward.__class__.__name__}_{budget}_{datetime.datetime.now()}.pkl")

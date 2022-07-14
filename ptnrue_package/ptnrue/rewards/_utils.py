@@ -71,42 +71,38 @@ def _to_array(ray_list: List[ray.ObjectRef], n_nb_nodes: int, n_poi_nodes: int) 
 
 def evaluate_graph(g: ig.Graph) -> pd.DataFrame:
     nb_nodes = g.vs.select(type_eq='res_node')
-    nb_node_ids = [elem.index for elem in nb_nodes]
-    n_nb_nodes = len(nb_nodes)
+    # nb_node_ids = [elem.index for elem in nb_nodes]
+    # n_nb_nodes = len(nb_nodes)
     poi_nodes = g.vs.select(type_eq='poi_node')
-    poi_node_ids = [elem.index for elem in poi_nodes]
-    n_poi_nodes = len(poi_nodes)
+    # poi_node_ids = [elem.index for elem in poi_nodes]
+    # n_poi_nodes = len(poi_nodes)
 
-    global_graph_actor = GraphActor.remote(graph=g)
-
-    tt_mx_ray = []
-    hops_mx_ray = []
-
-    BATCH_SIZE = 100
-
-    for i in range(0, len(nb_node_ids), BATCH_SIZE):
-        batch_nb_node_ids = nb_node_ids[i: i + BATCH_SIZE]
-        shortest_path_values = get_shortest_path.remote(global_graph_actor, batch_nb_node_ids, poi_node_ids)
-        tt_mx_ray.append(shortest_path_values)
-
-        shortest_path_edges = get_shortest_path_length.remote(global_graph_actor, batch_nb_node_ids, poi_node_ids)
-        hops_mx_ray.append(shortest_path_edges)
+    shortest_paths_tt = g.shortest_paths(nb_nodes, poi_nodes, weights='tt')
 
     # Travel Time
-    tt_mx = _to_array(tt_mx_ray, n_nb_nodes, n_poi_nodes)
+    tt_mx = np.array(shortest_paths_tt)
+    # Assign max over both dimensions to inf values
     tt_mx[tt_mx == np.inf] = tt_mx.max(1).max()
 
-    # Hops
-    hops_mx = _to_array(hops_mx_ray, n_nb_nodes, n_poi_nodes)
+    # Number of hops
+    hops_mx = []
+    for v_rc in nb_nodes:
+        shortest_path_edges = g.get_shortest_paths(v_rc, poi_nodes, weights='tt', output='epath')
+        hops_mx.append([len(es) for es in shortest_path_edges])
+
+    hops_mx = np.array(hops_mx)
     hops_mx[hops_mx == 0] = 1
 
-    df_tt = pd.DataFrame(tt_mx, columns=poi_nodes['name'])
-    df_tt['metric'] = 'travel_time'
-    df_tt['rc'] = nb_nodes['name']
+    poi_node_names = [f'POI_{name}' for name in poi_nodes['name']]
+    rc_node_names = [f'RC_{name}' for name in nb_nodes['name']]
 
-    df_hops = pd.DataFrame(hops_mx, columns=poi_nodes['name'])
+    df_tt = pd.DataFrame(tt_mx, columns=poi_node_names)
+    df_tt['metric'] = 'travel_time'
+    df_tt['rc'] = rc_node_names
+
+    df_hops = pd.DataFrame(hops_mx, columns=poi_node_names)
     df_hops['metric'] = 'hops'
-    df_hops['rc'] = nb_nodes['name']
+    df_hops['rc'] = rc_node_names
 
     return pd.concat([df_tt, df_hops], axis=0)
 

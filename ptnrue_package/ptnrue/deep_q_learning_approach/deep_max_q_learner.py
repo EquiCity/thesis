@@ -69,3 +69,11 @@ class DeepMaxQLearner(AbstractDeepQLearner):
             output.append(eps_values)
 
         return tuple(output)
+
+    def inference(self) -> Tuple[List[float], List[int]]:
+        rewards_per_removal, final_state = super(DeepMaxQLearner, self).inference()
+
+        # Crop until max
+        max_idx = np.argmax(rewards_per_removal) + 1
+
+        return rewards_per_removal[:max_idx], final_state[:max_idx]
