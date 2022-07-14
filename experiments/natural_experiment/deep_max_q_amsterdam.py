@@ -61,7 +61,7 @@ if __name__ == "__main__":
 
     target_network_update_step = 100
 
-    seed = 2048
+    seed = 25
     torch.manual_seed(seed)
     np.random.seed(seed)
     random.seed(seed)
@@ -90,4 +90,4 @@ if __name__ == "__main__":
 
     plot_title = f'Q Learning solution with {reward.__class__.__name__} and budget size {budget}'
     plt.show()
-    logger.info(f"Removed edges: {edges}")
+    logger.info(f"Removed edges: {edges} | rewards: {rewards}")

@@ -193,7 +193,7 @@ class AbstractDeepQLearner(AbstractQLearner, abc.ABC):
 
             # Evaluate graph
             reward = self.reward.evaluate(g_prime)
-            reward = torch.tensor([[reward]], device=device, dtype=torch.long)
+            reward = torch.tensor([[reward]], device=device, dtype=torch.double)
 
         except ActionAlreadyTakenError as e:
             logger.error(f"Reached a wrong state: {str(e)}")
