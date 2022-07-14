@@ -83,7 +83,7 @@ class EgalitarianTheilReward(BaseReward):
             theil_t = TheilD(X, Y).T[0] if X.sum() > 0 else 0.0
             theil_inequality[metric] = theil_t
 
-        return sum([theil_inequality[k] for k in theil_inequality])
+        return sum(theil_inequality.values())
 
     def _reward_scaling(self, reward: float) -> float:
         return np.exp(-5 * reward) * 100
