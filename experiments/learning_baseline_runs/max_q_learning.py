@@ -27,7 +27,7 @@ if __name__ == "__main__":
     com_threshold = 15
     reward = CustomReward(reward_dict=reward_dict, census_data=census_data,
                           com_threshold=com_threshold)
-    episodes = 250
+    episodes = 50
 
     max_q_learner = MaxQLearner(g, reward, edge_types, budget, episodes)
     rewards_over_episodes = max_q_learner.train(return_rewards_over_episodes=True)
@@ -39,7 +39,9 @@ if __name__ == "__main__":
     plt.ylabel("Cumulative Reward (Return)")
     plt.show()
 
-    ax = PolicyPlotter().from_dict(policy_dict=max_q_learner.q_values, actions=max_q_learner.actions)
+    fig, ax = plt.subplots(1, 1, figsize=(10, 10))
+    ax = PolicyPlotter().from_dict(policy_dict=max_q_learner.q_values, actions=max_q_learner.actions,
+                                   fig=fig, ax=ax)
     plt.show()
 
     plot_title = f'Q Learning solution with {reward.__class__.__name__} and budget size {budget}'

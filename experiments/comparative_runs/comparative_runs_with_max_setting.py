@@ -62,7 +62,7 @@ if __name__ == "__main__":
     }
 
     # Deep learning setup
-    episodes = 30
+    episodes = 50
 
     for rs in random_seeds:
         # Set random seed
@@ -84,7 +84,7 @@ if __name__ == "__main__":
 
         # # GA Baseline
         solution_ga = ga_max_baseline(g=g, reward=reward, edge_types=edge_types,
-                                      budget=budget, num_generations=50, sol_per_pop=20,
+                                      budget=budget, num_generations=episodes, sol_per_pop=20,
                                       num_parents_mating=10, saturation=20,
                                       mutation_probability=0.5, crossover_probability=0.5)
 

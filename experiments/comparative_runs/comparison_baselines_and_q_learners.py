@@ -21,7 +21,6 @@ logging.basicConfig()
 logger = logging.getLogger(__file__)
 logger.setLevel(logging.INFO)
 
-
 if __name__ == "__main__":
     dataset = 1
     g: ig.Graph = ig.load(f"../base_data/graph_{dataset}.gml")
@@ -42,7 +41,7 @@ if __name__ == "__main__":
                                     metrics=considered_metrics)
     # # Random Baseline
     solution_random = random_baseline(g=g, reward=reward,
-                                     edge_types=edge_types, budget=budget)
+                                      edge_types=edge_types, budget=budget)
 
     # # Optimal Baseline
     solutions_optimal = optimal_baseline(g=g, edge_types=edge_types,
@@ -54,9 +53,9 @@ if __name__ == "__main__":
 
     # # GA Baseline
     solution_ga = ga_baseline(g=g, reward=reward, edge_types=edge_types,
-                                budget=budget, num_generations=50, sol_per_pop=20,
-                                num_parents_mating=10, saturation=20,
-                                mutation_probability=0.5, crossover_probability=0.5)
+                              budget=budget, num_generations=50, sol_per_pop=20,
+                              num_parents_mating=10, saturation=20,
+                              mutation_probability=0.5, crossover_probability=0.5)
 
     # # Q-Learning Baseline
     episodes = 20

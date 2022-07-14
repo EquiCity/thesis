@@ -22,32 +22,35 @@ logger = logging.getLogger(__file__)
 logger.setLevel(logging.INFO)
 
 if __name__ == "__main__":
-    dataset = 3
+    dataset = 5
     g = ig.load(Path(f"../base_data/graph_{dataset}.gml"))
     census_data = gpd.read_file(Path(f"../base_data/census_data_{dataset}.geojson"))
-    # reward_dict = pickle.load(open(f"../base_data/reward_dict_{dataset}.pkl", 'rb'))
+    reward_dict = pickle.load(open(f"../base_data/reward_dict_{dataset}.pkl", 'rb'))
     edge_types = list(np.unique(g.es['type']))
     edge_types.remove('walk')
-    budget = 10
+    budget = 3
     com_threshold = 15
-    # reward = CustomReward(reward_dict=reward_dict, census_data=census_data,
-    #                       com_threshold=com_threshold)
-    reward = EgalitarianTheilReward(census_data=census_data, com_threshold=com_threshold)
+    reward = CustomReward(reward_dict=reward_dict, census_data=census_data,
+                          com_threshold=com_threshold)
+    # reward = EgalitarianTheilReward(census_data=census_data, com_threshold=com_threshold)
 
-    episodes = 200
-    batch_size = 128
-    replay_memory_size = 2048
+    episodes = 50
+
+    # Replay Memory
+    batch_size = 32
+    replay_memory_size = 128
+    target_network_update_step = 10
+
+    # EPS Schedule
     eps_start = 1.0
-    eps_end = 0.01
-    eps_decay = 200
-    static_eps_steps = 100
+    eps_end = 0.0
+    eps_decay = 10
+    static_eps_steps = 30
 
-    target_network_update_step = 50
-
-    # seed = 1024
-    # torch.manual_seed(seed)
-    # np.random.seed(seed)
-    # random.seed(seed)
+    seed = 1024
+    torch.manual_seed(seed)
+    np.random.seed(seed)
+    random.seed(seed)
 
     q_learner = DeepQLearner(base_graph=g, reward=reward, budget=budget, edge_types=edge_types,
                              target_network_update_step=target_network_update_step,
@@ -59,7 +62,7 @@ if __name__ == "__main__":
     rewards_over_episodes, eps_values_over_steps = q_learner.train()
     rewards, edges = q_learner.inference()
 
-    fig,ax = plt.subplots(2, 1, figsize=(10,10))
+    fig, ax = plt.subplots(2, 1, figsize=(10, 10))
     sub_sampled_policy_net_loss = q_learner.policy_net_loss[0::budget]
 
     ax[0].plot(range(len(sub_sampled_policy_net_loss)), sub_sampled_policy_net_loss, label='Policy Net Loss')
@@ -71,7 +74,9 @@ if __name__ == "__main__":
     plt.show()
 
     # Plot the policy
-    _, _ = PolicyPlotter().from_model(model=q_learner.policy_net, budget=budget, actions=q_learner.actions.tolist())
+    fig, ax = plt.subplots(1, 1, figsize=(10, 10))
+    _, _ = PolicyPlotter().from_model(model=q_learner.policy_net, budget=budget, actions=q_learner.actions.tolist(),
+                                      fig=fig, ax=ax)
 
     plt.show()
     plot_title = f'Q Learning solution with {reward.__class__.__name__} and budget size {budget}'
