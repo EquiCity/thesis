@@ -52,7 +52,7 @@ if __name__ == "__main__":
     reward = EgalitarianTheilReward(census_data=census_data,
                                     com_threshold=com_threshold)
 
-    episodes = 3
+    episodes = 6_000
     batch_size = 512
     replay_memory_size = 8192
     eps_start = 1.0
