@@ -48,6 +48,7 @@ class AbstractQLearner(abc.ABC):
                                             eps_decay=eps_decay, static_eps_steps=static_eps_steps)
 
         self.steps_done = 0
+        self.curr_episode = 0
 
         self.state_visits = None
         self.reset_state_visits()
@@ -116,9 +117,10 @@ class AbstractQLearner(abc.ABC):
         with open(fpath, 'wb') as f:
             pickle.dump(self, f)
 
-    def load_model(self, fpath: Union[str, os.PathLike]):
-        with open(fpath, 'wb') as f:
-            pickle.dump(self, f)
+    @staticmethod
+    def load_model(fpath: Union[str, os.PathLike]):
+        with open(fpath, 'rb') as f:
+            return pickle.load(f)
 
     def inference(self) -> Tuple[List[float], List[int]]:
         if not self.trained:

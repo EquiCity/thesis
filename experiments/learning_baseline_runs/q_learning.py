@@ -46,7 +46,12 @@ if __name__ == "__main__":
     fig, ax = plt.subplots(1, 1, figsize=(10, 10))
     ax = PolicyPlotter().from_dict(policy_dict=q_learner.q_values, actions=q_learner.actions,
                                    fig=fig, ax=ax)
-    fig.savefig('')
+    fig.savefig(
+        f'/home/rico/Documents/thesis/paper/'
+        f'figures/synth_ds_{dataset}_q_learning_policy.png')
+    fig.savefig(
+        f'/home/rico/Documents/thesis/paper/'
+        f'overleaf/62a466789b2183065a639cda/content-media/synth_ds_{dataset}_q_learning_policy.png')
     plt.show()
 
     plot_title = f'Q Learning solution with {reward.__class__.__name__} and budget size {budget}'

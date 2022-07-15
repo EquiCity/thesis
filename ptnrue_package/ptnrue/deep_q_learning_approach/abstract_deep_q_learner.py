@@ -1,3 +1,6 @@
+import datetime
+import os.path
+
 import igraph as ig
 from typing import Tuple, List, Optional
 import abc
@@ -16,6 +19,7 @@ import logging
 import torch.optim as optim
 import random
 import math
+from pathlib import Path
 from ..exceptions.q_learner_exceptions import ActionAlreadyTakenError
 
 logging.basicConfig()
@@ -102,7 +106,8 @@ class AbstractDeepQLearner(AbstractQLearner, abc.ABC):
     def __init__(self, base_graph: ig.Graph, reward: BaseReward, edge_types: List[str], budget: int, episodes: int,
                  batch_size: int, replay_memory_size: int, target_network_update_step: int,
                  eps_start: float = 1.0, eps_end: float = 0.01, eps_decay: float = 200, static_eps_steps: int = 100,
-                 step_size: float = 1, discount_factor: float = 1.0) -> None:
+                 step_size: float = 1, discount_factor: float = 1.0, save_model_every: int = 50,
+                 save_model_path: Path = Path('./model_snapshots/')) -> None:
         super().__init__(base_graph, reward, edge_types, budget, episodes, step_size, discount_factor)
 
         self.starting_state = torch.zeros(len(self.actions), dtype=torch.bool)
@@ -129,11 +134,19 @@ class AbstractDeepQLearner(AbstractQLearner, abc.ABC):
         self.eps_schedule = EpsilonSchedule(eps_start=eps_start, eps_end=eps_end,
                                             eps_decay=eps_decay, static_eps_steps=static_eps_steps)
 
+        self.save_model_every = save_model_every
+
+        if not os.path.exists(save_model_path):
+            os.mkdir(save_model_path)
+
+        self.save_model_path = save_model_path
+        self.start_datetime = datetime.datetime.now().isoformat()
+
         self.policy_net_loss = []
 
         # TODO convert this to entry parameter (also learning rate)
         # self.optimizer = optim.SGD(self.policy_net.parameters(), lr=1e-2, momentum=0.0)
-        self.optimizer = optim.Adam(self.policy_net.parameters(), lr=1)
+        self.optimizer = optim.Adam(self.policy_net.parameters(), lr=1e-1)
         # TODO convert this to entry parameter
         self.criterion = nn.MSELoss()
         self.replay_memory_size = replay_memory_size
@@ -143,8 +156,9 @@ class AbstractDeepQLearner(AbstractQLearner, abc.ABC):
         return {}
 
     def _increment_step(self):
-        self.eps_schedule.make_step()
-        # self.eps_values.append(self.eps_schedule.get_current_eps())
+        super(AbstractDeepQLearner, self)._increment_step()
+        if self.curr_episode % self.save_model_every == 0 and self.curr_episode > 0:
+            self.save_model(self.save_model_path.joinpath(f'model_{self.curr_episode}_{self.start_datetime}.pkl'))
 
     def _get_available_actions(self, state: torch.Tensor) -> List[int]:
         return [action_idx for action_idx, _ in enumerate(self.actions)
@@ -261,7 +275,10 @@ class AbstractDeepQLearner(AbstractQLearner, abc.ABC):
         self.optimizer.step()
 
     @abc.abstractmethod
-    def train(self, return_rewards_over_episodes: bool = True, verbose: bool = True) -> Optional[List[float]]:
+    def train(self, return_cum_rewards_over_episodes: bool = True,
+              return_max_rewards_over_episodes: bool = True,
+              return_epsilon_over_episodes: bool = True,
+              verbose: bool = True) -> Optional[Tuple[List[float], List[float], List[float]]]:
         raise NotImplementedError()
 
     def inference(self) -> Tuple[List[float], List[int]]:

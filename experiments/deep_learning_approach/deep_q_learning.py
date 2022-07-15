@@ -45,7 +45,7 @@ if __name__ == "__main__":
     eps_start = 1.0
     eps_end = 0.0
     eps_decay = 10
-    static_eps_steps = 30
+    static_eps_steps = 25 * budget
 
     seed = 1024
     torch.manual_seed(seed)

@@ -20,7 +20,7 @@ if __name__ == "__main__":
     dataset = 5
     g = ig.load(f"../base_data/graph_{dataset}.gml")
     census_data = gpd.read_file(f"../base_data/census_data_{dataset}.geojson")
-    reward_dict = pickle.load(open(f"../base_data/reward_dict_{dataset}.pkl",'rb'))
+    reward_dict = pickle.load(open(f"../base_data/reward_dict_{dataset}.pkl", 'rb'))
     edge_types = list(np.unique(g.es['type']))
     edge_types.remove('walk')
     budget = 3
@@ -42,6 +42,12 @@ if __name__ == "__main__":
     fig, ax = plt.subplots(1, 1, figsize=(10, 10))
     ax = PolicyPlotter().from_dict(policy_dict=max_q_learner.q_values, actions=max_q_learner.actions,
                                    fig=fig, ax=ax)
+    fig.savefig(
+        f'/home/rico/Documents/thesis/paper/'
+        f'figures/synth_ds_{dataset}_max_q_learning_policy.png')
+    fig.savefig(
+        f'/home/rico/Documents/thesis/paper/'
+        f'overleaf/62a466789b2183065a639cda/content-media/synth_ds_{dataset}_max_q_learning_policy.png')
     plt.show()
 
     plot_title = f'Q Learning solution with {reward.__class__.__name__} and budget size {budget}'

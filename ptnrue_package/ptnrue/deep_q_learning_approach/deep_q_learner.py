@@ -16,9 +16,12 @@ class DeepQLearner(AbstractDeepQLearner):
     def _compute_q_learning_targets(self, reward_batch: torch.tensor, next_state_values: torch.tensor) -> torch.tensor:
         return reward_batch + (self.gamma * next_state_values)
 
-    def train(self, return_rewards_over_episodes: bool = True,
-              return_eps_values: bool = True, verbose: bool = True) -> Optional[Tuple[List[float], List[float]]]:
+    def train(self, return_cum_rewards_over_episodes: bool = True,
+              return_max_rewards_over_episodes: bool = True,
+              return_epsilon_over_episodes: bool = True,
+              verbose: bool = True) -> Optional[Tuple[List[float], List[float], List[float]]]:
         cum_rewards_over_episodes = []
+        max_rewards_over_episodes = []
         eps_values = []
 
         episode_iterator = tqdm(range(self.episodes)) if verbose else range(self.episodes)
@@ -27,6 +30,7 @@ class DeepQLearner(AbstractDeepQLearner):
         for ep in episode_iterator:
             state = self.starting_state
             cum_reward = 0
+            max_reward = -np.inf
 
             # while the state is not the terminal state
             while state[state == 1].size()[0] < self.goal:
@@ -36,7 +40,8 @@ class DeepQLearner(AbstractDeepQLearner):
                 action_ = self.choose_action(state, epsilon)
                 next_state, reward = self.step(state, action_)
 
-                cum_reward += reward
+                max_reward = max([reward.item(), max_reward])
+                cum_reward += reward.item()
 
                 # Store this transitions as an experience in the replay buffer
                 available_actions_next_state = self._get_available_actions(next_state)
@@ -50,19 +55,20 @@ class DeepQLearner(AbstractDeepQLearner):
                 # Perform one step of the optimization (on the policy network)
                 self.optimize_model()
 
-            # Update the target network, copying all weights and biases in DQN
-            # if i_episode % self.target_update == 0:
-            #     self.target_net.load_state_dict(self.policy_net.state_dict())
             eps_values.append(self.eps_schedule.get_current_eps())
             cum_rewards_over_episodes.append(cum_reward)
+            max_rewards_over_episodes.append(max_reward)
 
         self.trained = True
 
         output = []
-        if return_rewards_over_episodes:
+        if return_cum_rewards_over_episodes:
             output.append(cum_rewards_over_episodes)
 
-        if return_eps_values:
+        if return_max_rewards_over_episodes:
+            output.append(max_rewards_over_episodes)
+
+        if return_epsilon_over_episodes:
             output.append(eps_values)
 
         return tuple(output)
