@@ -14,6 +14,7 @@ import torch
 import random
 import logging
 from ptnrue.plotting.solution_plotting import plot_rewards_and_graphs
+from ptnrue.plotting.deep_solution_plotting import plot_nn_loss_reward_epsilon
 from matplotlib import pyplot as plt
 from pathlib import Path
 import ray
@@ -67,29 +68,33 @@ if __name__ == "__main__":
     np.random.seed(seed)
     random.seed(seed)
 
-    max_q_learner = DeepMaxQLearner(base_graph=g, reward=reward, budget=budget, edge_types=edge_types,
-                                    target_network_update_step=target_network_update_step,
-                                    episodes=episodes, batch_size=batch_size,
-                                    replay_memory_size=replay_memory_size,
-                                    eps_start=eps_start, eps_end=eps_end, eps_decay=eps_decay,
-                                    static_eps_steps=static_eps_steps)
+    ams_deep_max_q_learner = DeepMaxQLearner.load_model(Path('model_snapshots/model_750_2022-07-15T13:09:14.687741.pkl'))
+    # ams_deep_max_q_learner = DeepMaxQLearner(base_graph=g, reward=reward, budget=budget, edge_types=edge_types,
+    #                                          target_network_update_step=target_network_update_step,
+    #                                          episodes=episodes, batch_size=batch_size,
+    #                                          replay_memory_size=replay_memory_size,
+    #                                          eps_start=eps_start, eps_end=eps_end, eps_decay=eps_decay,
+    #                                          static_eps_steps=static_eps_steps)
 
     logger.info("Starting Training")
-    rewards_over_episodes, eps_values_over_steps = max_q_learner.train()
-    max_q_learner.save_model(f"./ql_{episodes}_{reward.__class__.__name__}_{budget}_{datetime.datetime.now().isoformat()}.pkl")
-    rewards, edges = max_q_learner.inference()
+    cum_rewards_over_episodes, max_rewards_over_episodes, eps_values_over_episodes = ams_deep_max_q_learner.train()
+    rewards, edges = ams_deep_max_q_learner.inference()
 
-    fig, ax = plt.subplots(2, 1, figsize=(10, 10))
-    sub_sampled_policy_net_loss = max_q_learner.policy_net_loss[0::budget]
+    sub_sampled_policy_net_loss = ams_deep_max_q_learner.policy_net_loss[0::budget]
+    fig, ax = plot_nn_loss_reward_epsilon(sub_sampled_policy_net_loss, max_rewards_over_episodes,
+                                          eps_values_over_episodes)
 
-    ax[0].plot(range(len(sub_sampled_policy_net_loss)), sub_sampled_policy_net_loss, label='Policy Net Loss')
-
-    ax[1].plot(range(len(rewards_over_episodes)), rewards_over_episodes, label='Cumulative Reward')
-    ax2 = ax[1].twinx()
-    ax2.plot(range(len(eps_values_over_steps)), eps_values_over_steps, color='orange', label='Epsilon')
-    fig.legend()
-    plt.savefig(f'./output_{datetime.datetime.now().isoformat()}.png')
+    # fig.savefig(
+    #     f'/home/rico/Documents/thesis/paper/'
+    #     f'figures/synth_ds_{dataset}_deep_max_q_learning_behavior_{episodes}.png')
+    # fig.savefig(
+    #     f'/home/rico/Documents/thesis/paper/'
+    #     f'overleaf/62a466789b2183065a639cda/content-media/'
+    #     f'synth_ds_{dataset}_deep_max_q_learning_behavior_{episodes}.png')
+    plt.show()
 
     plot_title = f'Q Learning solution with {reward.__class__.__name__} and budget size {budget}'
+    fig, ax = plot_rewards_and_graphs(g, [(rewards, edges)], plot_title)
     plt.show()
-    logger.info(f"Removed edges: {edges} | rewards: {rewards}")
+    # logger.info(f"Removed edges: {edges}")
+    # deep_max_q_learner.save_model(f"models/ql_{episodes}_{reward.__class__.__name__}_{budget}_{datetime.datetime.now()}_.pkl")
