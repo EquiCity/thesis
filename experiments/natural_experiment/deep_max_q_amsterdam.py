@@ -53,7 +53,7 @@ if __name__ == "__main__":
     reward = EgalitarianTheilReward(census_data=census_data,
                                     com_threshold=com_threshold)
 
-    episodes = 800
+    episodes = 1
     batch_size = 256
     replay_memory_size = 4096
     eps_start = 1.0
@@ -68,13 +68,13 @@ if __name__ == "__main__":
     np.random.seed(seed)
     random.seed(seed)
 
-    ams_deep_max_q_learner = DeepMaxQLearner.load_model(Path('model_snapshots/model_750_2022-07-15T13:09:14.687741.pkl'))
-    # ams_deep_max_q_learner = DeepMaxQLearner(base_graph=g, reward=reward, budget=budget, edge_types=edge_types,
-    #                                          target_network_update_step=target_network_update_step,
-    #                                          episodes=episodes, batch_size=batch_size,
-    #                                          replay_memory_size=replay_memory_size,
-    #                                          eps_start=eps_start, eps_end=eps_end, eps_decay=eps_decay,
-    #                                          static_eps_steps=static_eps_steps)
+    #ams_deep_max_q_learner = DeepMaxQLearner.load_model(Path('model_snapshots/model_750_2022-07-15T13:09:14.687741.pkl'))
+    ams_deep_max_q_learner = DeepMaxQLearner(base_graph=g, reward=reward, budget=budget, edge_types=edge_types,
+                                             target_network_update_step=target_network_update_step,
+                                             episodes=episodes, batch_size=batch_size,
+                                             replay_memory_size=replay_memory_size,
+                                             eps_start=eps_start, eps_end=eps_end, eps_decay=eps_decay,
+                                             static_eps_steps=static_eps_steps)
 
     logger.info("Starting Training")
     cum_rewards_over_episodes, max_rewards_over_episodes, eps_values_over_episodes = ams_deep_max_q_learner.train()
