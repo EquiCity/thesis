@@ -29,9 +29,10 @@ if __name__ == "__main__":
     # reward = EgalitarianTheilReward(census_data=census_data, com_threshold=15)
     reward = CustomReward(reward_dict=reward_dict, census_data=census_data, com_threshold=15)
     episodes = 50
+    step_size = 1.0
 
     q_learner = ExpectedQLearner(base_graph=g, reward=reward, edge_types=edge_types,
-                                 budget=budget, episodes=episodes, step_size=1.0)
+                                 budget=budget, episodes=episodes, step_size=step_size)
     rewards_over_episodes = q_learner.train(return_rewards_over_episodes=True)
     rewards, edges = q_learner.inference()
 
