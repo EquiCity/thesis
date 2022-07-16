@@ -34,18 +34,18 @@ if __name__ == "__main__":
     reward = CustomReward(reward_dict=reward_dict, census_data=census_data,
                           com_threshold=com_threshold)
 
-    episodes = 500
+    episodes = 150
 
     # Replay Memory
-    batch_size = 256
-    replay_memory_size = 512
-    target_network_update_step = 100
+    batch_size = 32
+    replay_memory_size = 256
+    target_network_update_step = 20
 
     # EPS Schedule
     eps_start = 1.0
     eps_end = 0.001
-    eps_decay = 100
-    static_eps_steps = 250 * budget
+    eps_decay = 50
+    static_eps_steps = 50 * budget
 
     seed = 1024
     torch.manual_seed(seed)
@@ -64,8 +64,15 @@ if __name__ == "__main__":
     rewards, edges = deep_max_q_learner.inference()
 
     sub_sampled_policy_net_loss = deep_max_q_learner.policy_net_loss[0::budget]
-    fig, ax = plot_nn_loss_reward_epsilon(sub_sampled_policy_net_loss, max_rewards_over_episodes,
-                                          eps_values_over_episodes)
+    sub_sampled_policy_net_loss = np.concatenate([np.repeat(sub_sampled_policy_net_loss[0], batch_size // budget),
+                                                  sub_sampled_policy_net_loss])
+    title = "Deep MaxQ-learning network loss\nand policy performance"
+    fig, ax = plot_nn_loss_reward_epsilon(sub_sampled_policy_net_loss,
+                                          {
+                                              'maximum reward': max_rewards_over_episodes,
+                                              'cumulative reward': cum_rewards_over_episodes,
+                                          },
+                                          eps_values_over_episodes, title=title)
 
     # fig.savefig(
     #     f'/home/rico/Documents/thesis/paper/'
@@ -78,10 +85,17 @@ if __name__ == "__main__":
 
     # Plot the policy
     fig, ax = plt.subplots(1, 1, figsize=(10, 10))
+    title = f"Deep MaxQ-learning policy on dataset 2.2"
     _, _ = PolicyPlotter().from_model(model=deep_max_q_learner.policy_net, budget=budget,
                                       actions=deep_max_q_learner.actions.tolist(),
+                                      title=title,
                                       fig=fig, ax=ax)
-
+    fig.savefig(
+        f'/home/rico/Documents/thesis/paper/'
+        f'figures/synth_ds_{dataset}_deep_max_q_learning_policy.png')
+    fig.savefig(
+        f'/home/rico/Documents/thesis/paper/'
+        f'overleaf/62a466789b2183065a639cda/content-media/synth_ds_{dataset}_deep_max_q_learning_policy.png')
     plt.show()
     plot_title = f'Q Learning solution with {reward.__class__.__name__} and budget size {budget}'
     fig, ax = plot_rewards_and_graphs(g, [(rewards, edges)], plot_title)

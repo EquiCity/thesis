@@ -37,14 +37,15 @@ if __name__ == "__main__":
 
     fig, ax = plt.subplots(1, 1, figsize=(8, 8))
     ax.plot(range(len(rewards_over_episodes)), rewards_over_episodes)
-    ax.set_title("Q Learning rewards over episodes")
+    ax.set_title("Q-Learning cumulative reward over episodes")
     ax.set_xlabel("Episodes")
-    ax.set_ylabel("Cumulative Reward (Return)")
+    ax.set_ylabel("Cumulative rewards")
     fig.tight_layout()
     plt.show()
 
     fig, ax = plt.subplots(1, 1, figsize=(10, 10))
-    ax = PolicyPlotter().from_dict(policy_dict=q_learner.q_values, actions=q_learner.actions,
+    title = f"Q-learning policy on dataset 2.2"
+    ax = PolicyPlotter().from_dict(policy_dict=q_learner.q_values, actions=q_learner.actions, title=title,
                                    fig=fig, ax=ax)
     fig.savefig(
         f'/home/rico/Documents/thesis/paper/'
@@ -54,9 +55,16 @@ if __name__ == "__main__":
         f'overleaf/62a466789b2183065a639cda/content-media/synth_ds_{dataset}_q_learning_policy.png')
     plt.show()
 
-    plot_title = f'Q Learning solution with {reward.__class__.__name__} and budget size {budget}'
+    plot_title = f'Q Learning solution with custom reward and budget size {budget}'
     fig, ax = plot_rewards_and_graphs(g, [(rewards, edges)], plot_title)
     plt.show()
+
+    fig.savefig(
+        f'/home/rico/Documents/thesis/paper/'
+        f'figures/synth_ds_{dataset}_q_learning_solution_and_rewards.png')
+    fig.savefig(
+        f'/home/rico/Documents/thesis/paper/'
+        f'overleaf/62a466789b2183065a639cda/content-media/synth_ds_{dataset}_q_learning_solution_and_rewards.png')
 
     logger.info(f"Removed edges: {edges}")
     # q_learner.save_model(f"models/ql_{episodes}_{reward.__class__.__name__}_{budget}_{datetime.datetime.now()}_.pkl")

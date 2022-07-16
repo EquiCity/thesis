@@ -11,6 +11,7 @@ from ptnrue.rewards import (
     EgalitarianTheilReward,
     CustomReward,
 )
+from ptnrue.plotting.deep_solution_plotting import plot_nn_loss_reward_epsilon
 import logging
 from ptnrue.plotting.solution_plotting import plot_rewards_and_graphs
 from ptnrue.plotting.policy_plotting import PolicyPlotter
@@ -34,18 +35,18 @@ if __name__ == "__main__":
                           com_threshold=com_threshold)
     # reward = EgalitarianTheilReward(census_data=census_data, com_threshold=com_threshold)
 
-    episodes = 50
+    episodes = 150
 
     # Replay Memory
     batch_size = 32
-    replay_memory_size = 128
-    target_network_update_step = 10
+    replay_memory_size = 256
+    target_network_update_step = 20
 
     # EPS Schedule
     eps_start = 1.0
-    eps_end = 0.0
-    eps_decay = 10
-    static_eps_steps = 25 * budget
+    eps_end = 0.001
+    eps_decay = 50
+    static_eps_steps = 50 * budget
 
     seed = 1024
     torch.manual_seed(seed)
@@ -59,24 +60,40 @@ if __name__ == "__main__":
                              eps_start=eps_start, eps_end=eps_end, eps_decay=eps_decay,
                              static_eps_steps=static_eps_steps)
 
-    rewards_over_episodes, eps_values_over_steps = q_learner.train()
+    cum_rewards_over_episodes, max_rewards_over_episodes, eps_values_over_episodes = q_learner.train()
     rewards, edges = q_learner.inference()
 
-    fig, ax = plt.subplots(2, 1, figsize=(10, 10))
     sub_sampled_policy_net_loss = q_learner.policy_net_loss[0::budget]
-
-    ax[0].plot(range(len(sub_sampled_policy_net_loss)), sub_sampled_policy_net_loss, label='Policy Net Loss')
-
-    ax[1].plot(range(len(rewards_over_episodes)), rewards_over_episodes, label='Cumulative Reward')
-    ax2 = ax[1].twinx()
-    ax2.plot(range(len(eps_values_over_steps)), eps_values_over_steps, color='orange', label='Epsilon')
-    fig.legend()
+    sub_sampled_policy_net_loss = np.concatenate([np.repeat(sub_sampled_policy_net_loss[0], batch_size//budget),
+                                                 sub_sampled_policy_net_loss])
+    fig, ax = plot_nn_loss_reward_epsilon(sub_sampled_policy_net_loss,
+                                          {
+                                              'maximum reward': max_rewards_over_episodes,
+                                              'cumulative reward': cum_rewards_over_episodes,
+                                          },
+                                          eps_values_over_episodes,
+                                          title='Deep Q-learning network loss\nand policy performance')
+    fig.savefig(
+        f'/home/rico/Documents/thesis/paper/'
+        f'figures/synth_ds_{dataset}_deep_q_learning_loss_and_reward.png')
+    fig.savefig(
+        f'/home/rico/Documents/thesis/paper/'
+        f'overleaf/62a466789b2183065a639cda/content-media/synth_ds_{dataset}_deep_q_learning_policy.png')
     plt.show()
 
     # Plot the policy
     fig, ax = plt.subplots(1, 1, figsize=(10, 10))
-    _, _ = PolicyPlotter().from_model(model=q_learner.policy_net, budget=budget, actions=q_learner.actions.tolist(),
+    title = f"Deep Q-learning policy for dataset 2.2"
+    _, _ = PolicyPlotter().from_model(model=q_learner.policy_net, budget=budget,
+                                      actions=q_learner.actions.tolist(),
+                                      title=title,
                                       fig=fig, ax=ax)
+    fig.savefig(
+        f'/home/rico/Documents/thesis/paper/'
+        f'figures/synth_ds_{dataset}_deep_q_learning_policy.png')
+    fig.savefig(
+        f'/home/rico/Documents/thesis/paper/'
+        f'overleaf/62a466789b2183065a639cda/content-media/synth_ds_{dataset}_deep_q_learning_policy.png')
 
     plt.show()
     plot_title = f'Q Learning solution with {reward.__class__.__name__} and budget size {budget}'

@@ -48,7 +48,7 @@ if __name__ == "__main__":
                           com_threshold=com_threshold)
 
     runs = 16
-    random_seeds = np.arange(0, runs) + 49
+    random_seeds = np.arange(0, runs) * 2048
 
     results = {
         'random': [],

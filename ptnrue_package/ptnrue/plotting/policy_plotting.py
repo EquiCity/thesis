@@ -17,7 +17,7 @@ class PolicyPlotter:
     def __init__(self):
         pass
 
-    def _plot_policy(self, states_labels: List[Any], actions_labels: List[int], policy: np.array,
+    def _plot_policy(self, states_labels: List[Any], actions_labels: List[int], policy: np.array, title: str,
                      fig: plt.Figure = None, ax: plt.Axes = None) -> Tuple[plt.Figure, plt.Axes]:
         n_actions = len(actions_labels)
         n_states = len(states_labels)
@@ -50,12 +50,15 @@ class PolicyPlotter:
         ax.set_xticklabels(actions_labels)
         ax.set_yticklabels(states_labels)
 
+        # Title
+        ax.set_title(title)
+
         fig.colorbar(im, orientation='vertical')
         fig.tight_layout()
 
         return fig, ax
 
-    def from_dict(self, policy_dict: Dict[str, np.array], actions: List[int],
+    def from_dict(self, policy_dict: Dict[str, np.array], actions: List[int], title: str,
                   fig: plt.Figure = None, ax: plt.Axes = None) -> Tuple[plt.Figure, plt.Axes]:
         states = list(policy_dict.keys())
         states.reverse()
@@ -73,9 +76,10 @@ class PolicyPlotter:
         for i, state in enumerate(states):
             policy[i] = policy_dict[state]
 
-        return self._plot_policy(states_labels=states, actions_labels=actions, policy=policy, fig=fig, ax=ax)
+        return self._plot_policy(states_labels=states, actions_labels=actions, policy=policy,
+                                 title=title, fig=fig, ax=ax)
 
-    def from_model(self, model: nn.Module, budget: int, actions: List[int],
+    def from_model(self, model: nn.Module, budget: int, actions: List[int], title: str,
                    fig: plt.Figure = None, ax: plt.Axes = None) -> Tuple[plt.Figure, plt.Axes]:
         # Create states
         states = []
@@ -110,4 +114,4 @@ class PolicyPlotter:
         actions_np = np.array(actions)
         states_labels = [tuple(actions_np[torch.argwhere(s == 1).numpy().flatten().tolist()]) for s in states]
 
-        return self._plot_policy(states_labels=states_labels, actions_labels=actions, policy=policy, fig=fig, ax=ax)
+        return self._plot_policy(states_labels=states_labels, actions_labels=actions, policy=policy, title=title, fig=fig, ax=ax)

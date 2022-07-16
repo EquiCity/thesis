@@ -36,11 +36,12 @@ if __name__ == "__main__":
     plt.plot(range(len(rewards_over_episodes)), rewards_over_episodes)
     plt.title("Q Learning rewards over episodes")
     plt.xlabel("Episodes")
-    plt.ylabel("Cumulative Reward (Return)")
+    plt.ylabel("Cumulative reward")
     plt.show()
 
     fig, ax = plt.subplots(1, 1, figsize=(10, 10))
-    ax = PolicyPlotter().from_dict(policy_dict=max_q_learner.q_values, actions=max_q_learner.actions,
+    title = f"MaxQ-learning policy on dataset 2.2"
+    ax = PolicyPlotter().from_dict(policy_dict=max_q_learner.q_values, actions=max_q_learner.actions, title=title,
                                    fig=fig, ax=ax)
     fig.savefig(
         f'/home/rico/Documents/thesis/paper/'
