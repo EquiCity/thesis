@@ -78,8 +78,7 @@ if __name__ == "__main__":
 
     logger.info("Starting Training")
     cum_rewards_over_episodes, max_rewards_over_episodes, eps_values_over_episodes = ams_deep_max_q_learner.train()
-    ams_deep_max_q_learner.save_model(
-        f"models/ql_{episodes}_{reward.__class__.__name__}_{budget}_{datetime.datetime.now()}.pkl")
+    ams_deep_max_q_learner.save_model(f'model_{episodes}_2022-07-15T13:09:14.687741.pkl')
 
     rewards, edges = ams_deep_max_q_learner.inference()
 
