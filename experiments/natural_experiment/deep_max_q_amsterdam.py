@@ -82,9 +82,11 @@ if __name__ == "__main__":
 
     rewards, edges = ams_deep_max_q_learner.inference()
 
+    title = f"DMaxQ-learning on Amsterdam metro - museum dataset"
+
     sub_sampled_policy_net_loss = ams_deep_max_q_learner.policy_net_loss[0::budget]
     fig, ax = plot_nn_loss_reward_epsilon(sub_sampled_policy_net_loss, max_rewards_over_episodes,
-                                          eps_values_over_episodes)
+                                          eps_values_over_episodes, title=title)
 
     fig.savefig(f'./ams_deep_max_q_learning_behavior_{episodes}.svg')
     fig.savefig(f'./ams_deep_max_q_learning_behavior_{episodes}.png')
