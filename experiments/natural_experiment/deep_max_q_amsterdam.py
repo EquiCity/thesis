@@ -78,23 +78,21 @@ if __name__ == "__main__":
 
     logger.info("Starting Training")
     cum_rewards_over_episodes, max_rewards_over_episodes, eps_values_over_episodes = ams_deep_max_q_learner.train()
+    ams_deep_max_q_learner.save_model(
+        f"models/ql_{episodes}_{reward.__class__.__name__}_{budget}_{datetime.datetime.now()}.pkl")
+
     rewards, edges = ams_deep_max_q_learner.inference()
 
     sub_sampled_policy_net_loss = ams_deep_max_q_learner.policy_net_loss[0::budget]
     fig, ax = plot_nn_loss_reward_epsilon(sub_sampled_policy_net_loss, max_rewards_over_episodes,
                                           eps_values_over_episodes)
 
-    # fig.savefig(
-    #     f'/home/rico/Documents/thesis/paper/'
-    #     f'figures/synth_ds_{dataset}_deep_max_q_learning_behavior_{episodes}.png')
-    # fig.savefig(
-    #     f'/home/rico/Documents/thesis/paper/'
-    #     f'overleaf/62a466789b2183065a639cda/content-media/'
-    #     f'synth_ds_{dataset}_deep_max_q_learning_behavior_{episodes}.png')
-    plt.show()
+    fig.savefig(f'./ams_deep_max_q_learning_behavior_{episodes}.svg')
+    fig.savefig(f'./ams_deep_max_q_learning_behavior_{episodes}.png')
 
     plot_title = f'Q Learning solution with {reward.__class__.__name__} and budget size {budget}'
     fig, ax = plot_rewards_and_graphs(g, [(rewards, edges)], plot_title)
-    plt.show()
-    # logger.info(f"Removed edges: {edges}")
-    # deep_max_q_learner.save_model(f"models/ql_{episodes}_{reward.__class__.__name__}_{budget}_{datetime.datetime.now()}_.pkl")
+    fig.savefig('./solution_graphs.png')
+    fig.savefig('./solution_graphs.svg')
+
+    logger.info(f"Removed edges: {edges} | rewards: {rewards}")
