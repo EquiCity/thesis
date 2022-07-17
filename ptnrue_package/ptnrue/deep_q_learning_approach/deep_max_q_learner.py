@@ -72,8 +72,8 @@ class DeepMaxQLearner(AbstractDeepQLearner):
                 logger.info(f'#######')
                 logger.info(f'Currently in episode {self.curr_episode}')
                 logger.info(f'\tEpsilon value: {curr_eps_value}')
-                logger.info(f'\tEpsilon value: {cum_reward}')
-                logger.info(f'\tEpsilon value: {max_reward}')
+                logger.info(f'\tCumulative reward: {cum_reward}')
+                logger.info(f'\tMaximum reward: {max_reward}')
                 logger.info(f'#######\n')
 
         self.trained = True

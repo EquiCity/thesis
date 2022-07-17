@@ -49,7 +49,7 @@ if __name__ == "__main__":
 
     edge_types = list(np.unique(g.es['type']))
     edge_types.remove('walk')
-    budget = 20
+    budget = 10
     com_threshold = 15
     reward = EgalitarianTheilReward(census_data=census_data,
                                     com_threshold=com_threshold)
