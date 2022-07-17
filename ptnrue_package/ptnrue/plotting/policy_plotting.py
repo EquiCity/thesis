@@ -51,7 +51,7 @@ class PolicyPlotter:
         ax.set_yticklabels(states_labels)
 
         # Title
-        ax.set_title(title)
+        # ax.set_title(title)
 
         fig.colorbar(im, orientation='vertical')
         fig.tight_layout()

@@ -32,6 +32,8 @@ def _ga_runner(g: ig.Graph, reward: BaseReward, edge_types: List[str], fitness_f
     """
     removable_edges = g.es.select(type_in=edge_types, active_eq=1).indices
 
+    assert 0 < budget < len(removable_edges)
+
     def callback_gen(ga_instance: pygad.GA):
         print("Generation : ", ga_instance.generations_completed)
         print("Fitness of the best solution :", ga_instance.best_solution()[1])

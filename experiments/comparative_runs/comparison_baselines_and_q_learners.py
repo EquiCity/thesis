@@ -12,10 +12,11 @@ import geopandas as gpd
 from ptnrue.rewards import (
     EgalitarianTheilReward,
 )
+import random
+import torch
 import logging
 from matplotlib import pyplot as plt
 from ptnrue.plotting.solution_plotting import plot_rewards_and_graphs
-from ptnrue.constants.travel_metric import TravelMetric
 
 logging.basicConfig()
 logger = logging.getLogger(__file__)
@@ -36,9 +37,13 @@ if __name__ == "__main__":
     budget = 3
 
     com_threshold = 15
-    considered_metrics = [TravelMetric.TT, TravelMetric.HOPS, TravelMetric.COM]
-    reward = EgalitarianTheilReward(census_data=census_data, com_threshold=com_threshold,
-                                    metrics=considered_metrics)
+    reward = EgalitarianTheilReward(census_data=census_data, com_threshold=com_threshold)
+
+    seed = 2048
+    torch.manual_seed(seed)
+    np.random.seed(seed)
+    random.seed(seed)
+
     # # Random Baseline
     solution_random = random_baseline(g=g, reward=reward,
                                       edge_types=edge_types, budget=budget)
@@ -79,7 +84,11 @@ if __name__ == "__main__":
         solution_maxq,
     ]
 
-    plot_rewards_and_graphs(g, all_solutions, "Random, Opt, Greedy, GA, Q, MaxQ",
-                            xticks=list(np.arange(0, 5, 1)),
-                            yticks=list(np.arange(10, 75, 5)))
+    fig, ax = plot_rewards_and_graphs(g, all_solutions, "",
+                                      xticks=list(np.arange(0, budget + 2, 1)),
+                                      yticks=list(np.arange(90, 100, 2)),
+                                      # xticks=list(np.arange(0, budget+1, 1)),
+                                      # yticks=list(np.arange(10, 75, 5)))
+                                      )
+    fig.tight_layout()
     plt.show()

@@ -42,7 +42,7 @@ def plot_nn_loss_reward_epsilon(policy_net_loss: List[float], rewards_over_episo
     ax[1].set_xlabel('Episodes')
     ax2.set_ylabel('Epsilon')
 
-    fig.suptitle(title)
+    # fig.suptitle(title)
 
     fig.tight_layout()
 

@@ -2,8 +2,10 @@ from ptnrue.baselines import random_baseline
 import igraph as ig
 import numpy as np
 import geopandas as gpd
-from ptnrue import EgalitarianTheilReward
+from ptnrue.rewards import EgalitarianTheilReward
 import logging
+import random
+import torch
 
 logging.basicConfig()
 logger = logging.getLogger(__file__)
@@ -15,8 +17,13 @@ if __name__ == "__main__":
     edge_types = list(np.unique(g.es['type']))
     edge_types.remove('walk')
     logger.info(f"Considered edges: {edge_types}")
-    budget = 9
+    budget = 3
     reward = EgalitarianTheilReward(census_data=census_data, com_threshold=15)
+
+    seed = 2048
+    torch.manual_seed(seed)
+    np.random.seed(seed)
+    random.seed(seed)
 
     rewards, edges = random_baseline(g=g, reward=reward,
                                      edge_types=edge_types, budget=budget)

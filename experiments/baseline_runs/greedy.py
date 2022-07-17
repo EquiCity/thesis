@@ -4,9 +4,11 @@ from ptnrue.baselines.greedy_baseline import greedy_baseline
 import igraph as ig
 import numpy as np
 import geopandas as gpd
-from ptnrue import EgalitarianTheilReward
+from ptnrue.rewards import EgalitarianTheilReward
 import logging
-from ptnrue.plotting import plot_rewards_and_graphs
+from ptnrue.plotting.solution_plotting import plot_rewards_and_graphs
+import torch
+import random
 
 logging.basicConfig()
 logger = logging.getLogger(__file__)
@@ -17,8 +19,13 @@ if __name__ == "__main__":
     census_data = gpd.read_file("../base_data/census_data_1.geojson")
     edge_types = list(np.unique(g.es['type']))
     edge_types.remove('walk')
-    budget = 9
+    budget = 3
     reward = EgalitarianTheilReward(census_data=census_data, com_threshold=15)
+
+    seed = 2048
+    torch.manual_seed(seed)
+    np.random.seed(seed)
+    random.seed(seed)
 
     rewards, edges = greedy_baseline(g=g, reward=reward, edge_types=edge_types, budget=budget, )
     plot_title = f'Greedy {reward.__class__.__name__} solution for budget size {budget}'

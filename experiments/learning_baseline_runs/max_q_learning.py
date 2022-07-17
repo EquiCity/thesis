@@ -11,6 +11,8 @@ import logging
 from ptnrue.plotting.policy_plotting import PolicyPlotter
 import pickle
 from matplotlib import pyplot as plt
+import torch
+import random
 
 logging.basicConfig()
 logger = logging.getLogger(__file__)
@@ -28,6 +30,11 @@ if __name__ == "__main__":
     reward = CustomReward(reward_dict=reward_dict, census_data=census_data,
                           com_threshold=com_threshold)
     episodes = 50
+
+    seed = 2048
+    torch.manual_seed(seed)
+    np.random.seed(seed)
+    random.seed(seed)
 
     max_q_learner = MaxQLearner(g, reward, edge_types, budget, episodes)
     rewards_over_episodes = max_q_learner.train(return_rewards_over_episodes=True)
