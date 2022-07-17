@@ -23,7 +23,7 @@ if __name__ == "__main__":
     reward = EgalitarianTheilReward(census_data, com_threshold)
     episodes = 300
     runs = 10
-    random_seeds = np.arange(0,runs)+2048
+    random_seeds = np.arange(0, runs) + 2048
 
     successful = 0
 
@@ -48,4 +48,4 @@ if __name__ == "__main__":
                             f"Optimal solutions:\t{optimal_edges}\n"
                             f"Difference:\t{diff}")
 
-    logger.info(f"Finds optimum in {successful} out of {runs}; {successful*100/runs}%")
+    logger.info(f"Finds optimum in {successful} out of {runs}; {successful * 100 / runs}%")

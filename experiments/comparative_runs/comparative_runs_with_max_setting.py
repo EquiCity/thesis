@@ -26,7 +26,8 @@ from ptnrue.rewards import (
 import logging
 from matplotlib import pyplot as plt
 from ptnrue.plotting.solution_plotting import plot_rewards_and_graphs
-from ptnrue.constants.travel_metric import TravelMetric
+import torch
+import random
 
 logging.basicConfig()
 logger = logging.getLogger(__file__)
@@ -41,7 +42,6 @@ if __name__ == "__main__":
     num_edges = len(g.es.select(type_in=edge_types))
     budget = 3
     com_threshold = 15
-    considered_metrics = [TravelMetric.TT, TravelMetric.HOPS, TravelMetric.COM]
     reward_dict = pickle.load(open(f"../base_data/reward_dict_{dataset}.pkl", 'rb'))
 
     reward = CustomReward(reward_dict=reward_dict, census_data=census_data,
@@ -62,7 +62,7 @@ if __name__ == "__main__":
     }
 
     # Deep learning setup
-    episodes = 50
+    episodes = 100
 
     for rs in random_seeds:
         # Set random seed
@@ -102,15 +102,19 @@ if __name__ == "__main__":
 
         # DQN
         dqn_learner = DeepQLearner(g, reward, edge_types, budget, episodes,
-                                   batch_size=32, replay_memory_size=128, target_network_update_step=10)
-        rewards_over_episodes_dqn = dqn_learner.train(return_rewards_over_episodes=True)
+                                   batch_size=32, replay_memory_size=256, target_network_update_step=10)
+        rewards_over_episodes_dqn = dqn_learner.train(return_max_rewards_over_episodes=True,
+                                                      return_cum_rewards_over_episodes=False,
+                                                      return_epsilon_over_episodes=False)
         dqn_learner.reset_state_visits()
         solution_dqn = dqn_learner.inference()
 
         # DMaxQN
         dmaxqn_learner = DeepMaxQLearner(g, reward, edge_types, budget, episodes,
-                                         batch_size=32, replay_memory_size=128, target_network_update_step=10)
-        rewards_over_episodes_dmaxqn = dmaxqn_learner.train(return_rewards_over_episodes=True)
+                                         batch_size=32, replay_memory_size=256, target_network_update_step=10)
+        rewards_over_episodes_dmaxqn = dmaxqn_learner.train(return_max_rewards_over_episodes=True,
+                                                            return_cum_rewards_over_episodes=False,
+                                                            return_epsilon_over_episodes=False)
         dmaxqn_learner.reset_state_visits()
         solution_dmaxqn = dmaxqn_learner.inference()
 
@@ -144,7 +148,7 @@ if __name__ == "__main__":
     fig, ax = plt.subplots(figsize=(8, 8))
 
     for res in results:
-        ax.plot(random_seeds, results[res], label=res, alpha=0.5, linestyle='--' if 'learning' in res else '-')
+        ax.plot(random_seeds, results[res], label=res, alpha=0.5, linestyle='-' if 'max' in res.lower() else '--')
         results[res] = results[res][:-1]
 
     ax.set_xticks(random_seeds[::5])

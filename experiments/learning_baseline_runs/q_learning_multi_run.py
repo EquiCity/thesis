@@ -12,6 +12,9 @@ from ptnrue.baselines.run_utils.multi_run import multi_run
 from ptnrue.baselines.optimal_baseline import optimal_max_baseline
 import logging
 from tqdm import tqdm
+import torch
+import random
+from ptnrue import plotting
 
 logging.basicConfig()
 logger = logging.getLogger(__file__)
@@ -29,6 +32,11 @@ if __name__ == "__main__":
     reward = CustomReward(reward_dict=reward_dict, census_data=census_data, com_threshold=com_threshold)
     episodes = 150
     n_runs = 10
+
+    seed = 2048
+    torch.manual_seed(seed)
+    np.random.seed(seed)
+    random.seed(seed)
 
     opt_edges = optimal_max_baseline(g=g, reward=reward, edge_types=edge_types, budget=budget)
     optimal_edges = [o[1] for o in opt_edges]

@@ -48,7 +48,7 @@ if __name__ == "__main__":
     eps_decay = 50
     static_eps_steps = 50 * budget
 
-    seed = 1024
+    seed = 2048
     torch.manual_seed(seed)
     np.random.seed(seed)
     random.seed(seed)

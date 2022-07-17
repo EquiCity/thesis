@@ -93,8 +93,8 @@ def evaluate_graph(g: ig.Graph) -> pd.DataFrame:
     hops_mx = np.array(hops_mx)
     hops_mx[hops_mx == 0] = 1
 
-    poi_node_names = [f'POI_{name}' for name in poi_nodes['name']]
-    rc_node_names = [f'RC_{name}' for name in nb_nodes['name']]
+    poi_node_names = [f'POI_{name}' if 'POI' not in name else name for name in poi_nodes['name']]
+    rc_node_names = [f'RC_{name}'  if 'RC' not in name else name for name in nb_nodes['name']]
 
     df_tt = pd.DataFrame(tt_mx, columns=poi_node_names)
     df_tt['metric'] = 'travel_time'

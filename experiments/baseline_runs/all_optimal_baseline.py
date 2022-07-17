@@ -9,6 +9,9 @@ import logging
 from matplotlib import pyplot as plt
 from ptnrue.constants.travel_metric import TravelMetric
 from ptnrue.plotting.solution_plotting import plot_rewards_and_graphs
+import torch
+import random
+from ptnrue import plotting
 
 logging.basicConfig()
 logger = logging.getLogger(__file__)
@@ -33,6 +36,11 @@ if __name__ == "__main__":
     reward = EgalitarianTheilReward(census_data=census_data, com_threshold=com_threshold,
                                     metrics=considered_metrics)
 
+    seed = 2048
+    torch.manual_seed(seed)
+    np.random.seed(seed)
+    random.seed(seed)
+
     optimal_solutions = optimal_baseline(g=g, edge_types=edge_types, budget=budget,
                                          reward=reward)
 
@@ -43,9 +51,9 @@ if __name__ == "__main__":
     # Dataset_2 = list(np.arange(40, 72, 2))
     # Dataset_3 = list(np.arange(62, 76, 2))
 
-    plot_rewards_and_graphs(g, optimal_solutions, plot_title,
-                            xticks=list(range(0, num_edges + 1)),
-                            yticks=list(np.arange(40, 72, 2)))
+    plot_rewards_and_graphs(g, optimal_solutions, plot_title,)
+                            # xticks=list(range(0, num_edges + 1)),
+                            # yticks=list(np.arange(40, 72, 2)))
 
     # fig.tight_layout()
     # fig.savefig(f"./plots/{budget}_{reward.__class__.__name__}_"

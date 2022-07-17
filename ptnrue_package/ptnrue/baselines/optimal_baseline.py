@@ -25,8 +25,7 @@ def optimal_baseline(g: ig.Graph, reward: BaseReward, edge_types: List[str],
     Returns:
 
     """
-    assert budget > 0
-    assert budget < len(g.es.select(type_in=edge_types))
+    assert 0 < budget < len(g.es.select(type_in=edge_types))
 
     removable_edges = g.es.select(type_in=edge_types, active_eq=1)
     possible_combinations = [[e.index for e in es] for es in it.combinations(removable_edges, budget)]
