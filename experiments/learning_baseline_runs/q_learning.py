@@ -44,25 +44,25 @@ if __name__ == "__main__":
     rewards_over_episodes = q_learner.train(return_rewards_over_episodes=True)
     rewards, edges = q_learner.inference()
 
-    fig, ax = plt.subplots(1, 1, figsize=(8, 8))
-    ax.plot(range(len(rewards_over_episodes)), rewards_over_episodes)
-    # ax.set_title("Q-Learning cumulative reward over episodes")
-    ax.set_xlabel("Episodes")
-    ax.set_ylabel("Cumulative rewards")
-    fig.tight_layout()
-    plt.show()
+        # fig, ax = plt.subplots(1, 1, figsize=(8, 8))
+        # ax.plot(range(len(rewards_over_episodes)), rewards_over_episodes)
+        # # ax.set_title("Q-Learning cumulative reward over episodes")
+        # ax.set_xlabel("Episodes")
+        # ax.set_ylabel("Cumulative rewards")
+        # fig.tight_layout()
+        # plt.show()
 
-    fig, ax = plt.subplots(1, 1, figsize=(10, 10))
-    title = ""
-    ax = PolicyPlotter().from_dict(policy_dict=q_learner.q_values, actions=q_learner.actions, title=title,
-                                   fig=fig, ax=ax)
-    fig.savefig(
-        f'/home/rico/Documents/thesis/paper/'
-        f'figures/synth_ds_{dataset}_budget_{budget}_q_learning_policy.png')
-    fig.savefig(
-        f'/home/rico/Documents/thesis/paper/'
-        f'overleaf/62a466789b2183065a639cda/content-media/synth_ds_{dataset}_budget_{budget}_q_learning_policy.png')
-    plt.show()
+    # fig, ax = plt.subplots(1, 1, figsize=(10, 10))
+    # title = ""
+    # ax = PolicyPlotter().from_dict(policy_dict=q_learner.q_values, actions=q_learner.actions, title=title,
+    #                                fig=fig, ax=ax)
+    # fig.savefig(
+    #     f'/home/rico/Documents/thesis/paper/'
+    #     f'figures/synth_ds_{dataset}_budget_{budget}_q_learning_policy.png')
+    # fig.savefig(
+    #     f'/home/rico/Documents/thesis/paper/'
+    #     f'overleaf/62a466789b2183065a639cda/content-media/synth_ds_{dataset}_budget_{budget}_q_learning_policy.png')
+    # plt.show()
 
     plot_title = ''
     fig, ax = plot_rewards_and_graphs(g, [(rewards, edges)], plot_title)
