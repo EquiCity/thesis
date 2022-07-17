@@ -107,10 +107,10 @@ def plot_full_problem_exploration(base_graph: ig.Graph,
     n_rows = max([len(c) for c in configurations])
 
     fig, ax = plt.subplots(n_rows, n_cols, sharex=True, sharey=True, figsize=(4 * n_cols, 3.2 * n_rows),
-                           constrained_layout = True)
+                           constrained_layout=True)
 
-    for i, (config_candidates, rewards) in enumerate(zip(configurations, rewards)):
-        for j, (cand, reward) in enumerate(zip(config_candidates, rewards)):
+    for i, (config_candidates, rewards_candidates) in enumerate(zip(configurations, rewards)):
+        for j, (cand, reward) in enumerate(zip(config_candidates, rewards_candidates)):
             plot_graph(ax=ax[j, i], base_graph=base_graph, edges=cand)
             # ax[j, i].legend([], [f'$\\mathdefault{reward}$'],
             #                 loc="lower center", title="Reward")
@@ -124,7 +124,7 @@ def plot_full_problem_exploration(base_graph: ig.Graph,
             ax[j, i].set_title(f'Reward: {reward:.4f}', fontdict=font)
             ax[j, i].set_xticks([])
             ax[j, i].set_yticks([])
-        for a in ax[j+1:, i]:
+        for a in ax[j + 1:, i]:
             a.axis('off')
 
     # fig.subplots_adjust(wspace=0, hspace=1)
