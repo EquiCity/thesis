@@ -14,7 +14,7 @@ from ptnrue.rewards import (
 
 
 if __name__ == '__main__':
-    dataset = 2
+    dataset = 1
 
     g = ig.load(Path(f"../base_data/graph_{dataset}.gml"))
     census_data = gpd.read_file(Path(f"../base_data/census_data_{dataset}.geojson"))

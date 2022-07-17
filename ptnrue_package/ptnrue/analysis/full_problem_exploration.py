@@ -41,7 +41,8 @@ def full_problem_exploration(g: ig.Graph, reward: BaseReward,
             g_prime = g.copy()
             g_prime.es[candidate]['active'] = 0
             configurations[i][j] = candidate
-            rewards[i][j] = reward.evaluate(g_prime)
+            r = reward.evaluate(g_prime)
+            rewards[i][j] = r
             logger.info(f"For state {candidate} obtained rewards {rewards[i]}")
 
     return configurations, rewards
