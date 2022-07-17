@@ -63,9 +63,18 @@ class DeepMaxQLearner(AbstractDeepQLearner):
                 self.target_net.load_state_dict(self.policy_net.state_dict())
 
             self.curr_episode = i_episode
-            eps_values.append(self.eps_schedule.get_current_eps())
+            curr_eps_value = self.eps_schedule.get_current_eps()
+            eps_values.append(curr_eps_value)
             cum_rewards_over_episodes.append(cum_reward)
             max_rewards_over_episodes.append(max_reward)
+
+            if verbose:
+                logger.info(f'#######')
+                logger.info(f'Currently in episode {self.curr_episode}')
+                logger.info(f'\tEpsilon value: {curr_eps_value}')
+                logger.info(f'\tEpsilon value: {cum_reward}')
+                logger.info(f'\tEpsilon value: {max_reward}')
+                logger.info(f'#######\n')
 
         self.trained = True
 
