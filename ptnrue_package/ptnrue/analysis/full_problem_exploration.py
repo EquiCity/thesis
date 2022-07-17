@@ -30,7 +30,8 @@ def full_problem_exploration(g: ig.Graph, reward: BaseReward,
     max_budget = num_transit_edges - 1
 
     removable_edges = g.es.select(type_in=edge_types, active_eq=1)
-    possible_combinations = [[[e.index for e in es] for es in it.combinations(removable_edges, budget)] for budget in range(min_budget, max_budget+1)]
+    possible_combinations = [[[e.index for e in es] for es in it.combinations(removable_edges, budget)]
+                             for budget in range(min_budget, max_budget+1)]
     rewards: List[List[float]] = [[-np.inf for c in g] for g in possible_combinations]
     configurations: List[List[int]] = [[None for c in g] for g in possible_combinations]
 
