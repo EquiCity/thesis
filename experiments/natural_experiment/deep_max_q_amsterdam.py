@@ -15,7 +15,6 @@ import random
 import logging
 from ptnrue.plotting.solution_plotting import plot_rewards_and_graphs
 from ptnrue.plotting.deep_solution_plotting import plot_nn_loss_reward_epsilon
-from matplotlib import pyplot as plt
 from pathlib import Path
 import ray
 
@@ -23,7 +22,7 @@ logging.basicConfig()
 logger = logging.getLogger(__file__)
 logger.setLevel(logging.INFO)
 
-# ray.init(ignore_reinit_error=True)
+ray.init(ignore_reinit_error=True)
 
 GRAPH_PATH = Path(os.environ['GRAPH_PATH'])
 CENSUS_PARQUET_PATH = Path(os.environ['CENSUS_PARQUET_PATH'])
@@ -48,12 +47,12 @@ if __name__ == "__main__":
 
     edge_types = list(np.unique(g.es['type']))
     edge_types.remove('walk')
-    budget = 10
+    budget = 1
     com_threshold = 15
     reward = EgalitarianTheilReward(census_data=census_data,
                                     com_threshold=com_threshold)
 
-    episodes = 800
+    episodes = 1
     batch_size = 256
     replay_memory_size = 4096
     eps_start = 1.0
@@ -68,45 +67,51 @@ if __name__ == "__main__":
     np.random.seed(seed)
     random.seed(seed)
 
-    # logger.info("Loading Model")
-    ams_deep_max_q_learner = DeepMaxQLearner.load_model(Path('./model_800_2022-07-15T13:09:14.687741.pkl'))
-    ams_deep_max_q_learner.trained = True
-    # ams_deep_max_q_learner = DeepMaxQLearner(base_graph=g, reward=reward, budget=budget, edge_types=edge_types,
-    #                                          target_network_update_step=target_network_update_step,
-    #                                          episodes=episodes, batch_size=batch_size,
-    #                                          replay_memory_size=replay_memory_size,
-    #                                          eps_start=eps_start, eps_end=eps_end, eps_decay=eps_decay,
-    #                                          static_eps_steps=static_eps_steps)
-    #
-    # logger.info("Starting Training")
-    # cum_rewards_over_episodes, max_rewards_over_episodes, eps_values_over_episodes = ams_deep_max_q_learner.train()
-    #
-    # with open(f'./cum_rewards_over_episodes_{ams_deep_max_q_learner.start_datetime}.pkl', 'wb') as f:
-    #     pickle.dump(cum_rewards_over_episodes, f)
-    #
-    # with open(f'./max_rewards_over_episodes_{ams_deep_max_q_learner.start_datetime}.pkl', 'wb') as f:
-    #     pickle.dump(max_rewards_over_episodes, f)
-    #
-    # with open(f'./eps_values_over_episodes_{ams_deep_max_q_learner.start_datetime}.pkl', 'wb') as f:
-    #     pickle.dump(eps_values_over_episodes, f)
+    model_to_load_path = Path('./model_800_2022-07-15T13:09:14.687741.pkl')
 
-    # # Store final model. TODO move this to the class
-    # ams_deep_max_q_learner.save_model(f'model_{episodes}_{ams_deep_max_q_learner.start_datetime}.pkl')
+    if model_to_load_path:
+        logger.info("Loading Model")
+        ams_deep_max_q_learner = DeepMaxQLearner.load_model(model_to_load_path)
+        ams_deep_max_q_learner.trained = True
+    else:
+        ams_deep_max_q_learner = DeepMaxQLearner(base_graph=g, reward=reward, budget=budget, edge_types=edge_types,
+                                                 target_network_update_step=target_network_update_step,
+                                                 episodes=episodes, batch_size=batch_size,
+                                                 replay_memory_size=replay_memory_size,
+                                                 eps_start=eps_start, eps_end=eps_end, eps_decay=eps_decay,
+                                                 static_eps_steps=static_eps_steps)
+
+        logger.info("Starting Training")
+        cum_rewards_over_episodes, max_rewards_over_episodes, eps_values_over_episodes = ams_deep_max_q_learner.train()
+        logger.info("Completed Training")
+
+        logger.info("Writing Files")
+        with open(f'./cum_rewards_over_episodes_{episodes}_{ams_deep_max_q_learner.start_datetime}.pkl', 'wb') as f:
+            pickle.dump(cum_rewards_over_episodes, f)
+
+        with open(f'./max_rewards_over_episodes_{episodes}_{ams_deep_max_q_learner.start_datetime}.pkl', 'wb') as f:
+            pickle.dump(max_rewards_over_episodes, f)
+
+        with open(f'./eps_values_over_episodes_{episodes}_{ams_deep_max_q_learner.start_datetime}.pkl', 'wb') as f:
+            pickle.dump(eps_values_over_episodes, f)
+
+        # Store final model. TODO move this to the class
+        ams_deep_max_q_learner.save_model(f'model_{episodes}_{ams_deep_max_q_learner.start_datetime}.pkl')
+
+        # Plot training performance
+        sub_sampled_policy_net_loss = ams_deep_max_q_learner.policy_net_loss[0::budget]
+        fig, ax = plot_nn_loss_reward_epsilon(sub_sampled_policy_net_loss, {
+            'maximum reward': max_rewards_over_episodes,
+            'cumulative reward': cum_rewards_over_episodes,
+        },
+                                              eps_values_over_episodes, title='')
+        fig.savefig(f'./ams_deep_max_q_learning_behavior_{episodes}_{ams_deep_max_q_learner.start_datetime}.svg')
+        fig.savefig(f'./ams_deep_max_q_learning_behavior_{episodes}_{ams_deep_max_q_learner.start_datetime}.png')
 
     rewards, edges = ams_deep_max_q_learner.inference()
 
-    # title = f"DMaxQ-learning on Amsterdam metro - museum dataset"
-
-    # sub_sampled_policy_net_loss = ams_deep_max_q_learner.policy_net_loss[0::budget]
-    # fig, ax = plot_nn_loss_reward_epsilon(sub_sampled_policy_net_loss, max_rewards_over_episodes,
-    #                                       eps_values_over_episodes, title=title)
-    #
-    # fig.savefig(f'./ams_deep_max_q_learning_behavior_{episodes}.svg')
-    # fig.savefig(f'./ams_deep_max_q_learning_behavior_{episodes}.png')
-
-    # plot_title = f'MaxQ Learning solution with {reward.__class__.__name__} and budget size {budget}'
     fig, ax = plot_rewards_and_graphs(g, [(rewards, edges)], '')
-    fig.savefig('./solution_graphs.png')
-    fig.savefig('./solution_graphs.svg')
+    fig.savefig(f'./solution_graphs_{ams_deep_max_q_learner.start_datetime}.png')
+    fig.savefig(f'./solution_graphs_{ams_deep_max_q_learner.start_datetime}.svg')
 
     logger.info(f"Removed edges: {edges} | rewards: {rewards}")
