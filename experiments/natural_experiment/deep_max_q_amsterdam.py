@@ -2,6 +2,8 @@ import datetime
 import os
 import pickle
 
+import matplotlib.pyplot as plt
+
 from ptnrue.deep_q_learning_approach.deep_max_q_learner import DeepMaxQLearner
 import igraph as ig
 import numpy as np
@@ -47,12 +49,12 @@ if __name__ == "__main__":
 
     edge_types = list(np.unique(g.es['type']))
     edge_types.remove('walk')
-    budget = 1
+    budget = 20
     com_threshold = 15
     reward = EgalitarianTheilReward(census_data=census_data,
                                     com_threshold=com_threshold)
 
-    episodes = 1
+    episodes = 800
     batch_size = 256
     replay_memory_size = 4096
     eps_start = 1.0
@@ -68,6 +70,13 @@ if __name__ == "__main__":
     random.seed(seed)
 
     model_to_load_path = Path('./model_800_2022-07-15T13:09:14.687741.pkl')
+
+    # Make sure required paths exist
+    required_paths = ['./plots', './value_dicts']
+
+    for rp in required_paths:
+        if not os.path.exists(rp):
+            os.mkdir(rp)
 
     if model_to_load_path:
         logger.info("Loading Model")
@@ -86,32 +95,45 @@ if __name__ == "__main__":
         logger.info("Completed Training")
 
         logger.info("Writing Files")
-        with open(f'./cum_rewards_over_episodes_{episodes}_{ams_deep_max_q_learner.start_datetime}.pkl', 'wb') as f:
+        with open(f'./value_dicts/cum_rewards_over_episodes_{episodes}_{ams_deep_max_q_learner.start_datetime}.pkl',
+                  'wb') as f:
             pickle.dump(cum_rewards_over_episodes, f)
 
-        with open(f'./max_rewards_over_episodes_{episodes}_{ams_deep_max_q_learner.start_datetime}.pkl', 'wb') as f:
+        with open(f'./value_dicts/max_rewards_over_episodes_{episodes}_{ams_deep_max_q_learner.start_datetime}.pkl',
+                  'wb') as f:
             pickle.dump(max_rewards_over_episodes, f)
 
-        with open(f'./eps_values_over_episodes_{episodes}_{ams_deep_max_q_learner.start_datetime}.pkl', 'wb') as f:
+        with open(f'./value_dicts/eps_values_over_episodes_{episodes}_{ams_deep_max_q_learner.start_datetime}.pkl',
+                  'wb') as f:
             pickle.dump(eps_values_over_episodes, f)
 
         # Store final model. TODO move this to the class
         ams_deep_max_q_learner.save_model(f'model_{episodes}_{ams_deep_max_q_learner.start_datetime}.pkl')
 
         # Plot training performance
-        sub_sampled_policy_net_loss = ams_deep_max_q_learner.policy_net_loss[0::budget]
-        fig, ax = plot_nn_loss_reward_epsilon(sub_sampled_policy_net_loss, {
-            'maximum reward': max_rewards_over_episodes,
-            'cumulative reward': cum_rewards_over_episodes,
-        },
-                                              eps_values_over_episodes, title='')
-        fig.savefig(f'./ams_deep_max_q_learning_behavior_{episodes}_{ams_deep_max_q_learner.start_datetime}.svg')
-        fig.savefig(f'./ams_deep_max_q_learning_behavior_{episodes}_{ams_deep_max_q_learner.start_datetime}.png')
+        try:
+            sub_sampled_policy_net_loss = ams_deep_max_q_learner.policy_net_loss[0::budget]
+
+            sub_sampled_policy_net_loss = np.concatenate([np.repeat(sub_sampled_policy_net_loss[0], batch_size // budget),
+                                                          sub_sampled_policy_net_loss])
+            title = ""
+            fig, ax = plot_nn_loss_reward_epsilon(sub_sampled_policy_net_loss,
+                                                  {
+                                                      'maximum reward': max_rewards_over_episodes,
+                                                      'cumulative reward': cum_rewards_over_episodes,
+                                                  },
+                                                  eps_values_over_episodes, title=title)
+
+            fig.savefig(f'./plots/ams_deep_max_q_learning_behavior_{episodes}_{ams_deep_max_q_learner.start_datetime}.svg')
+            fig.savefig(f'./plots/ams_deep_max_q_learning_behavior_{episodes}_{ams_deep_max_q_learner.start_datetime}.png')
+        except IndexError:
+            logger.error('need to run for more epochs to be able to train policy network')
 
     rewards, edges = ams_deep_max_q_learner.inference()
 
-    fig, ax = plot_rewards_and_graphs(g, [(rewards, edges)], '')
-    fig.savefig(f'./solution_graphs_{ams_deep_max_q_learner.start_datetime}.png')
-    fig.savefig(f'./solution_graphs_{ams_deep_max_q_learner.start_datetime}.svg')
+    fig, ax = plt.subplots(1, 2, figsize=(200, 200))
+    _, _ = plot_rewards_and_graphs(g, [(rewards, edges)], '', fig=fig, ax=ax)
+    fig.savefig(f'./plots/solution_graphs_{ams_deep_max_q_learner.start_datetime}.png')
+    fig.savefig(f'./plots/solution_graphs_{ams_deep_max_q_learner.start_datetime}.svg')
 
     logger.info(f"Removed edges: {edges} | rewards: {rewards}")

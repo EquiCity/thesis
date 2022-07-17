@@ -84,8 +84,14 @@ def plot_graph(ax: plt.Axes, base_graph: ig.Graph, edges: List[int]):
 
 def plot_rewards_and_graphs(base_graph: ig.Graph, solutions: List[Tuple[List[float], List[int]]],
                             title: str, xticks: List[Union[float, int]] = None,
-                            yticks: List[Union[float, int]] = None) -> Tuple[plt.Figure, plt.Axes]:
-    fig, ax = plt.subplots(len(solutions), 2, figsize=(10, 40 * len(solutions) // 8))
+                            yticks: List[Union[float, int]] = None,
+                            fig: plt.Figure = None, ax: plt.Axes = None) -> Tuple[plt.Figure, plt.Axes]:
+
+    if len(solutions) > 1 and (fig or ax):
+        raise RuntimeError("passing fig, ax not supported yet for more than one solution")
+
+    if not fig and not ax:
+        fig, ax = plt.subplots(len(solutions), 2, figsize=(10, 40 * len(solutions) // 8))
     fig.suptitle(title, fontsize=20)
 
     for i, (rewards, edges) in enumerate(solutions):
@@ -94,7 +100,7 @@ def plot_rewards_and_graphs(base_graph: ig.Graph, solutions: List[Tuple[List[flo
 
         _ = plot_rewards(reward_plot, edges, rewards, xticks, yticks)
         graph_plot = plot_graph(graph_plot, base_graph, edges)
-        graph_plot.legend()
+        graph_plot.legend(loc=0)
 
         logger.info(f"For solution {i}, Removed edges: {edges}")
 

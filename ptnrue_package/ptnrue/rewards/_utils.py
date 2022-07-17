@@ -71,11 +71,11 @@ def _to_array(ray_list: List[ray.ObjectRef], n_nb_nodes: int, n_poi_nodes: int) 
 
 def evaluate_graph(g: ig.Graph) -> pd.DataFrame:
     nb_nodes = g.vs.select(type_eq='res_node')
-    # nb_node_ids = [elem.index for elem in nb_nodes]
-    # n_nb_nodes = len(nb_nodes)
+    nb_node_ids = [elem.index for elem in nb_nodes]
+    n_nb_nodes = len(nb_nodes)
     poi_nodes = g.vs.select(type_eq='poi_node')
-    # poi_node_ids = [elem.index for elem in poi_nodes]
-    # n_poi_nodes = len(poi_nodes)
+    poi_node_ids = [elem.index for elem in poi_nodes]
+    n_poi_nodes = len(poi_nodes)
 
     shortest_paths_tt = g.shortest_paths(nb_nodes, poi_nodes, weights='tt')
 
@@ -84,11 +84,23 @@ def evaluate_graph(g: ig.Graph) -> pd.DataFrame:
     # Assign max over both dimensions to inf values
     tt_mx[tt_mx == np.inf] = tt_mx.max(1).max()
 
-    # Number of hops
-    hops_mx = []
-    for v_rc in nb_nodes:
-        shortest_path_edges = g.get_shortest_paths(v_rc, poi_nodes, weights='tt', output='epath')
-        hops_mx.append([len(es) for es in shortest_path_edges])
+    # # Number of hops
+    # hops_mx = []
+    # for v_rc in nb_nodes:
+    #     shortest_path_edges = g.get_shortest_paths(v_rc, poi_nodes, weights='tt', output='epath')
+    #     hops_mx.append([len(es) for es in shortest_path_edges])
+
+    hops_mx_ray = []
+
+    BATCH_SIZE = 100
+    global_graph_actor = GraphActor.remote(graph=g)
+    for i in range(0, len(nb_node_ids), BATCH_SIZE):
+        batch_nb_node_ids = nb_node_ids[i: i + BATCH_SIZE]
+
+        shortest_path_edges = get_shortest_path_length.remote(global_graph_actor, batch_nb_node_ids, poi_node_ids)
+        hops_mx_ray.append(shortest_path_edges)
+
+    hops_mx = _to_array(hops_mx_ray, n_nb_nodes, n_poi_nodes)
 
     hops_mx = np.array(hops_mx)
     hops_mx[hops_mx == 0] = 1
