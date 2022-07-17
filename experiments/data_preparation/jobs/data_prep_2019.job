@@ -1,12 +1,12 @@
 #!/bin/bash
 
 #SBATCH --partition=fat
-#SBATCH --job-name=GTFSDownloadJob
+#SBATCH --job-name=DataPrep2019
 #SBATCH --ntasks=1
-#SBATCH --cpus-per-task=32
-#SBATCH --time=01:00:00
-#SBATCH --mem=64000M
-#SBATCH --output=problem_graph_generation_2021_%A.out
+#SBATCH --cpus-per-task=48
+#SBATCH --time=20:00:00
+#SBATCH --mem=32000M
+#SBATCH --output=problem_graph_generation_2019_%A.out
 
 module purge
 module load 2021

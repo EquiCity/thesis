@@ -4,8 +4,8 @@
 #SBATCH --job-name=GTFSDownloadJob
 #SBATCH --ntasks=1
 #SBATCH --cpus-per-task=32
-#SBATCH --time=01:00:00
-#SBATCH --mem=64000M
+#SBATCH --time=10:00:00
+#SBATCH --mem=32000M
 #SBATCH --output=problem_graph_generation_2020_%A.out
 
 module purge
