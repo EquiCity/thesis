@@ -24,7 +24,7 @@ logging.basicConfig()
 logger = logging.getLogger(__file__)
 logger.setLevel(logging.INFO)
 
-ray.init(ignore_reinit_error=True)
+# ray.init(ignore_reinit_error=True)
 
 GRAPH_PATH = Path(os.environ['GRAPH_PATH'])
 CENSUS_PARQUET_PATH = Path(os.environ['CENSUS_PARQUET_PATH'])
@@ -69,7 +69,7 @@ if __name__ == "__main__":
     np.random.seed(seed)
     random.seed(seed)
 
-    model_to_load_path = Path('./model_800_2022-07-15T13:09:14.687741.pkl')
+    model_to_load_path = None  # Path('./model_800_2022-07-15T13:09:14.687741.pkl')
 
     # Make sure required paths exist
     required_paths = ['./plots', './value_dicts']
