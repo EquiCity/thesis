@@ -56,18 +56,18 @@ if __name__ == "__main__":
     title = ""
     ax = PolicyPlotter().from_dict(policy_dict=q_learner.q_values, actions=q_learner.actions, title=title,
                                    fig=fig, ax=ax)
-    fig.savefig(
-        f'/home/rico/Documents/thesis/paper/'
-        f'figures/synth_ds_{dataset}_budget_{budget}_q_learning_policy.png')
-    fig.savefig(
-        f'/home/rico/Documents/thesis/paper/'
-        f'overleaf/62a466789b2183065a639cda/content-media/synth_ds_{dataset}_budget_{budget}_q_learning_policy.png')
-    fig.savefig(
-        f'/home/rico/Documents/thesis/paper/'
-        f'figures/synth_ds_{dataset}_budget_{budget}_q_learning_policy.svg')
-    fig.savefig(
-        f'/home/rico/Documents/thesis/paper/'
-        f'overleaf/62a466789b2183065a639cda/content-media/synth_ds_{dataset}_budget_{budget}_q_learning_policy.svg')
+    # fig.savefig(
+    #     f'/home/rico/Documents/thesis/paper/'
+    #     f'figures/synth_ds_{dataset}_budget_{budget}_q_learning_policy.png')
+    # fig.savefig(
+    #     f'/home/rico/Documents/thesis/paper/'
+    #     f'overleaf/62a466789b2183065a639cda/content-media/synth_ds_{dataset}_budget_{budget}_q_learning_policy.png')
+    # fig.savefig(
+    #     f'/home/rico/Documents/thesis/paper/'
+    #     f'figures/synth_ds_{dataset}_budget_{budget}_q_learning_policy.svg')
+    # fig.savefig(
+    #     f'/home/rico/Documents/thesis/paper/'
+    #     f'overleaf/62a466789b2183065a639cda/content-media/synth_ds_{dataset}_budget_{budget}_q_learning_policy.svg')
     plt.show()
 
     plot_title = ''
