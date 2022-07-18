@@ -31,7 +31,7 @@ if __name__ == "__main__":
     com_threshold = 15
     # reward = EgalitarianTheilReward(census_data=census_data, com_threshold=15)
     reward = CustomReward(reward_dict=reward_dict, census_data=census_data, com_threshold=15)
-    episodes = 50
+    episodes = 150
     step_size = 1.0
 
     seed = 2048
@@ -74,12 +74,12 @@ if __name__ == "__main__":
     fig, ax = plot_rewards_and_graphs(g, [(rewards, edges)], plot_title)
     plt.show()
 
-    fig.savefig(
-        f'/home/rico/Documents/thesis/paper/'
-        f'figures/synth_ds_{dataset}_budget_{budget}_q_learning_solution_and_rewards.svg')
-    fig.savefig(
-        f'/home/rico/Documents/thesis/paper/'
-        f'overleaf/62a466789b2183065a639cda/content-media/synth_ds_{dataset}_budget_{budget}_q_learning_solution_and_rewards.svg')
+    # fig.savefig(
+    #     f'/home/rico/Documents/thesis/paper/'
+    #     f'figures/synth_ds_{dataset}_budget_{budget}_q_learning_solution_and_rewards.svg')
+    # fig.savefig(
+    #     f'/home/rico/Documents/thesis/paper/'
+    #     f'overleaf/62a466789b2183065a639cda/content-media/synth_ds_{dataset}_budget_{budget}_q_learning_solution_and_rewards.svg')
 
     logger.info(f"Removed edges: {edges}")
     # q_learner.save_model(f"models/ql_{episodes}_{reward.__class__.__name__}_{budget}_{datetime.datetime.now()}_.pkl")

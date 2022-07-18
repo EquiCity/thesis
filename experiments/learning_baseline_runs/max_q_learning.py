@@ -29,7 +29,7 @@ if __name__ == "__main__":
     com_threshold = 15
     reward = CustomReward(reward_dict=reward_dict, census_data=census_data,
                           com_threshold=com_threshold)
-    episodes = 50
+    episodes = 150
 
     seed = 2048
     torch.manual_seed(seed)

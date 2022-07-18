@@ -67,27 +67,27 @@ if __name__ == "__main__":
     sub_sampled_policy_net_loss = np.concatenate([np.repeat(sub_sampled_policy_net_loss[0], batch_size // budget),
                                                   sub_sampled_policy_net_loss])
     title = "Deep MaxQ-learning network loss\nand policy performance"
-    fig, ax = plot_nn_loss_reward_epsilon(sub_sampled_policy_net_loss,
-                                          {
-                                              'maximum reward': max_rewards_over_episodes,
-                                              'cumulative reward': cum_rewards_over_episodes,
-                                          },
-                                          eps_values_over_episodes, title=title)
-
-    fig.savefig(
-        f'/home/rico/Documents/thesis/paper/'
-        f'figures/synth_ds_{dataset}_deep_max_q_learning_behavior_{episodes}.png')
-    fig.savefig(
-        f'/home/rico/Documents/thesis/paper/'
-        f'overleaf/62a466789b2183065a639cda/content-media/'
-        f'synth_ds_{dataset}_deep_max_q_learning_behavior_{episodes}.png')
-    fig.savefig(
-        f'/home/rico/Documents/thesis/paper/'
-        f'figures/synth_ds_{dataset}_deep_max_q_learning_behavior_{episodes}.svg')
-    fig.savefig(
-        f'/home/rico/Documents/thesis/paper/'
-        f'overleaf/62a466789b2183065a639cda/content-media/'
-        f'synth_ds_{dataset}_deep_max_q_learning_behavior_{episodes}.svg')
+    # fig, ax = plot_nn_loss_reward_epsilon(sub_sampled_policy_net_loss,
+    #                                       {
+    #                                           'maximum reward': max_rewards_over_episodes,
+    #                                           'cumulative reward': cum_rewards_over_episodes,
+    #                                       },
+    #                                       eps_values_over_episodes, title=title)
+    #
+    # fig.savefig(
+    #     f'/home/rico/Documents/thesis/paper/'
+    #     f'figures/synth_ds_{dataset}_deep_max_q_learning_behavior_{episodes}.png')
+    # fig.savefig(
+    #     f'/home/rico/Documents/thesis/paper/'
+    #     f'overleaf/62a466789b2183065a639cda/content-media/'
+    #     f'synth_ds_{dataset}_deep_max_q_learning_behavior_{episodes}.png')
+    # fig.savefig(
+    #     f'/home/rico/Documents/thesis/paper/'
+    #     f'figures/synth_ds_{dataset}_deep_max_q_learning_behavior_{episodes}.svg')
+    # fig.savefig(
+    #     f'/home/rico/Documents/thesis/paper/'
+    #     f'overleaf/62a466789b2183065a639cda/content-media/'
+    #     f'synth_ds_{dataset}_deep_max_q_learning_behavior_{episodes}.svg')
     plt.show()
 
     # Plot the policy
@@ -97,18 +97,18 @@ if __name__ == "__main__":
                                       actions=deep_max_q_learner.actions.tolist(),
                                       title=title,
                                       fig=fig, ax=ax)
-    fig.savefig(
-        f'/home/rico/Documents/thesis/paper/'
-        f'figures/synth_ds_{dataset}_deep_max_q_learning_policy.png')
-    fig.savefig(
-        f'/home/rico/Documents/thesis/paper/'
-        f'overleaf/62a466789b2183065a639cda/content-media/synth_ds_{dataset}_deep_max_q_learning_policy.png')
-    fig.savefig(
-        f'/home/rico/Documents/thesis/paper/'
-        f'figures/synth_ds_{dataset}_deep_max_q_learning_policy.svg')
-    fig.savefig(
-        f'/home/rico/Documents/thesis/paper/'
-        f'overleaf/62a466789b2183065a639cda/content-media/synth_ds_{dataset}_deep_max_q_learning_policy.svg')
+    # fig.savefig(
+    #     f'/home/rico/Documents/thesis/paper/'
+    #     f'figures/synth_ds_{dataset}_deep_max_q_learning_policy.png')
+    # fig.savefig(
+    #     f'/home/rico/Documents/thesis/paper/'
+    #     f'overleaf/62a466789b2183065a639cda/content-media/synth_ds_{dataset}_deep_max_q_learning_policy.png')
+    # fig.savefig(
+    #     f'/home/rico/Documents/thesis/paper/'
+    #     f'figures/synth_ds_{dataset}_deep_max_q_learning_policy.svg')
+    # fig.savefig(
+    #     f'/home/rico/Documents/thesis/paper/'
+    #     f'overleaf/62a466789b2183065a639cda/content-media/synth_ds_{dataset}_deep_max_q_learning_policy.svg')
     plt.show()
     plot_title = f'Q Learning solution with {reward.__class__.__name__} and budget size {budget}'
     fig, ax = plot_rewards_and_graphs(g, [(rewards, edges)], plot_title)

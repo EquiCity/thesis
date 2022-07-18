@@ -73,18 +73,18 @@ if __name__ == "__main__":
                                           },
                                           eps_values_over_episodes,
                                           title='Deep Q-learning network loss\nand policy performance')
-    fig.savefig(
-        f'/home/rico/Documents/thesis/paper/'
-        f'figures/synth_ds_{dataset}_deep_q_learning_loss_and_reward.png')
-    fig.savefig(
-        f'/home/rico/Documents/thesis/paper/'
-        f'overleaf/62a466789b2183065a639cda/content-media/synth_ds_{dataset}_deep_q_learning_policy.png')
-    fig.savefig(
-        f'/home/rico/Documents/thesis/paper/'
-        f'figures/synth_ds_{dataset}_deep_q_learning_loss_and_reward.svg')
-    fig.savefig(
-        f'/home/rico/Documents/thesis/paper/'
-        f'overleaf/62a466789b2183065a639cda/content-media/synth_ds_{dataset}_deep_q_learning_policy.svg')
+    # fig.savefig(
+    #     f'/home/rico/Documents/thesis/paper/'
+    #     f'figures/synth_ds_{dataset}_deep_q_learning_loss_and_reward.png')
+    # fig.savefig(
+    #     f'/home/rico/Documents/thesis/paper/'
+    #     f'overleaf/62a466789b2183065a639cda/content-media/synth_ds_{dataset}_deep_q_learning_policy.png')
+    # fig.savefig(
+    #     f'/home/rico/Documents/thesis/paper/'
+    #     f'figures/synth_ds_{dataset}_deep_q_learning_loss_and_reward.svg')
+    # fig.savefig(
+    #     f'/home/rico/Documents/thesis/paper/'
+    #     f'overleaf/62a466789b2183065a639cda/content-media/synth_ds_{dataset}_deep_q_learning_policy.svg')
     plt.show()
 
     # Plot the policy
@@ -94,18 +94,18 @@ if __name__ == "__main__":
                                       actions=q_learner.actions.tolist(),
                                       title=title,
                                       fig=fig, ax=ax)
-    fig.savefig(
-        f'/home/rico/Documents/thesis/paper/'
-        f'figures/synth_ds_{dataset}_deep_q_learning_policy.png')
-    fig.savefig(
-        f'/home/rico/Documents/thesis/paper/'
-        f'overleaf/62a466789b2183065a639cda/content-media/synth_ds_{dataset}_deep_q_learning_policy.png')
-    fig.savefig(
-        f'/home/rico/Documents/thesis/paper/'
-        f'figures/synth_ds_{dataset}_deep_q_learning_policy.svg')
-    fig.savefig(
-        f'/home/rico/Documents/thesis/paper/'
-        f'overleaf/62a466789b2183065a639cda/content-media/synth_ds_{dataset}_deep_q_learning_policy.svg')
+    # fig.savefig(
+    #     f'/home/rico/Documents/thesis/paper/'
+    #     f'figures/synth_ds_{dataset}_deep_q_learning_policy.png')
+    # fig.savefig(
+    #     f'/home/rico/Documents/thesis/paper/'
+    #     f'overleaf/62a466789b2183065a639cda/content-media/synth_ds_{dataset}_deep_q_learning_policy.png')
+    # fig.savefig(
+    #     f'/home/rico/Documents/thesis/paper/'
+    #     f'figures/synth_ds_{dataset}_deep_q_learning_policy.svg')
+    # fig.savefig(
+    #     f'/home/rico/Documents/thesis/paper/'
+    #     f'overleaf/62a466789b2183065a639cda/content-media/synth_ds_{dataset}_deep_q_learning_policy.svg')
 
     plt.show()
     plot_title = f'Q Learning solution with {reward.__class__.__name__} and budget size {budget}'
