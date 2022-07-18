@@ -285,10 +285,12 @@ class AbstractDeepQLearner(AbstractQLearner, abc.ABC):
         if not self.trained:
             raise RuntimeError("Please run the training before inference")
         state = self.starting_state
+        taken_actions = []
         rewards_per_removal = []
 
         for i in range(self.goal):
             action_idx = self.choose_action(state, 0)
+            taken_actions.append(action_idx.item())
             state, reward = self.step(state, action_idx)
             rewards_per_removal.append(reward.item())
 
@@ -296,5 +298,5 @@ class AbstractDeepQLearner(AbstractQLearner, abc.ABC):
         # is removed or not, i.e. whether an action was enacted or not.
         # Hence, we use the state to take out the actions, i.e. edge indexes
         # which represent the final state
-        final_state = self.actions[state.bool().numpy()].numpy()
+        final_state = self.actions[taken_actions].numpy()
         return rewards_per_removal, final_state
