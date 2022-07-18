@@ -30,6 +30,9 @@ def plot_nn_loss_reward_epsilon(policy_net_loss: List[float], rewards_over_episo
         lns.extend(ax[1].plot(range(len(rewards)), rewards, label=rew_name, alpha=0.7))
 
     ax2 = ax[1].twinx()
+
+    ax2.yaxis.label.set_color('purple')
+    ax2.tick_params(axis='y', colors='purple')
     lns2 = ax2.plot(range(len(eps_values_over_steps)), eps_values_over_steps, color='purple', label='epsilon')
     lns.extend(lns2)
 

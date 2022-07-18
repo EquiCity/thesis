@@ -81,11 +81,18 @@ if __name__ == "__main__":
         f'/home/rico/Documents/thesis/paper/'
         f'overleaf/62a466789b2183065a639cda/content-media/'
         f'synth_ds_{dataset}_deep_max_q_learning_behavior_{episodes}.png')
+    fig.savefig(
+        f'/home/rico/Documents/thesis/paper/'
+        f'figures/synth_ds_{dataset}_deep_max_q_learning_behavior_{episodes}.svg')
+    fig.savefig(
+        f'/home/rico/Documents/thesis/paper/'
+        f'overleaf/62a466789b2183065a639cda/content-media/'
+        f'synth_ds_{dataset}_deep_max_q_learning_behavior_{episodes}.svg')
     plt.show()
 
     # Plot the policy
-    fig, ax = plt.subplots(1, 1, figsize=(10, 10))
-    title = f"Deep MaxQ-learning policy on dataset 2.2"
+    fig, ax = plt.subplots(1, 1, figsize=(8, 8))
+    title = f""
     _, _ = PolicyPlotter().from_model(model=deep_max_q_learner.policy_net, budget=budget,
                                       actions=deep_max_q_learner.actions.tolist(),
                                       title=title,
@@ -96,6 +103,12 @@ if __name__ == "__main__":
     fig.savefig(
         f'/home/rico/Documents/thesis/paper/'
         f'overleaf/62a466789b2183065a639cda/content-media/synth_ds_{dataset}_deep_max_q_learning_policy.png')
+    fig.savefig(
+        f'/home/rico/Documents/thesis/paper/'
+        f'figures/synth_ds_{dataset}_deep_max_q_learning_policy.svg')
+    fig.savefig(
+        f'/home/rico/Documents/thesis/paper/'
+        f'overleaf/62a466789b2183065a639cda/content-media/synth_ds_{dataset}_deep_max_q_learning_policy.svg')
     plt.show()
     plot_title = f'Q Learning solution with {reward.__class__.__name__} and budget size {budget}'
     fig, ax = plot_rewards_and_graphs(g, [(rewards, edges)], plot_title)

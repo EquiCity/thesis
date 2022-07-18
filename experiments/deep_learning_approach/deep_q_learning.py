@@ -79,11 +79,17 @@ if __name__ == "__main__":
     fig.savefig(
         f'/home/rico/Documents/thesis/paper/'
         f'overleaf/62a466789b2183065a639cda/content-media/synth_ds_{dataset}_deep_q_learning_policy.png')
+    fig.savefig(
+        f'/home/rico/Documents/thesis/paper/'
+        f'figures/synth_ds_{dataset}_deep_q_learning_loss_and_reward.svg')
+    fig.savefig(
+        f'/home/rico/Documents/thesis/paper/'
+        f'overleaf/62a466789b2183065a639cda/content-media/synth_ds_{dataset}_deep_q_learning_policy.svg')
     plt.show()
 
     # Plot the policy
-    fig, ax = plt.subplots(1, 1, figsize=(10, 10))
-    title = f"Deep Q-learning policy for dataset 2.2"
+    fig, ax = plt.subplots(1, 1, figsize=(8, 8))
+    title = f""
     _, _ = PolicyPlotter().from_model(model=q_learner.policy_net, budget=budget,
                                       actions=q_learner.actions.tolist(),
                                       title=title,
@@ -94,6 +100,12 @@ if __name__ == "__main__":
     fig.savefig(
         f'/home/rico/Documents/thesis/paper/'
         f'overleaf/62a466789b2183065a639cda/content-media/synth_ds_{dataset}_deep_q_learning_policy.png')
+    fig.savefig(
+        f'/home/rico/Documents/thesis/paper/'
+        f'figures/synth_ds_{dataset}_deep_q_learning_policy.svg')
+    fig.savefig(
+        f'/home/rico/Documents/thesis/paper/'
+        f'overleaf/62a466789b2183065a639cda/content-media/synth_ds_{dataset}_deep_q_learning_policy.svg')
 
     plt.show()
     plot_title = f'Q Learning solution with {reward.__class__.__name__} and budget size {budget}'

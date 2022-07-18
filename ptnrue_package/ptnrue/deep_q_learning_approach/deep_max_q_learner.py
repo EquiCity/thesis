@@ -74,7 +74,7 @@ class DeepMaxQLearner(AbstractDeepQLearner):
                 logger.info(f'\tEpsilon value: {curr_eps_value}')
                 logger.info(f'\tCumulative reward: {cum_reward}')
                 logger.info(f'\tMaximum reward: {max_reward}')
-                logger.info(f'\tPolicy network loss: {self.policy_net_loss[-1]}')
+                logger.info(f'\tPolicy network loss: {"" if not self.policy_net_loss else self.policy_net_loss[-1]}')
                 logger.info(f'#######\n')
 
         self.trained = True

@@ -46,8 +46,8 @@ if __name__ == "__main__":
     plt.ylabel("Cumulative reward")
     plt.show()
 
-    fig, ax = plt.subplots(1, 1, figsize=(10, 10))
-    title = f"MaxQ-learning policy on dataset 2.2"
+    fig, ax = plt.subplots(1, 1, figsize=(8, 8))
+    title = f""
     ax = PolicyPlotter().from_dict(policy_dict=max_q_learner.q_values, actions=max_q_learner.actions, title=title,
                                    fig=fig, ax=ax)
     fig.savefig(
@@ -56,6 +56,12 @@ if __name__ == "__main__":
     fig.savefig(
         f'/home/rico/Documents/thesis/paper/'
         f'overleaf/62a466789b2183065a639cda/content-media/synth_ds_{dataset}_max_q_learning_policy.png')
+    fig.savefig(
+        f'/home/rico/Documents/thesis/paper/'
+        f'figures/synth_ds_{dataset}_max_q_learning_policy.svg')
+    fig.savefig(
+        f'/home/rico/Documents/thesis/paper/'
+        f'overleaf/62a466789b2183065a639cda/content-media/synth_ds_{dataset}_max_q_learning_policy.svg')
     plt.show()
 
     plot_title = f'Q Learning solution with {reward.__class__.__name__} and budget size {budget}'
