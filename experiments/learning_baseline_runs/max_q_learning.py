@@ -19,16 +19,17 @@ logger = logging.getLogger(__file__)
 logger.setLevel(logging.INFO)
 
 if __name__ == "__main__":
-    dataset = 5
+    dataset = 2
     g = ig.load(f"../base_data/graph_{dataset}.gml")
     census_data = gpd.read_file(f"../base_data/census_data_{dataset}.geojson")
-    reward_dict = pickle.load(open(f"../base_data/reward_dict_{dataset}.pkl", 'rb'))
+    # reward_dict = pickle.load(open(f"../base_data/reward_dict_{dataset}.pkl", 'rb'))
     edge_types = list(np.unique(g.es['type']))
     edge_types.remove('walk')
     budget = 3
     com_threshold = 15
-    reward = CustomReward(reward_dict=reward_dict, census_data=census_data,
-                          com_threshold=com_threshold)
+    # reward = CustomReward(reward_dict=reward_dict, census_data=census_data,
+    #                       com_threshold=com_threshold)
+    reward = EgalitarianTheilReward(census_data=census_data, com_threshold=com_threshold)
     episodes = 150
 
     seed = 2048

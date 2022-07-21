@@ -14,7 +14,7 @@ from ptnrue.rewards import (
 
 
 if __name__ == '__main__':
-    dataset = 1
+    dataset = 2
 
     g = ig.load(Path(f"../base_data/graph_{dataset}.gml"))
     census_data = gpd.read_file(Path(f"../base_data/census_data_{dataset}.geojson"))
@@ -33,7 +33,7 @@ if __name__ == '__main__':
     fig, axs = plot_full_problem_exploration(base_graph=g, configurations=configurations, rewards=rewards)
     plt.show()
 
-    # fig.savefig(f'/home/rico/Documents/thesis/paper/'
-    #             f'overleaf/62a466789b2183065a639cda/content-media/'
-    #             f'all_configurations_ds_{dataset}_{reward.__class__.__name__}_BASE.svg')
-    # fig.savefig(f'./plots/all_configurations_ds_{dataset}_{reward.__class__.__name__}.png')
+    fig.savefig(f'/home/rico/Documents/thesis/paper/'
+                f'overleaf/62a466789b2183065a639cda/content-media/'
+                f'all_configurations_ds_{dataset}_{reward.__class__.__name__}_BASE.svg')
+    fig.savefig(f'./plots/all_configurations_ds_{dataset}_{reward.__class__.__name__}.png')

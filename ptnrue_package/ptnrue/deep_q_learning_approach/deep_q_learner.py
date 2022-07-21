@@ -72,3 +72,21 @@ class DeepQLearner(AbstractDeepQLearner):
             output.append(eps_values)
 
         return tuple(output)
+
+    def inference(self) -> Tuple[List[float], List[int]]:
+        if not self.trained:
+            raise RuntimeError("Please run the training before inference")
+        state = self.starting_state
+        rewards_per_removal = []
+
+        for i in range(self.goal):
+            action_idx = self.choose_action(state, 0)
+            state, reward = self.step(state, action_idx)
+            rewards_per_removal.append(reward.item())
+
+        # A state is nothing else than an indicator as of whether an edge
+        # is removed or not, i.e. whether an action was enacted or not.
+        # Hence, we use the state to take out the actions, i.e. edge indexes
+        # which represent the final state
+        final_state = self.actions[state.bool().numpy()].numpy()
+        return rewards_per_removal, final_state

@@ -23,31 +23,31 @@ logger = logging.getLogger(__file__)
 logger.setLevel(logging.INFO)
 
 if __name__ == "__main__":
-    dataset = 5
+    dataset = 2
     g = ig.load(Path(f"../base_data/graph_{dataset}.gml"))
     census_data = gpd.read_file(Path(f"../base_data/census_data_{dataset}.geojson"))
-    reward_dict = pickle.load(open(f"../base_data/reward_dict_{dataset}.pkl", 'rb'))
+    # reward_dict = pickle.load(open(f"../base_data/reward_dict_{dataset}.pkl", 'rb'))
     edge_types = list(np.unique(g.es['type']))
     edge_types.remove('walk')
     budget = 3
     com_threshold = 15
-    reward = CustomReward(reward_dict=reward_dict, census_data=census_data,
-                          com_threshold=com_threshold)
-
-    episodes = 150
+    # reward = CustomReward(reward_dict=reward_dict, census_data=census_data,
+    #                       com_threshold=com_threshold)
+    reward = EgalitarianTheilReward(census_data=census_data, com_threshold=com_threshold)
+    episodes = 1000
 
     # Replay Memory
-    batch_size = 32
-    replay_memory_size = 256
-    target_network_update_step = 20
+    batch_size = 128
+    replay_memory_size = 512
+    target_network_update_step = 200
 
     # EPS Schedule
     eps_start = 1.0
     eps_end = 0.001
-    eps_decay = 50
-    static_eps_steps = 50 * budget
+    eps_decay = 500
+    static_eps_steps = 500 * budget
 
-    seed = 2048
+    seed = 0
     torch.manual_seed(seed)
     np.random.seed(seed)
     random.seed(seed)
@@ -67,12 +67,12 @@ if __name__ == "__main__":
     sub_sampled_policy_net_loss = np.concatenate([np.repeat(sub_sampled_policy_net_loss[0], batch_size // budget),
                                                   sub_sampled_policy_net_loss])
     title = "Deep MaxQ-learning network loss\nand policy performance"
-    # fig, ax = plot_nn_loss_reward_epsilon(sub_sampled_policy_net_loss,
-    #                                       {
-    #                                           'maximum reward': max_rewards_over_episodes,
-    #                                           'cumulative reward': cum_rewards_over_episodes,
-    #                                       },
-    #                                       eps_values_over_episodes, title=title)
+    fig, ax = plot_nn_loss_reward_epsilon(sub_sampled_policy_net_loss,
+                                          {
+                                              'maximum reward': max_rewards_over_episodes,
+                                              'cumulative reward': cum_rewards_over_episodes,
+                                          },
+                                          eps_values_over_episodes, title=title)
     #
     # fig.savefig(
     #     f'/home/rico/Documents/thesis/paper/'
