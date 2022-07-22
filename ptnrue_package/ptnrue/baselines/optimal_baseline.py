@@ -14,12 +14,22 @@ logger.setLevel(logging.INFO)
 
 def optimal_baseline(g: ig.Graph, reward: BaseReward, edge_types: List[str],
                      budget: int = 5) -> List[Tuple[List[float], List[int]]]:
+    """
 
-    assert budget > 0
-    assert budget < len(g.es.select(type_in=edge_types))
+    Args:
+        g:
+        reward:
+        edge_types:
+        budget:
+
+    Returns:
+
+    """
+    assert 0 < budget < len(g.es.select(type_in=edge_types))
 
     removable_edges = g.es.select(type_in=edge_types, active_eq=1)
     possible_combinations = [[e.index for e in es] for es in it.combinations(removable_edges, budget)]
+
     logger.info(f"Possible states: {possible_combinations}")
     rewards = -np.ones(len(possible_combinations)) * np.inf
 
@@ -40,3 +50,37 @@ def optimal_baseline(g: ig.Graph, reward: BaseReward, edge_types: List[str],
         optimal_solutions_and_rewards_per_removal.append((rewards_per_removal, es_idx_list))
 
     return optimal_solutions_and_rewards_per_removal
+
+
+def optimal_max_baseline(g: ig.Graph, reward: BaseReward,
+                         edge_types: List[str], budget: int = 5) -> List[Tuple[List[float], List[int]]]:
+    """
+    Optimal baseline considering all solutions in 0<k<=budget, i.e. S = {nC1, nC2, ..., nCbudget}
+    Args:
+        g:
+        reward:
+        edge_types:
+        budget:
+
+    Returns:
+        List of optimal configuration reaching maximum rewards over all solutions in S as a
+        list of rewards over each removal in that solution and the edges removed.
+    """
+    assert budget > 0
+    assert budget < len(g.es.select(type_in=edge_types))
+
+    all_opt = []
+    for k in range(1, budget):
+        opt_sol_rew_tuple_list = optimal_baseline(g, reward, edge_types, k)
+        all_opt.extend(opt_sol_rew_tuple_list)
+
+    all_opt = np.array(all_opt, dtype=object)
+    opt_idxs = np.argmax(all_opt[:,0][-1]).tolist()
+    opt_idxs = [opt_idxs] if isinstance(opt_idxs, int) else opt_idxs
+
+    output = []
+
+    for idx in opt_idxs:
+        output.append(tuple(all_opt[idx, :].tolist()))
+
+    return output

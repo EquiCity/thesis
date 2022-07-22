@@ -1,51 +1,49 @@
+import pickle
+
 from ptnrue.baselines.rl.expected_q_learning_basleline import ExpectedQLearner
 import igraph as ig
 import numpy as np
 import geopandas as gpd
 from ptnrue.rewards import (
-    EgalitarianTheilReward
+    EgalitarianTheilReward,
+    CustomReward,
 )
-from ptnrue.baselines.optimal_baseline import optimal_baseline
+from ptnrue.baselines.run_utils.multi_run import multi_run
+from ptnrue.baselines.optimal_baseline import optimal_max_baseline
 import logging
 from tqdm import tqdm
+import torch
+import random
+from ptnrue import plotting
 
 logging.basicConfig()
 logger = logging.getLogger(__file__)
 logger.setLevel(logging.INFO)
 
 if __name__ == "__main__":
-    g = ig.load("../base_data/graph_1.gml")
-    census_data = gpd.read_file("../base_data/census_data_1.geojson")
+    dataset = 5
+    g = ig.load(f"../base_data/graph_{dataset}.gml")
+    census_data = gpd.read_file(f"../base_data/census_data_{dataset}.geojson")
+    reward_dict = pickle.load(open(f"../base_data/reward_dict_{dataset}.pkl", 'rb'))
     edge_types = list(np.unique(g.es['type']))
     edge_types.remove('walk')
-    budget = 9
+    budget = 3
     com_threshold = 15
-    reward = EgalitarianTheilReward(census_data, com_threshold)
-    episodes = 300
-    runs = 10
-    random_seeds = np.arange(0,runs)+2048
+    reward = CustomReward(reward_dict=reward_dict, census_data=census_data, com_threshold=com_threshold)
+    episodes = 150
+    n_runs = 10
 
-    successful = 0
+    seed = 2048
+    torch.manual_seed(seed)
+    np.random.seed(seed)
+    random.seed(seed)
 
-    logger.info("Finding optimal solutions first")
-    optimal_solutions = optimal_baseline(g=g, edge_types=edge_types,
-                                         budget=budget, reward=reward)
-    optimal_edges = [set(opt[1]) for opt in optimal_solutions]
+    opt_edges = optimal_max_baseline(g=g, reward=reward, edge_types=edge_types, budget=budget)
+    optimal_edges = [o[1] for o in opt_edges]
 
-    logger.info("Proceeding with multi-run Q-Learning")
-    for r in tqdm(range(runs)):
-        np.random.seed(random_seeds[r])
+    def learning_algo():
         q_learner = ExpectedQLearner(g, reward, edge_types, budget, episodes, step_size=1)
-        rewards_over_episodes = q_learner.train(return_rewards_over_episodes=True, verbose=False)
-        rewards, edges = q_learner.inference()
-        edge_diffs = [set(edges).symmetric_difference(opt) for opt in optimal_edges]
-        if any([ed == set() for ed in edge_diffs]):
-            logger.info("Found optimal solution")
-            successful += 1
-        else:
-            for diff in edge_diffs:
-                logger.info(f"\nSolution {r}:\t{edges}\n"
-                            f"Optimal solutions:\t{optimal_edges}\n"
-                            f"Difference:\t{diff}")
+        q_learner.train(verbose=False)
+        return q_learner.inference()
 
-    logger.info(f"Finds optimum in {successful} out of {runs}; {successful*100/runs}%")
+    multi_run(algo=learning_algo, n_runs=n_runs, optimal_edges=optimal_edges, verbose=True)

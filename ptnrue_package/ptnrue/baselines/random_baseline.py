@@ -19,7 +19,7 @@ def random_baseline(g: ig.Graph, reward: BaseReward, edge_types: List[str],
     """
     g_prime = g.copy()
 
-    assert budget > 0
+    assert 0 < budget < len(g.es.select(type_in=edge_types))
 
     removed_edges = []
     rewards_per_removal = []

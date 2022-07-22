@@ -6,7 +6,8 @@ from ..rewards import BaseReward
 def greedy_baseline(g: ig.Graph, reward: BaseReward, edge_types: List[str],
                     budget: int = 5) -> Tuple[List[float], List[int]]:
 
-    assert budget > 0
+    removable_edges = g.es.select(type_in=edge_types, active_eq=1)
+    assert 0 < budget < len(removable_edges)
 
     removed_edges = []
     rewards_per_removal = []

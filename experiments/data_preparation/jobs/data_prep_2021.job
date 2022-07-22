@@ -1,0 +1,22 @@
+#!/bin/bash
+
+#SBATCH --partition=fat
+#SBATCH --job-name=GTFSDownloadJob
+#SBATCH --ntasks=1
+#SBATCH --cpus-per-task=32
+#SBATCH --time=10:00:00
+#SBATCH --mem=32000M
+#SBATCH --output=problem_graph_generation_2021_%A.out
+
+module purge
+module load 2021
+module load Anaconda3/2021.05
+
+# Activate your environment
+source activate thesis
+
+# Set environmental variables
+export BASE_DATA_PATH=/home/fiorista/thesis/repo/experiments/historical_data/ams_2021
+
+# Run your code
+srun python -u problem_graph_generation.py

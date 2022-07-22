@@ -23,7 +23,8 @@ class ProblemGraphGenerator:
 
     def __init__(self, city: str, gtfs_zip_file_path: Path, out_dir_path: Path,
                  day: str, time_from: str, time_to: str, agencies: List[str],
-                 poi_gdf: gpd.GeoDataFrame, census_gdf: gpd.GeoDataFrame) -> None:
+                 poi_gdf: gpd.GeoDataFrame, census_gdf: gpd.GeoDataFrame, modalities: List[str] = None,
+                 distances_computation_mode: str = 'osmnx') -> None:
         """
 
         Args:
@@ -35,17 +36,20 @@ class ProblemGraphGenerator:
             time_to:
             poi_gdf:
             census_gdf:
+            modalities: A list of modalities (e.g. ['tram', 'metro', 'bus']) to filter for. If None all modalities
+                        are regarded.
         """
         self.city = city
         self.gtfs_graph_generator = GTFSGraphGenerator(city=city, gtfs_zip_file_path=gtfs_zip_file_path,
                                                        out_dir_path=out_dir_path, day=day,
                                                        time_from=time_from, time_to=time_to, agencies=agencies,
-                                                       contract_vertices=True)
+                                                       contract_vertices=True, modalities=modalities)
         self.osm_graph_generator = OSMGraphGenerator(city=city, network_type=OSMNetworkTypes.WALK,
                                                      graph_out_path=out_dir_path)
         self.out_dir_path = out_dir_path
         self.poi_gdf = poi_gdf
         self.census_gdf = census_gdf
+        self.distances_computation_mode = distances_computation_mode
 
     def generate_problem_graph(self) -> Path:
         """
@@ -106,24 +110,27 @@ class ProblemGraphGenerator:
         # Add edges from all res centroids to all POIs
         logger.debug(f"Adding edges res_node->poi_node")
         add_edges_to_graph(g=g, osm_graph=osm_graph, from_node_type='res_node', to_node_type='poi_node',
-                           e_type='walk', speed=MetricTravelSpeed.WALKING.value, color='GRAY')
+                           e_type='walk', speed=MetricTravelSpeed.WALKING.value, color='GRAY',
+                           distances_computation_mode=self.distances_computation_mode)
 
         # Add edges from all res centroids to all PT stations
         logger.debug(f"Adding edges res_node->pt_node")
         add_edges_to_graph(g=g, osm_graph=osm_graph, from_node_type='res_node', to_node_type='pt_node',
-                           e_type='walk', speed=MetricTravelSpeed.WALKING.value, color='GRAY')
+                           e_type='walk', speed=MetricTravelSpeed.WALKING.value, color='GRAY',
+                           distances_computation_mode=self.distances_computation_mode)
 
         # Add edges from all PT stations to all POIs
         logger.debug(f"Adding edges pt_node->poi_node")
         add_edges_to_graph(g=g, osm_graph=osm_graph, from_node_type='pt_node', to_node_type='poi_node',
-                           e_type='walk', speed=MetricTravelSpeed.WALKING.value, color='GRAY')
+                           e_type='walk', speed=MetricTravelSpeed.WALKING.value, color='GRAY',
+                           distances_computation_mode=self.distances_computation_mode)
 
         # Set all edges to be active
         g.es['active'] = 1
 
         # Clean up node and edge attributes to keep only what is needed
         for vs_attr in g.vs.attributes():
-            if vs_attr not in ['name', 'uniqueagencyid', 'stopid', 'x', 'y', 'color', 'type']:
+            if vs_attr not in ['name', 'uniqueagencyid', 'routetype', 'stopid', 'x', 'y', 'color', 'type']:
                 del g.vs[vs_attr]
 
         for es_attr in g.es.attributes():
