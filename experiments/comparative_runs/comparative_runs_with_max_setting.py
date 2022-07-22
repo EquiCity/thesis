@@ -76,7 +76,7 @@ if __name__ == "__main__":
     eps_start = 1.0
     eps_end = 0.001
     eps_decay = 500
-    static_eps_steps = 500 * budget
+    static_eps_steps = 100 * budget
 
     for rs in random_seeds:
         # Set random seed
