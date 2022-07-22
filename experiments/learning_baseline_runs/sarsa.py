@@ -1,8 +1,8 @@
-from ptnrue.baselines.rl.sarsa_learner_baseline import SARSALearner
+from eptnr.baselines.rl.sarsa_learner_baseline import SARSALearner
 import igraph as ig
 import numpy as np
 import geopandas as gpd
-from ptnrue.rewards import EgalitarianTheilReward
+from eptnr.rewards import EgalitarianTheilReward
 import logging
 from matplotlib import pyplot as plt
 

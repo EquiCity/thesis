@@ -1,4 +1,4 @@
-from ptnrue.baselines import (
+from eptnr.baselines import (
     optimal_baseline,
     random_baseline,
     greedy_baseline,
@@ -9,14 +9,14 @@ from ptnrue.baselines import (
 import igraph as ig
 import numpy as np
 import geopandas as gpd
-from ptnrue.rewards import (
+from eptnr.rewards import (
     EgalitarianTheilReward,
 )
 import random
 import torch
 import logging
 from matplotlib import pyplot as plt
-from ptnrue.plotting.solution_plotting import plot_rewards_and_graphs
+from eptnr.plotting.solution_plotting import plot_rewards_and_graphs
 
 logging.basicConfig()
 logger = logging.getLogger(__file__)

@@ -1,13 +1,13 @@
 import matplotlib.pyplot as plt
 
-from ptnrue.analysis.full_problem_exploration import full_problem_exploration
-from ptnrue.plotting.solution_plotting import plot_full_problem_exploration
+from eptnr.analysis.full_problem_exploration import full_problem_exploration
+from eptnr.plotting.solution_plotting import plot_full_problem_exploration
 import igraph as ig
 import pickle
 import geopandas as gpd
 from pathlib import Path
 import numpy as np
-from ptnrue.rewards import (
+from eptnr.rewards import (
     EgalitarianTheilReward,
     CustomReward,
 )

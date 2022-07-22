@@ -1,14 +1,14 @@
 import matplotlib.pyplot as plt
 
-from ptnrue.baselines import optimal_baseline
+from eptnr.baselines import optimal_baseline
 import igraph as ig
 import numpy as np
 import geopandas as gpd
-from ptnrue.rewards import (
+from eptnr.rewards import (
     EgalitarianTheilReward,
 )
 import logging
-from ptnrue.plotting.solution_plotting import plot_rewards_and_graphs
+from eptnr.plotting.solution_plotting import plot_rewards_and_graphs
 import torch
 import random
 

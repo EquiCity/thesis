@@ -1,14 +1,14 @@
-from ptnrue.baselines.rl.max_q_learner_baseline import MaxQLearner
+from eptnr.baselines.rl.max_q_learner_baseline import MaxQLearner
 import igraph as ig
 import numpy as np
 import geopandas as gpd
-from ptnrue.rewards import (
+from eptnr.rewards import (
     EgalitarianTheilReward,
     CustomReward,
 )
-from ptnrue.plotting.solution_plotting import plot_rewards_and_graphs
+from eptnr.plotting.solution_plotting import plot_rewards_and_graphs
 import logging
-from ptnrue.plotting.policy_plotting import PolicyPlotter
+from eptnr.plotting.policy_plotting import PolicyPlotter
 import pickle
 from matplotlib import pyplot as plt
 import torch

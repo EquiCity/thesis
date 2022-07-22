@@ -1,8 +1,8 @@
-from ptnrue.baselines import random_baseline
+from eptnr.baselines import random_baseline
 import igraph as ig
 import numpy as np
 import geopandas as gpd
-from ptnrue.rewards import EgalitarianTheilReward
+from eptnr.rewards import EgalitarianTheilReward
 import logging
 import random
 import torch

@@ -1,20 +1,20 @@
 import pickle
 
-from ptnrue.baselines.rl.expected_q_learning_basleline import ExpectedQLearner
+from eptnr.baselines.rl.expected_q_learning_basleline import ExpectedQLearner
 import igraph as ig
 import numpy as np
 import geopandas as gpd
-from ptnrue.rewards import (
+from eptnr.rewards import (
     EgalitarianTheilReward,
     CustomReward,
 )
-from ptnrue.plotting.policy_plotting import PolicyPlotter
+from eptnr.plotting.policy_plotting import PolicyPlotter
 import logging
-from ptnrue.plotting.solution_plotting import plot_rewards_and_graphs
+from eptnr.plotting.solution_plotting import plot_rewards_and_graphs
 from matplotlib import pyplot as plt
 import torch
 import random
-from ptnrue import plotting
+from eptnr import plotting
 
 logging.basicConfig()
 logger = logging.getLogger(__file__)

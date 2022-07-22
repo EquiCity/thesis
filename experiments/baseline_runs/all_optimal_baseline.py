@@ -1,17 +1,17 @@
-from ptnrue.baselines.optimal_baseline import optimal_baseline
+from eptnr.baselines.optimal_baseline import optimal_baseline
 import igraph as ig
 import numpy as np
 import geopandas as gpd
-from ptnrue.rewards import (
+from eptnr.rewards import (
     EgalitarianTheilReward,
 )
 import logging
 from matplotlib import pyplot as plt
-from ptnrue.constants.travel_metric import TravelMetric
-from ptnrue.plotting.solution_plotting import plot_rewards_and_graphs
+from eptnr.constants.travel_metric import TravelMetric
+from eptnr.plotting.solution_plotting import plot_rewards_and_graphs
 import torch
 import random
-from ptnrue import plotting
+from eptnr import plotting
 
 logging.basicConfig()
 logger = logging.getLogger(__file__)

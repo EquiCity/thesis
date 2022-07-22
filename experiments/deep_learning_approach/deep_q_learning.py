@@ -3,18 +3,18 @@ import pickle
 
 import torch
 import random
-from ptnrue.deep_q_learning_approach.deep_q_learner import DeepQLearner
+from eptnr.deep_q_learning_approach.deep_q_learner import DeepQLearner
 import igraph as ig
 import numpy as np
 import geopandas as gpd
-from ptnrue.rewards import (
+from eptnr.rewards import (
     EgalitarianTheilReward,
     CustomReward,
 )
-from ptnrue.plotting.deep_solution_plotting import plot_nn_loss_reward_epsilon
+from eptnr.plotting.deep_solution_plotting import plot_nn_loss_reward_epsilon
 import logging
-from ptnrue.plotting.solution_plotting import plot_rewards_and_graphs
-from ptnrue.plotting.policy_plotting import PolicyPlotter
+from eptnr.plotting.solution_plotting import plot_rewards_and_graphs
+from eptnr.plotting.policy_plotting import PolicyPlotter
 from matplotlib import pyplot as plt
 from pathlib import Path
 

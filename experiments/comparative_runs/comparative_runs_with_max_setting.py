@@ -4,7 +4,7 @@ import random
 import pandas as pd
 import torch
 
-from ptnrue.baselines import (
+from eptnr.baselines import (
     optimal_max_baseline,
     random_baseline,
     greedy_baseline,
@@ -12,21 +12,21 @@ from ptnrue.baselines import (
     ExpectedQLearner,
     MaxQLearner,
 )
-from ptnrue.deep_q_learning_approach import (
+from eptnr.deep_q_learning_approach import (
     DeepQLearner,
     DeepMaxQLearner,
 )
-from ptnrue import plotting
+from eptnr import plotting
 import igraph as ig
 import numpy as np
 import geopandas as gpd
-from ptnrue.rewards import (
+from eptnr.rewards import (
     CustomReward,
     EgalitarianTheilReward,
 )
 import logging
 from matplotlib import pyplot as plt
-from ptnrue.plotting.solution_plotting import plot_rewards_and_graphs
+from eptnr.plotting.solution_plotting import plot_rewards_and_graphs
 import torch
 import random
 

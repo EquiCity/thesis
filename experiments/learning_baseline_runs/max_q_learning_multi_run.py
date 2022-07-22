@@ -1,11 +1,11 @@
-from ptnrue.baselines.rl.max_q_learner_baseline import MaxQLearner
+from eptnr.baselines.rl.max_q_learner_baseline import MaxQLearner
 import igraph as ig
 import numpy as np
 import geopandas as gpd
-from ptnrue.rewards import (
+from eptnr.rewards import (
     EgalitarianTheilReward
 )
-from ptnrue.baselines.optimal_baseline import optimal_baseline
+from eptnr.baselines.optimal_baseline import optimal_baseline
 import logging
 from tqdm import tqdm
 

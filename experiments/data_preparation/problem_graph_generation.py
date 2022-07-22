@@ -1,7 +1,7 @@
 import os
 from pathlib import Path
 import geopandas as gpd
-from ptnrue.graph_generation.problem_graph_generator import ProblemGraphGenerator
+from eptnr.graph_generation.problem_graph_generator import ProblemGraphGenerator
 
 BASE_PATH = Path(os.environ['BASE_DATA_PATH'])
 

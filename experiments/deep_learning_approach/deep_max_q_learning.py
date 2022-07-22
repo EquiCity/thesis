@@ -1,20 +1,20 @@
 import datetime
 import pickle
 
-from ptnrue.deep_q_learning_approach.deep_max_q_learner import DeepMaxQLearner
+from eptnr.deep_q_learning_approach.deep_max_q_learner import DeepMaxQLearner
 import igraph as ig
 import numpy as np
 import geopandas as gpd
-from ptnrue.rewards import (
+from eptnr.rewards import (
     EgalitarianTheilReward,
     CustomReward,
 )
 import torch
 import random
 import logging
-from ptnrue.plotting.solution_plotting import plot_rewards_and_graphs
-from ptnrue.plotting.deep_solution_plotting import plot_nn_loss_reward_epsilon
-from ptnrue.plotting.policy_plotting import PolicyPlotter
+from eptnr.plotting.solution_plotting import plot_rewards_and_graphs
+from eptnr.plotting.deep_solution_plotting import plot_nn_loss_reward_epsilon
+from eptnr.plotting.policy_plotting import PolicyPlotter
 from matplotlib import pyplot as plt
 from pathlib import Path
 

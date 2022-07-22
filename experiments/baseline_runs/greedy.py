@@ -1,12 +1,12 @@
 import matplotlib.pyplot as plt
 
-from ptnrue.baselines.greedy_baseline import greedy_baseline
+from eptnr.baselines.greedy_baseline import greedy_baseline
 import igraph as ig
 import numpy as np
 import geopandas as gpd
-from ptnrue.rewards import EgalitarianTheilReward
+from eptnr.rewards import EgalitarianTheilReward
 import logging
-from ptnrue.plotting.solution_plotting import plot_rewards_and_graphs
+from eptnr.plotting.solution_plotting import plot_rewards_and_graphs
 import torch
 import random
 

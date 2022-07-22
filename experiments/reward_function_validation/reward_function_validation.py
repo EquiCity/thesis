@@ -1,4 +1,4 @@
-from ptnrue.rewards import (
+from eptnr.rewards import (
     EgalitarianTheilReward,
     UtilitarianReward,
     ElitarianReward,
@@ -9,9 +9,9 @@ import numpy as np
 from pathlib import Path
 from typing import Tuple, List
 
-from ptnrue.plotting.solution_plotting import plot_rewards_and_graphs
+from eptnr.plotting.solution_plotting import plot_rewards_and_graphs
 
-from ptnrue.baselines.optimal_baseline import optimal_baseline, optimal_max_baseline
+from eptnr.baselines.optimal_baseline import optimal_baseline, optimal_max_baseline
 from matplotlib import pyplot as plt
 
 
