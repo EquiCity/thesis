@@ -2,7 +2,7 @@ import setuptools
 import os
 
 # Obtained from https://stackoverflow.com/a/53069528
-lib_folder = os.path.dirname(os.path.realpath(__file__))
+lib_folder = os.path.dirname(os.path.abspath(__file__)) or '.'
 requirement_path = lib_folder + '/requirements.txt'
 install_requires = []
 if os.path.isfile(requirement_path):
@@ -10,7 +10,7 @@ if os.path.isfile(requirement_path):
         install_requires = f.read().splitlines()
 
 setuptools.setup(
-    name="ptnrue",
+    name="eptnr",
     version="0.0.1",
     author="Riccardo Fiorista",
     author_email="rfiorista@uva.nl",

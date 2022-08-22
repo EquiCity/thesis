@@ -5,7 +5,6 @@ from ..rewards import BaseReward
 
 def greedy_baseline(g: ig.Graph, reward: BaseReward, edge_types: List[str],
                     budget: int = 5) -> Tuple[List[float], List[int]]:
-
     removable_edges = g.es.select(type_in=edge_types, active_eq=1)
     assert 0 < budget < len(removable_edges)
 
@@ -31,3 +30,11 @@ def greedy_baseline(g: ig.Graph, reward: BaseReward, edge_types: List[str],
         rewards_per_removal.append(max_reward)
 
     return rewards_per_removal, removed_edges
+
+
+def greedy_max_baseline(g: ig.Graph, reward: BaseReward, edge_types: List[str],
+                        budget: int = 5) -> Tuple[List[float], List[int]]:
+    rewards_per_removal, removed_edges = greedy_baseline(g, reward, edge_types, budget)
+    max_reward_index = rewards_per_removal.index(max(rewards_per_removal)) + 1
+
+    return rewards_per_removal[:max_reward_index], removed_edges[:max_reward_index]

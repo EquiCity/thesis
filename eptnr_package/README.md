@@ -22,3 +22,14 @@ This package is part of the equally titled master thesis, part of the [EquiCity]
    5. [Q-learning](https://link.springer.com/article/10.1007/BF00992698)
    6. [MaxQ-Learning](https://arxiv.org/pdf/2010.03744.pdf)
    7. [Deep Q Learning](https://arxiv.org/pdf/1312.5602.pdf)
+
+## Installation
+### External dependencies
+Unfortunately, we still have an external dependency to deal with GTFS zip files on transitland's CLI which we need for the problem-graph generation. Hence, we first require you to install:
+- (For Linux)[https://github.com/interline-io/transitland-lib/releases/download/v0.10.3/transitland-linux]
+- (For MacOS)[https://github.com/interline-io/transitland-lib/releases/download/v0.10.3/transitland-macos.zip]
+
+And add it to your `$PATH` variable such that it is callable as a sub-process with the command `transitlanId`.
+
+### E-PTNR
+The package can now easily be installed by navigating to this folder and calling `pip install .`. We have not published this package yet 
